@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
-        /* Scrollbar Personalizada */
-        *::-webkit-scrollbar { width: 6px; }
-        *::-webkit-scrollbar-thumb { background: #ff9800; border-radius: 10px; }
-        *::-webkit-scrollbar-track { background: #1a1a1a; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
+        /* Estabilização de Layout */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
         body {
             background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0; padding-bottom: 60px; min-height: 100vh;
-            display: flex; flex-direction: column;
+            padding-bottom: 60px; min-height: 100vh;
         }
 
         .main-header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid #ff9800; }
-        .controls-area { background: #111; padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .controls-area { background: #111; padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #222; }
         
         .search-bar {
             width: 100%; max-width: 652px; padding: 12px;
@@ -40,55 +36,71 @@
         }
         .f-btn.active { background: #ff9800; color: #000; border-color: #ff9800; }
 
-        .main-content { display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; flex: 1; }
-        .boss-list { display: grid; grid-template-columns: repeat(2, 320px); gap: 15px; align-content: start; }
-
-        @media (max-width: 1080px) {
-            .boss-list { grid-template-columns: 1fr; }
-            .side-panel { width: 100% !important; max-width: 320px !important; position: static !important; }
+        /* Grid Corrigida para evitar buracos */
+        .main-content { 
+            display: flex; flex-direction: row; justify-content: center; 
+            gap: 20px; padding: 20px; flex-wrap: wrap; 
+        }
+        
+        .boss-list { 
+            display: grid; 
+            grid-template-columns: repeat(2, 320px); 
+            grid-auto-rows: min-content; /* Força os cards a ficarem juntos */
+            gap: 15px; 
         }
 
-        /* CARD */
+        @media (max-width: 1080px) {
+            .boss-list { grid-template-columns: 1fr; width: 100%; max-width: 320px; }
+            .side-panel { width: 100% !important; position: static !important; margin-top: 20px; }
+        }
+
         .boss-card {
             width: 320px; background: #111; border: 1px solid #222;
             border-left: 5px solid #333; border-radius: 4px; cursor: pointer;
-            overflow: hidden; position: relative; transition: 0.2s;
+            overflow: hidden; position: relative; height: fit-content;
         }
-        .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; background: #151515; }
-        .boss-card.done { opacity: 0.3; filter: grayscale(1); }
+        .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
+        .boss-card.done { opacity: 0.4; filter: grayscale(0.8); }
 
         .check-done {
             position: absolute; top: 10px; right: 10px;
             width: 24px; height: 24px; border: 1px solid #444; background: #000;
-            border-radius: 4px; display: flex; align-items: center; justify-content: center; z-index: 10;
+            border-radius: 4px; display: flex; align-items: center; justify-content: center; z-index: 5;
         }
         .done .check-done { background: #ff9800; border-color: #ff9800; }
         .done .check-done::after { content: '✓'; color: #000; font-weight: bold; }
 
         .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
-        .boss-img { width: 55px; height: 55px; border: 1px solid #333; background: #000; object-fit: cover; border-radius: 2px; }
+        
+        /* Fix de tamanho para evitar que o card colapse sem imagem */
+        .img-box { width: 55px; height: 55px; background: #1a1a1a; border: 1px solid #333; flex-shrink: 0; }
+        .boss-img { width: 100%; height: 100%; object-fit: cover; }
+
         .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
         .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; }
 
         .items-container { 
             display: none; padding: 15px; background: #0a0a0a; 
-            border-top: 1px solid #222; flex-wrap: wrap; gap: 12px; width: 100%;
+            border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; width: 100%;
         }
         .boss-card.expanded .items-container { display: flex !important; }
-        .item-img { width: 45px; height: 45px; border: 1px solid #444; border-radius: 4px; background: #1a1a1a; display: block; }
+        
+        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #444; border-radius: 4px; }
+        .item-img { width: 100%; height: 100%; }
 
+        /* Painel Lateral */
         .side-panel {
             width: 380px; background: #111; border: 1px solid #222;
-            position: sticky; top: 20px; height: fit-content; border-radius: 4px;
+            position: sticky; top: 160px; height: fit-content; border-radius: 4px;
         }
         .panel-header { padding: 15px; border-bottom: 1px solid #222; }
-        .map-container { width: 100%; min-height: 300px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .map-container { width: 100%; min-height: 300px; background: #000; display: flex; align-items: center; justify-content: center; }
         .map-container img { width: 100%; height: auto; display: block; }
 
         .footer {
             position: fixed; bottom: 0; width: 100%; height: 40px;
             background: #111; border-top: 1px solid #222;
-            display: flex; align-items: center; justify-content: center; font-size: 11px; color: #555;
+            display: flex; align-items: center; justify-content: center; font-size: 11px; color: #555; z-index: 100;
         }
     </style>
 </head>
@@ -105,7 +117,7 @@
         </div>
         <input type="text" class="search-bar" id="search" placeholder="Filtrar por nome ou item..." oninput="filter()">
         <div class="filter-container" id="filter-btns">
-            <button class="f-btn active" data-map="all">TUDO (33)</button>
+            <button class="f-btn active" data-map="all">TUDO</button>
             <button class="f-btn" data-map="cmc">MC</button>
             <button class="f-btn" data-map="c3m2">C3-M2</button>
             <button class="f-btn" data-map="c3m3">C3-M3</button>
@@ -126,16 +138,16 @@
                 <h2 id="p-name" style="margin:0; color:#ff9800; font-size: 17px;">Selecione um Boss</h2>
                 <p id="p-loc" style="font-size:11px; color:#888; margin: 8px 0 0 0; white-space: pre-line;"></p>
             </div>
-            <div class="map-container" id="p-map"><p style="color:#333;">O mapa será exibido aqui.</p></div>
+            <div class="map-container" id="p-map"><p style="color:#333;">Mapa</p></div>
         </aside>
     </main>
 
-    <footer class="footer">MKguren - Fan Project</footer>
+    <footer class="footer">MKguren - MIR4 Tracker</footer>
 
     <script>
-        // URL ABSOLUTA PARA GARANTIR CARREGAMENTO INDEPENDENTE DE CACHE DO PAGES
-        const BASE_URL = "https://raw.githubusercontent.com/Mkguren/MIR4-Boss-Tracker/main/";
-        
+        // URL RAW DIRETA PARA EVITAR BLOQUEIO DO GITHUB PAGES
+        const BASE = "https://raw.githubusercontent.com/Mkguren/MIR4-Boss-Tracker/main/";
+
         const bosses = [
             {id:'b1', n:'1. Larva da água do dragão celeste', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
             {id:'b2', n:'2. Zhang liang', m:'c3m2', npc:'Seocheon', loc:'Feitoria Seocheon', items:['item_feitoria_1.webp'], img:'m2_seocheon.webp'},
@@ -172,7 +184,7 @@
             {id:'b33', n:'33. Grandor', m:'c1m1', npc:'Su Seunghyeon', loc:'Riacho', items:['item_fragmento_caos.webp'], img:'c2_grandor.webp'}
         ];
 
-        let currentMapFilter = 'all';
+        let currentMap = 'all';
 
         function render() {
             const lb = document.getElementById('lb');
@@ -181,11 +193,20 @@
                     <div class="boss-card" id="${b.id}" onclick="handleCardClick('${b.id}')">
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
-                            <img src="${BASE_URL}img/bosses/${b.img}" class="boss-img" loading="lazy">
-                            <div><span class="boss-name">${b.n}</span><span class="local-info">${b.loc}</span></div>
+                            <div class="img-box">
+                                <img src="${BASE}img/bosses/${b.img}" class="boss-img">
+                            </div>
+                            <div>
+                                <span class="boss-name">${b.n}</span>
+                                <span class="local-info">${b.loc}</span>
+                            </div>
                         </div>
                         <div class="items-container">
-                            ${b.items.map(i => `<img src="${BASE_URL}img/craft/${i}" class="item-img" loading="lazy">`).join('')}
+                            ${b.items.map(i => `
+                                <div class="item-box">
+                                    <img src="${BASE}img/craft/${i}" class="item-img">
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </div>
@@ -197,12 +218,14 @@
             const card = document.getElementById(id);
             const boss = bosses.find(x => x.id === id);
             const isExpanded = card.classList.contains('expanded');
+            
             document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('expanded'));
+            
             if(!isExpanded) {
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
-                document.getElementById('p-loc').innerText = `LOCALIZAÇÃO: ${boss.loc}\nNPC: ${boss.npc}`;
-                document.getElementById('p-map').innerHTML = `<img src="${BASE_URL}img/mapas/${id}.jpg" loading="lazy">`;
+                document.getElementById('p-loc').innerText = `NPC: ${boss.npc}\nLOCAL: ${boss.loc}`;
+                document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg">`;
             }
         }
 
@@ -210,7 +233,8 @@
             const q = document.getElementById('search').value.toLowerCase();
             document.querySelectorAll('.boss-item').forEach(item => {
                 const name = item.querySelector('.boss-name').innerText.toLowerCase();
-                const matchesMap = currentMapFilter === 'all' || item.dataset.map === currentMapFilter;
+                const m = item.getAttribute('data-map');
+                const matchesMap = currentMap === 'all' || m === currentMap;
                 const matchesSearch = name.includes(q);
                 item.style.display = (matchesMap && matchesSearch) ? 'block' : 'none';
             });
@@ -220,7 +244,7 @@
             if(e.target.classList.contains('f-btn')) {
                 document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-                currentMapFilter = e.target.dataset.map;
+                currentMap = e.target.getAttribute('data-map');
                 filter();
             }
         });
@@ -242,7 +266,7 @@
         }
 
         function resetChecks() {
-            if(confirm("Deseja resetar o progresso?")) {
+            if(confirm("Resetar progresso?")) {
                 bosses.forEach(b => {
                     localStorage.removeItem('mir4_sum_' + b.id);
                     const el = document.getElementById(b.id);
