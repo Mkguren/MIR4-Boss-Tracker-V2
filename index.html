@@ -1,180 +1,43 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIR4 Boss Tracker - Bosses de Campo</title>
-    <style>
-        /* Estilização Global */
-        *::-webkit-scrollbar {width: 4px; height: 4px;}
-        *::-webkit-scrollbar-thumb {background: #ff9800; border-radius: 10px;}
-        *::-webkit-scrollbar-track {background: #1a1a1a;}
-        
-        * { box-sizing: border-box; }
+<style>
+    /* ... outros estilos ... */
 
-        body {
-            background: #000;
-            color: #ddd;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding-bottom: 80px; 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .main-header {
-            background: #111; padding: 20px; text-align: center; border-bottom: 2px solid #ff9800;
-        }
-
-        .controls-area {
-            background: #111; padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px;
-        }
-
-        .nav-menu { display: flex; gap: 10px; margin-bottom: 5px; }
-        .nav-btn {
-            width: 140px; text-align: center; font-size: 11px; font-weight: bold;
-            padding: 10px; border-radius: 4px; cursor: pointer; border: none; text-decoration: none;
-            transition: 0.3s;
-        }
-        .btn-active { background: #ff9800; color: #000; }
-        .btn-inactive { background: #222; color: #888; }
-
-        .search-container { display: flex; gap: 5px; width: 100%; max-width: 652px; }
-        input, select { 
-            padding: 10px; background: #000; border: 1px solid #333; 
-            color: #fff; border-radius: 4px; font-size: 12px; outline: none; 
-        }
-        
-        /* Ajuste de proporção: Busca maior, Horário menor */
-        input { flex: 3; } 
-        select { flex: 0.8; cursor: pointer; min-width: 100px; }
-
-        .scroll { 
-            flex: 1; width: 100%; max-width: 652px; 
-            margin: 0 auto; padding: 20px; 
-        }
-        
-        .section-title { 
-            font-size: 10px; color: #ff9800; text-transform: uppercase; 
-            margin: 12px 0 5px 0; font-weight: bold; border-left: 2px solid #ff9800; padding-left: 5px; 
-        }
-
-        .item { 
-            padding: 12px; background: #111; border: 1px solid #222;
-            border-left: 5px solid #333; margin-bottom: 12px; border-radius: 4px;
-        }
-        
-        .name { color: #fff; font-weight: bold; font-size: 13px; display: block; }
-        .lvl-orange { color: #ff9800; font-weight: bold; }
-        .loc { color: #777; font-size: 11px; display: block; margin-top: 4px; }
-        .camada { color: #ff9800; font-size: 9px; font-weight: bold; display: block; margin-bottom: 2px; text-transform: uppercase; }
-        
-        .time-box { background: #080808; padding: 10px; border-radius: 4px; margin-top: 8px; border-top: 1px solid #222; }
-        .badge { display: inline-block; font-family: monospace; font-size: 12px; margin-right: 8px; color: #00e676; }
-        
-        .item-alert { border-left-color: #ff3d00!important; background: rgba(255,61,0,0.05); }
-        .alert-active { color: #ff3d00!important; font-weight: bold; text-decoration: underline; animation: blink 1s infinite; }
-        
-        @keyframes blink { 50% { opacity: .5; } }
-        
-        .L141 { border-left-color: #4caf50; } 
-        .L143 { border-left-color: #2196f3; }
-        .L150 { border-left-color: #9c27b0; } 
-        .L155 { border-left-color: #f44336; }
-
-        .footer { 
-            position: fixed; bottom: 0; width: 100%; padding: 12px;
-            background: #111; border-top: 1px solid #222;
-            text-align: center; font-size: 11px; z-index: 1000; color: #666;
-        }
-    </style>
-</head>
-<body onclick="itA()">
-
-<header class="main-header">
-    <h1 style="margin:0; font-size: 20px; letter-spacing: 2px; color: #ff9800;">MIR4 BOSS TRACKER</h1>
-</header>
-
-<div class="controls-area">
-    <div class="nav-menu">
-        <a href="index.html" class="nav-btn btn-active">BOSSES DE CAMPO</a>
-        <a href="Summonboss.html" class="nav-btn btn-inactive">INVOCAÇÃO</a>
-    </div>
-    
-    <div class="search-container">
-        <input type="text" id="ib" placeholder="Buscar Boss ou Local..." onkeyup="up()">
-        <select id="sh" onchange="up()">
-            <option value="">Horários</option>
-            <option value="00:00">00:00</option><option value="00:30">00:30</option><option value="01:00">01:00</option><option value="01:30">01:30</option><option value="02:00">02:00</option><option value="02:30">02:30</option><option value="03:00">03:00</option><option value="03:30">03:30</option><option value="04:00">04:00</option><option value="04:30">04:30</option><option value="05:00">05:00</option><option value="05:30">05:30</option><option value="06:00">06:00</option><option value="06:30">06:30</option><option value="07:00">07:00</option><option value="07:30">07:30</option><option value="08:00">08:00</option><option value="08:30">08:30</option><option value="09:00">09:00</option><option value="09:30">09:30</option><option value="10:00">10:00</option><option value="10:30">10:30</option><option value="11:00">11:00</option><option value="11:30">11:30</option><option value="12:00">12:00</option><option value="12:30">12:30</option><option value="13:00">13:00</option><option value="13:30">13:30</option><option value="14:00">14:00</option><option value="14:30">14:30</option><option value="15:00">15:00</option><option value="15:30">15:30</option><option value="16:00">16:00</option><option value="16:30">16:30</option><option value="17:00">17:00</option><option value="17:30">17:30</option><option value="18:00">18:00</option><option value="18:30">18:30</option><option value="19:00">19:00</option><option value="19:30">19:30</option><option value="20:00">20:00</option><option value="20:30">20:30</option><option value="21:00">21:00</option><option value="21:30">21:30</option><option value="22:00">22:00</option><option value="22:30">22:30</option><option value="23:00">23:00</option><option value="23:30">23:30</option>
-        </select>
-    </div>
-</div>
-
-<div class="scroll" id="lb"></div>
-
-<footer class="footer">
-    MKguren - desenvolvido por um fã para a comunidade de mir4.
-</footer>
-
-<script>
-    var ctx=null;function itA(){if(!ctx)ctx=new(AudioContext||webkitAudioContext)()}
-    function bp(){if(!ctx)return;var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=800;g.gain.setValueAtTime(.1,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3)}
-    
-    var ds=[
-     ["L141","Matha","141-","M1-Floresta",["00:00","02:00","04:00","06:00","08:00","10:00","12:00","14:00","16:00","18:00","20:00","22:00"],"C3"],
-     ["L141","Touro Demoniaco","141-","M1-Templo",["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00","17:00","19:00","21:00","23:00"],"C3"],
-     ["L141","Rei dos Touros","141-","M1-Santuario",["00:00","03:00","06:00","09:00","12:00","15:00","18:00","21:00"],"C3"],
-     ["L141","Gigantes Brancos","141-","M8-Selo",["01:00","05:00","09:00","13:00","17:00","21:00"],"C3"],
-     ["L141","Teahyul","141+","M7-Jardim",["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00","17:00","19:00","21:00","23:00"],"C3"],
-     ["L141","Construcao","141+","M7-Culto",["02:00","05:00","08:00","11:00","14:00","17:00","20:00","23:00"],"C3"],
-     ["L141","Nefariox","141+","M4-Phantasia",["00:00","02:00","04:00","06:00","08:00","10:00","12:00","14:00","16:00","18:00","20:00","22:00"],"C3"],
-     ["L141","Kurilaika","141+","M4-Suserano",["00:00","03:00","06:00","09:00","12:00","15:00","18:00","21:00"],"C3"],
-     ["L143","Juhui","143+","M2-Lunula",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C3"],
-     ["L143","Faluk","143+","M5-Sabuk",["03:30","06:30","09:30","12:30","15:30","18:30","21:30","00:30"],"C3"],
-     ["L143","Assombracao","143+","M5-Templo",["01:30","04:30","07:30","10:30","13:30","16:30","19:30","22:30"],"C3"],
-     ["L150","Gyo Besta","150+","M3-Necropole",["02:30","08:30","14:30","20:30"],"C3"],
-     ["L150","Tatu Sombrio","150+","M3-Planicie",["01:30","03:30","05:30","07:30","09:30","11:30","13:30","15:30","17:30","19:30","21:30","23:30"],"C3"],
-     ["L150","Budu","150+","M3-Rockcut",["03:30","09:30","15:30","21:30"],"C3"],
-     ["L150","Mara","150+","M3-Rockcut",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C3"],
-     ["L150","Cheol Mokgang","150+","M6-Bicheon",["00:30","02:30","04:30","06:30","08:30","10:30","12:30","14:30","16:30","18:30","20:30","22:30"],"C3"],
-     ["L150","Asura","150+","M6-Bicheon",["04:30","10:30","16:30","22:30"],"C3"],
-     ["L150","Wuihan","150+","M6-Bosques",["05:30","11:30","17:30","23:30"],"C3"],
-     ["L150","Mina Demoniaca","150+","M6-Abisso",["01:30","03:30","05:30","07:30","09:30","11:30","13:30","15:30","17:30","19:30","21:30","23:30"],"C3"],
-     ["L150","Yeticlops","150+","M6-Labirinto",["06:30","12:30","18:30","00:30"],"C3"],
-     ["L155","Jihwa","155+","M1-Unseo",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C1"],
-     ["L155","Tatu Gigante","155+","M1-Vales",["03:30","06:30","09:30","12:30","15:30","18:30","21:30","00:30"],"C1"],
-     ["L155","Yaksha","155+","M1-Vales",["03:30","09:30","15:30","21:30"],"C1"],
-     ["L155","Bulhu","155+","M1-Fogo",["04:30","10:30","16:30","22:30"],"C1"],
-     ["L155","Gwe Mukang","155+","M2-Gelo",["05:30","11:30","17:30","23:30"],"C1"],
-     ["L155","Molgrash","155+","M2-Prisao",["01:30","04:30","07:30","10:30","13:30","16:30","19:30","22:30"],"C1"],
-     ["L155","Maeongryong","155+","M2-Prisao",["06:30","12:30","18:30","00:30"],"C1"],
-     ["L155","WI Kwangryong","155+","M2-Palacio",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C1"]
-    ];
-
-    var alertedTimes = new Set();
-    function up(){
-     var c=document.getElementById('lb'),q=document.getElementById('ib').value.toLowerCase(),f=document.getElementById('sh').value,now=new Date(),win=[],hA="",hN="",anyA=false;
-     for(var i=0;i<=10;i++){ var d=new Date(now.getTime()+(i*60000)); win.push(("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)); }
-     for(var i=0;i<ds.length;i++){
-      var b=ds[i];
-      if((b[1]+b[3]).toLowerCase().indexOf(q)==-1||(f&&b[4].indexOf(f)==-1))continue;
-      var isA=false, tH="";
-      for(var j=0;j<b[4].length;j++){
-        var act=(win.indexOf(b[4][j])>-1);
-        if(act){ isA=true; var alertKey = b[1] + b[4][j]; if(!alertedTimes.has(alertKey)){ anyA=true; alertedTimes.add(alertKey); } }
-        tH+='<span class="badge '+(act?'alert-active':'')+'">'+b[4][j]+'</span> ';
-      }
-      var card='<div class="item '+b[0]+' '+(isA?'item-alert':'')+'"><span class="camada">'+b[5]+' ('+b[3].split('-')[0]+')</span><span class="name">'+b[1]+' <span class="lvl-orange">'+b[2]+'</span></span><span class="loc">'+b[3]+'</span><div class="time-box">'+tH+'</div></div>';
-      if(isA)hA+=card;else hN+=card;
-     }
-     c.innerHTML=(hA?'<div class="section-title">Prox. Bosses</div>'+hA:'')+'<div class="section-title">Todos os Bosses</div>'+hN;
-     if(anyA){ bp(); }
-     if(now.getMinutes() == 0 && now.getSeconds() < 30) alertedTimes.clear();
+    .search-container { 
+        display: flex; 
+        gap: 5px; 
+        width: 100%; 
+        max-width: 652px; 
+        justify-content: center; /* Centraliza o conjunto */
     }
 
-    setInterval(up,30000); 
-    window.onload = up;
-</script>
-</body>
-</html>
+    input { 
+        width: 250px; /* Tamanho fixo para não esticar demais */
+        padding: 10px; 
+        background: #000; 
+        border: 1px solid #333; 
+        color: #fff; 
+        border-radius: 4px; 
+        font-size: 12px; 
+        outline: none; 
+    }
+
+    select { 
+        width: 110px; /* Tamanho fixo e reduzido para o seletor */
+        padding: 10px; 
+        background: #000; 
+        border: 1px solid #333; 
+        color: #fff; 
+        border-radius: 4px; 
+        font-size: 12px; 
+        outline: none; 
+        cursor: pointer; 
+    }
+
+    /* ... outros estilos ... */
+</style>
+
+<div class="search-container">
+    <input type="text" id="ib" placeholder="Buscar Boss ou Local..." onkeyup="up()">
+    <select id="sh" onchange="up()">
+        <option value="">Horários</option>
+        </select>
+</div>
