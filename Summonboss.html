@@ -5,208 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
-        /* Reset para evitar interferência externa */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #000; color: #ddd; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bottom: 60px; }
+        body { background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; padding-bottom: 60px; }
 
         .main-header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid #ff9800; }
         
-        /* Área de Controles Fixa */
         .controls-area { 
             background: #111; padding: 15px; display: flex; flex-direction: column; 
             align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; 
             border-bottom: 1px solid #222; 
         }
         
-        .search-bar { 
-            width: 100%; max-width: 652px; padding: 12px; background: #000; 
-            border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; 
-        }
+        .search-bar { width: 100%; max-width: 652px; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; }
 
-        .nav-menu { display: flex; gap: 10px; }
-        .nav-btn { 
-            width: 140px; text-align: center; font-size: 11px; font-weight: bold; 
-            padding: 10px; border-radius: 4px; cursor: pointer; text-decoration: none; 
-        }
-        .btn-active { background: #ff9800; color: #000; }
-        .btn-inactive { background: #222; color: #888; }
+        .main-content { display: flex; justify-content: center; align-items: flex-start; gap: 20px; padding: 20px; flex-wrap: wrap; }
+        .boss-list { display: flex; flex-wrap: wrap; gap: 15px; width: 660px; justify-content: flex-start; }
 
-        .filter-container { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
-        .f-btn { 
-            padding: 6px 12px; border: 1px solid #333; font-size: 10px; 
-            cursor: pointer; background: #111; color: #fff; border-radius: 3px; 
+        .boss-card { 
+            width: 320px; min-height: 85px; background: #111; 
+            border: 1px solid #222; border-left: 5px solid #333; 
+            border-radius: 4px; cursor: pointer; position: relative;
         }
-        .f-btn.active { background: #ff9800; color: #000; }
+        .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
+        .boss-card.done { opacity: 0.3; filter: grayscale(1); }
 
-        /* CORREÇÃO DO BURACO: Usando Flexbox no container pai em vez de Grid puro */
-        .main-content { 
-            display: flex; justify-content: center; align-items: flex-start; 
-            gap: 20px; padding: 20px; flex-wrap: wrap; 
+        .check-done { 
+            position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; 
+            border: 1px solid #444; background: #000; border-radius: 4px; z-index: 5; 
         }
+        .done .check-done { background: #ff9800; }
+        .done .check-done::after { content: '✓'; color: #000; font-weight: bold; display: flex; justify-content: center; align-items: center; height: 100%; }
 
-        /* Lista de Bosses com largura definida para não quebrar */
-        .boss-list { 
-            display: flex; flex-wrap: wrap; gap: 15px; 
-            width: 660px; /* Largura de 2 colunas de 320px + gap */
-            justify-content: flex-start; align-content: flex-start;
-        }
+        .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
+        .img-box { width: 55px; height: 55px; background: #1a1a1a; flex-shrink: 0; overflow: hidden; }
+        .boss-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .boss-name { font-weight: bold; font-size: 13px; color: #fff; }
+        .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; display: block; }
+
+        .items-container { display: none; padding: 10px; background: #0a0a0a; border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; }
+        .boss-card.expanded .items-container { display: flex !important; }
+        
+        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #333; display: flex; align-items: center; justify-content: center; }
+        .item-img { width: 100%; height: 100%; object-fit: contain; }
+
+        .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 150px; height: fit-content; border-radius: 4px; }
+        .map-container { width: 100%; min-height: 250px; background: #000; display: flex; align-items: center; justify-content: center; }
+        .map-container img { width: 100%; height: auto; }
 
         @media (max-width: 1080px) {
             .boss-list { width: 100%; max-width: 320px; justify-content: center; }
             .side-panel { width: 100% !important; position: static !important; }
         }
-
-        /* Card com altura mínima para nunca colapsar (Evita o buraco) */
-        .boss-card { 
-            width: 320px; min-height: 85px; background: #111; 
-            border: 1px solid #222; border-left: 5px solid #333; 
-            border-radius: 4px; cursor: pointer; position: relative;
-            display: flex; flex-direction: column;
-        }
-        .boss-card.expanded { border-color: #ff9800; }
-        .boss-card.done { opacity: 0.3; filter: grayscale(1); }
-
-        .check-done { 
-            position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; 
-            border: 1px solid #444; background: #000; border-radius: 4px; 
-            display: flex; align-items: center; justify-content: center; z-index: 5; 
-        }
-        .done .check-done { background: #ff9800; border-color: #ff9800; }
-        .done .check-done::after { content: '✓'; color: #000; font-weight: bold; }
-
-        .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; width: 100%; }
-        
-        /* Forçando o espaço da imagem com tamanho fixo rígido */
-        .img-box { 
-            width: 55px; height: 55px; background: #1a1a1a; 
-            border: 1px solid #333; flex-shrink: 0; 
-            overflow: hidden; display: flex; align-items: center; justify-content: center;
-        }
-        .boss-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
-        .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; }
-
-        /* Itens aparecem apenas no expandido */
-        .items-container { 
-            display: none; padding: 10px; background: #0a0a0a; 
-            border-top: 1px solid #222; flex-wrap: wrap; gap: 5px; 
-        }
-        .boss-card.expanded .items-container { display: flex; }
-        
-        .item-box { width: 42px; height: 42px; background: #1a1a1a; border: 1px solid #333; border-radius: 4px; }
-        .item-img { width: 100%; height: 100%; object-fit: contain; }
-
-        /* Painel Lateral */
-        .side-panel { 
-            width: 380px; background: #111; border: 1px solid #222; 
-            position: sticky; top: 180px; height: fit-content; border-radius: 4px; 
-        }
-        .panel-header { padding: 15px; border-bottom: 1px solid #222; }
-        .map-container { width: 100%; min-height: 250px; background: #000; display: flex; align-items: center; justify-content: center; }
-        .map-container img { width: 100%; height: auto; }
-
-        .footer { 
-            position: fixed; bottom: 0; width: 100%; height: 35px; background: #111; 
-            border-top: 1px solid #222; display: flex; align-items: center; 
-            justify-content: center; font-size: 11px; color: #555; z-index: 100; 
-        }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <h1 style="color: #ff9800; font-size: 20px;">MIR4 BOSS TRACKER</h1>
-    </header>
+    <header class="main-header"><h1 style="color: #ff9800; font-size: 20px;">MIR4 BOSS TRACKER</h1></header>
 
     <div class="controls-area">
-        <div class="nav-menu">
-            <a href="index.html" class="nav-btn btn-inactive">BOSSES DE CAMPO</a>
-            <a href="Summonboss.html" class="nav-btn btn-active">INVOCAÇÃO</a>
-        </div>
-        <input type="text" class="search-bar" id="search" placeholder="Buscar por boss ou item..." oninput="filter()">
-        <div class="filter-container" id="filter-btns">
-            <button class="f-btn active" onclick="setMap('all', this)">TUDO</button>
-            <button class="f-btn" onclick="setMap('cmc', this)">MC</button>
-            <button class="f-btn" onclick="setMap('c3m2', this)">C3-M2</button>
-            <button class="f-btn" onclick="setMap('c3m3', this)">C3-M3</button>
-            <button class="f-btn" onclick="setMap('c3m4', this)">C3-M4</button>
-            <button class="f-btn" onclick="setMap('c3m5', this)">C3-M5</button>
-            <button class="f-btn" onclick="setMap('c3m6', this)">C3-M6</button>
-            <button class="f-btn" onclick="setMap('c3m7', this)">C3-M7</button>
-            <button class="f-btn" onclick="setMap('c3m8', this)">C3-M8</button>
-            <button class="f-btn" onclick="setMap('c1m1', this)">155+</button>
-            <button style="background:#400; color:#fff; border:none; padding:6px 10px; cursor:pointer; border-radius:3px;" onclick="resetChecks()">RESET</button>
-        </div>
+        <input type="text" class="search-bar" id="search" placeholder="Filtrar por nome..." oninput="filter()">
     </div>
 
     <main class="main-content">
-        <div class="boss-list" id="lb">
-            </div>
-
+        <div class="boss-list" id="lb"></div>
         <aside class="side-panel">
-            <div class="panel-header">
+            <div style="padding:15px;">
                 <h2 id="p-name" style="font-size: 16px; color: #ff9800;">Selecione um Boss</h2>
                 <p id="p-loc" style="font-size: 11px; color: #888; margin-top: 5px; white-space: pre-line;"></p>
             </div>
-            <div class="map-container" id="p-map">
-                <p style="color: #333;">Mapa</p>
-            </div>
+            <div class="map-container" id="p-map"></div>
         </aside>
     </main>
 
-    <footer class="footer">MKguren - MIR4 Tracker</footer>
-
     <script>
-        // Caminho direto RAW para evitar problemas de proxy
         const BASE = "https://raw.githubusercontent.com/Mkguren/MIR4-Boss-Tracker-V2/main/";
 
         const bosses = [
-            {id:'b1', n:'1. Larva da água do dragão celeste', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
-            {id:'b2', n:'2. Zhang liang', m:'c3m2', npc:'Seocheon', loc:'Feitoria Seocheon', items:['item_feitoria_1.webp'], img:'m2_seocheon.webp'},
-            {id:'b3', n:'3. Zhang bao', m:'c3m2', npc:'Seocheon', loc:'Montanha de lunula', items:['item_japamala_1.webp'], img:'m2_montanha.webp'},
-            {id:'b4', n:'4. Caminho do emaranhado', m:'c3m2', npc:'Seocheon', loc:'Caminho Twinway', items:['item_flor_morta.webp'], img:'m2_twinway.webp'},
-            {id:'b5', n:'5. Rei dos touros malvados', m:'c3m2', npc:'Seocheon', loc:'Campo de Seocheon', items:['item_porco_martelo.webp'], img:'m2_touro.webp'},
-            {id:'b6', n:'6. Urungka', m:'c3m3', npc:'Hyeokjun', loc:'Necropole nefariox', items:['item_casco_tatu.webp'], img:'m3_tatu.webp'},
-            {id:'b7', n:'7. Kaya', m:'c3m3', npc:'Hyeokjun', loc:'Planicie da viboras', items:['item_ornamento_soldado.webp'], img:'m3_planicia_kaya.webp'},
-            {id:'b8', n:'8. Covil do Tatu sombrio', m:'c3m3', npc:'Hyeokjun', loc:'Covil do tatu sombrio', items:['item_flor_morta.webp'], img:'m3_covil_tatu.webp'},
-            {id:'b9', n:'9. Espectro do Osso de Aço', m:'c3m3', npc:'Hyeokjun', loc:'Espectro do Osso', items:['item_flor_morta.webp'], img:'m3_espectro.webp'},
-            {id:'b10', n:'10. Majestoso Nefariox', m:'c3m4', npc:'Dangpo', loc:'Sabuk', items:['item_valor_saqueado.webp'], img:'m4_sabuk_tesouro_dourado.webp'},
-            {id:'b11', n:'11. Santidade Sonido Trovejante', m:'c3m4', npc:'Dangpo', loc:'Paraíso das Espadas', items:['item_pedra_trovao.webp'], img:'m4_paraiso_trovejante_nefariox.webp'},
-            {id:'b12', n:'12. Santidade Draco Divina', m:'c3m4', npc:'Karungka', loc:'Paraíso das Espadas', items:['item_sangue_nefariox.webp'], img:'m4_paraiso_sangue_contaminado.webp'},
-            {id:'b13', n:'13. Monge de sangue negro', m:'c3m4', npc:'Dangpo', loc:'Masmorra Monge', items:['item_passaro_vermelho.webp'], img:'m4_monge.webp'},
-            {id:'b14', n:'14. Flauta consoladora', m:'c3m5', npc:'Gufa', loc:'Campo de Gelo', items:['item_bambu_magico.webp'], img:'m5_flauta_consoladora.webp'},
-            {id:'b15', n:'15. Ruina do Demonio', m:'c3m5', npc:'Gufa', loc:'Ruína do Demônio', items:['item_fruta_milenar.webp'], img:'m5_ruina.webp'},
-            {id:'b16', n:'16. Demonio Aracnideo', m:'c3m5', npc:'Gufa', loc:'Demônio Aracnídeo', items:['item_tomo_do_culto.webp'], img:'m5_aranha.webp'},
-            {id:'b17', n:'17. Templo ilusorio', m:'c3m5', npc:'Criação', loc:'Templo Ilusório', items:['item_casco_tatu.webp'], img:'m5_templo.webp'},
-            {id:'b18', n:'18. Hangga', m:'c3m6', npc:'Gyeongbin', loc:'Labirinto hangga', items:['item_lingote.webp'], img:'m6_hangga.webp'},
-            {id:'b19', n:'19. Jo Gyu', m:'c3m6', npc:'Gyeongbin', loc:'Jo Gyu', items:['item_grande_centopeia.webp'], img:'m6_jogyu.webp'},
-            {id:'b20', n:'20. Demonio da Mina', m:'c3m6', npc:'Gyeongbin', loc:'Mina Demoníaca', items:['item_cristal_mana.webp'], img:'m6_mina.webp'},
-            {id:'b21', n:'21. Grande Centopeia', m:'c3m6', npc:'Gyeongbin', loc:'Grande Centopeia', items:['item_flor_morta.webp'], img:'m6_centopeia.webp'},
-            {id:'b22', n:'22. Lobo fantasmagorico', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_lobo_lunula_1.webp'], img:'m7_lunula_lobo_fantasma.webp'},
-            {id:'b23', n:'23. Poderoso demonio', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_berrante_lunula.webp'], img:'m7_lunula_demonio_de_sangue.webp'},
-            {id:'b24', n:'24. Prisão subterranea', m:'c3m7', npc:'Buman', loc:'Prisão', items:['item_tartaruga_negra.webp'], img:'m7_prisao.webp'},
-            {id:'b25', n:'25. Rainha das víboras', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_folha_milenar.webp'], img:'m8_pakua_rainha_viboras.webp'},
-            {id:'b26', n:'26. Arahan', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_estatua_porco.webp'], img:'m8_pakua_arahan.webp'},
-            {id:'b27', n:'27. Gok Danhwa', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_trovao_celeste.webp'], img:'m8_mina_faccao_trovao.webp'},
-            {id:'b28', n:'28. Gok Muyeop', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_divindade_terrestre.webp'], img:'m8_mina_faccao_terrestre.webp'},
-            {id:'b29', n:'29. Espectro carmesim', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_flauta_bambu.webp'], img:'m8_mina_primeiro_anciao.webp'},
-            {id:'b30', n:'30. Songkwang', m:'c1m1', npc:'Heojeong', loc:'Sete Vales', items:['item_ombreira_yaksha.webp'], img:'c1_songkwang.webp'},
-            {id:'b31', n:'31. Porung', m:'c1m1', npc:'Heojeong', loc:'Ilha Fogo', items:['item_japamala_2.webp'], img:'c1_porung.webp'},
-            {id:'b32', n:'32. Kang Muhyeon', m:'c1m1', npc:'Su Seunghyeon', loc:'Dragão Noveno', items:['item_pedace_gelo.webp'], img:'c2_kangmuhyeon.webp'},
-            {id:'b33', n:'33. Grandor', m:'c1m1', npc:'Su Seunghyeon', loc:'Riacho', items:['item_fragmento_caos.webp'], img:'c2_grandor.webp'}
+            {id:'b1', n:'1. Larva da água do dragão celeste', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
+            {id:'b2', n:'2. Zhang liang', npc:'Seocheon', loc:'Feitoria Seocheon', items:['item_feitoria_1.webp'], img:'m2_seocheon.webp'},
+            {id:'b3', n:'3. Zhang bao', npc:'Seocheon', loc:'Montanha de lunula', items:['item_japamala_1.webp'], img:'m2_montanha.webp'},
+            {id:'b4', n:'4. Caminho do emaranhado', npc:'Seocheon', loc:'Caminho Twinway', items:['item_flor_morta.webp'], img:'m2_twinway.webp'},
+            {id:'b5', n:'5. Rei dos touros malvados', npc:'Seocheon', loc:'Campo de Seocheon', items:['item_porco_martelo.webp'], img:'m2_touro.webp'},
+            {id:'b6', n:'6. Urungka', npc:'Hyeokjun', loc:'Necropole nefariox', items:['item_casco_tatu.webp'], img:'m3_tatu.webp'},
+            {id:'b7', n:'7. Kaya', npc:'Hyeokjun', loc:'Planicie da viboras', items:['item_ornamento_soldado.webp'], img:'m3_planicia_kaya.webp'},
+            {id:'b8', n:'8. Covil do Tatu sombrio', npc:'Hyeokjun', loc:'Covil do tatu sombrio', items:['item_flor_morta.webp'], img:'m3_covil_tatu.webp'},
+            {id:'b9', n:'9. Espectro do Osso de Aço', npc:'Hyeokjun', loc:'Espectro do Osso', items:['item_flor_morta.webp'], img:'m3_espectro.webp'},
+            {id:'b10', n:'10. Majestoso Nefariox', npc:'Dangpo', loc:'Sabuk', items:['item_valor_saqueado.webp'], img:'m4_sabuk_tesouro_dourado.webp'},
+            {id:'b11', n:'11. Santidade Sonido Trovejante', npc:'Dangpo', loc:'Paraíso das Espadas', items:['item_pedra_trovao.webp'], img:'m4_paraiso_trovejante_nefariox.webp'},
+            {id:'b12', n:'12. Santidade Draco Divina', npc:'Karungka', loc:'Paraíso das Espadas', items:['item_sangue_nefariox.webp'], img:'m4_paraiso_sangue_contaminado.webp'},
+            {id:'b13', n:'13. Monge de sangue negro', npc:'Dangpo', loc:'Masmorra Monge', items:['item_passaro_vermelho.webp'], img:'m4_monge.webp'},
+            {id:'b14', n:'14. Flauta consoladora', npc:'Gufa', loc:'Campo de Gelo', items:['item_bambu_magico.webp'], img:'m5_flauta_consoladora.webp'},
+            {id:'b15', n:'15. Ruina do Demonio', npc:'Gufa', loc:'Ruína do Demônio', items:['item_fruta_milenar.webp'], img:'m5_ruina.webp'},
+            {id:'b16', n:'16. Demonio Aracnideo', npc:'Gufa', loc:'Demônio Aracnídeo', items:['item_tomo_do_culto.webp'], img:'m5_aranha.webp'},
+            {id:'b17', n:'17. Templo ilusorio', npc:'Criação', loc:'Templo Ilusório', items:['item_casco_tatu.webp'], img:'m5_templo.webp'},
+            {id:'b18', n:'18. Hangga', npc:'Gyeongbin', loc:'Labirinto hangga', items:['item_lingote.webp'], img:'m6_hangga.webp'},
+            {id:'b19', n:'19. Jo Gyu', npc:'Gyeongbin', loc:'Jo Gyu', items:['item_grande_centopeia.webp'], img:'m6_jogyu.webp'},
+            {id:'b20', n:'20. Demonio da Mina', npc:'Gyeongbin', loc:'Mina Demoníaca', items:['item_cristal_mana.webp'], img:'m6_mina.webp'},
+            {id:'b21', n:'21. Grande Centopeia', npc:'Gyeongbin', loc:'Grande Centopeia', items:['item_flor_morta.webp'], img:'m6_centopeia.webp'},
+            {id:'b22', n:'22. Lobo fantasmagorico', npc:'Braço Direito', loc:'Lunula', items:['item_lobo_lunula_1.webp'], img:'m7_lunula_lobo_fantasma.webp'},
+            {id:'b23', n:'23. Poderoso demonio', npc:'Braço Direito', loc:'Lunula', items:['item_berrante_lunula.webp'], img:'m7_lunula_demonio_de_sangue.webp'},
+            {id:'b24', n:'24. Prisão subterranea', npc:'Buman', loc:'Prisão', items:['item_tartaruga_negra.webp'], img:'m7_prisao.webp'},
+            {id:'b25', n:'25. Rainha das víboras', npc:'Buman', loc:'Salão de Pakua', items:['item_folha_milenar.webp'], img:'m8_pakua_rainha_viboras.webp'},
+            {id:'b26', n:'26. Arahan', npc:'Buman', loc:'Salão de Pakua', items:['item_estatua_porco.webp'], img:'m8_pakua_arahan.webp'},
+            {id:'b27', n:'27. Gok Danhwa', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_trovao_celeste.webp'], img:'m8_mina_faccao_trovao.webp'},
+            {id:'b28', n:'28. Gok Muyeop', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_divindade_terrestre.webp'], img:'m8_mina_faccao_terrestre.webp'},
+            {id:'b29', n:'29. Espectro carmesim', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_flauta_bambu.webp'], img:'m8_mina_primeiro_anciao.webp'},
+            {id:'b30', n:'30. Songkwang', npc:'Heojeong', loc:'Sete Vales', items:['item_ombreira_yaksha.webp'], img:'c1_songkwang.webp'},
+            {id:'b31', n:'31. Porung', npc:'Heojeong', loc:'Ilha Fogo', items:['item_japamala_2.webp'], img:'c1_porung.webp'},
+            {id:'b32', n:'32. Kang Muhyeon', npc:'Su Seunghyeon', loc:'Dragão Noveno', items:['item_pedace_gelo.webp'], img:'c2_kangmuhyeon.webp'},
+            {id:'b33', n:'33. Grandor', npc:'Su Seunghyeon', loc:'Riacho', items:['item_fragmento_caos.webp'], img:'c2_grandor.webp'}
         ];
-
-        let activeMap = 'all';
 
         function render() {
             const list = document.getElementById('lb');
             list.innerHTML = bosses.map(b => `
-                <div class="boss-card" id="${b.id}" data-map="${b.m}" onclick="showBoss('${b.id}')">
+                <div class="boss-card" id="${b.id}" onclick="showBoss('${b.id}')">
                     <div class="check-done" onclick="toggle(event, '${b.id}')"></div>
                     <div class="boss-header">
                         <div class="img-box">
-                            <img src="${BASE}img/bosses/${b.img}" class="boss-img" onerror="this.src='https://via.placeholder.com/55/222?text=!'">
+                            <img src="${BASE}img/bosses/${b.img}" class="boss-img">
                         </div>
                         <div>
                             <span class="boss-name">${b.n}</span>
@@ -214,22 +132,21 @@
                         </div>
                     </div>
                     <div class="items-container">
-                        ${b.items.map(img => `
+                        ${b.items.map(item => `
                             <div class="item-box">
-                                <img src="${BASE}img/craft/${img}" class="item-img" onerror="this.style.display='none'">
+                                <img src="${BASE}img/craft/${item}" class="item-img">
                             </div>
                         `).join('')}
                     </div>
                 </div>
             `).join('');
-            sync();
+            loadStatus();
         }
 
         function showBoss(id) {
             const b = bosses.find(x => x.id === id);
             document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('expanded'));
             document.getElementById(id).classList.add('expanded');
-            
             document.getElementById('p-name').innerText = b.n;
             document.getElementById('p-loc').innerText = `NPC: ${b.npc}\nLOCAL: ${b.loc}`;
             document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='Mapa indisponível'">`;
@@ -239,12 +156,12 @@
             e.stopPropagation();
             const card = document.getElementById(id);
             card.classList.toggle('done');
-            localStorage.setItem('summon_' + id, card.classList.contains('done'));
+            localStorage.setItem('summon_done_' + id, card.classList.contains('done'));
         }
 
-        function sync() {
+        function loadStatus() {
             bosses.forEach(b => {
-                if(localStorage.getItem('summon_' + b.id) === 'true') {
+                if(localStorage.getItem('summon_done_' + b.id) === 'true') {
                     document.getElementById(b.id).classList.add('done');
                 }
             });
@@ -254,23 +171,8 @@
             const val = document.getElementById('search').value.toLowerCase();
             document.querySelectorAll('.boss-card').forEach(card => {
                 const name = card.querySelector('.boss-name').innerText.toLowerCase();
-                const mapMatch = activeMap === 'all' || card.dataset.map === activeMap;
-                card.style.display = (name.includes(val) && mapMatch) ? 'flex' : 'none';
+                card.style.display = name.includes(val) ? 'block' : 'none';
             });
-        }
-
-        function setMap(m, btn) {
-            activeMap = m;
-            document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            filter();
-        }
-
-        function resetChecks() {
-            if(confirm('Limpar progresso?')) {
-                localStorage.clear();
-                location.reload();
-            }
         }
 
         window.onload = render;
