@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
-        /* Scrollbar Personalizada Laranja */
+        /* Scrollbar Personalizada */
         *::-webkit-scrollbar { width: 6px; height: 6px; }
         *::-webkit-scrollbar-thumb { background: #ff9800; border-radius: 10px; }
         *::-webkit-scrollbar-track { background: #1a1a1a; }
@@ -67,9 +67,9 @@
 
         @media (max-width: 1080px) {
             .boss-list { grid-template-columns: 1fr; width: 100%; max-width: 320px; }
+            .side-panel { width: 100% !important; max-width: 320px !important; position: relative !important; top: 0 !important; }
         }
 
-        /* CARD DO BOSS - Removido position absolute que causava sobreposição */
         .boss-card {
             width: 320px;
             background: #111;
@@ -102,9 +102,9 @@
         .boss-name { font-weight: bold; font-size: 12px; color: #fff; display: block; }
         .local-info { font-size: 10px; color: #ff9800; margin-top: 3px; }
 
-        /* ITENS DE CRAFT - Corrigido para aparecer corretamente */
+        /* ITENS DE CRAFT */
         .items-container { 
-            display: none; /* Escondido por padrão */
+            display: none; 
             padding: 12px; 
             background: #080808; 
             border-top: 1px solid #222; 
@@ -113,19 +113,21 @@
             width: 100%;
         }
 
-        /* Quando o card tem a classe expanded, o container de itens DEVE aparecer */
         .boss-card.expanded .items-container { 
             display: flex !important; 
         }
 
+        .item-wrapper { display: flex; align-items: center; justify-content: center; }
         .item-img { 
             width: 42px; 
             height: 42px; 
             border: 1px solid #333; 
             border-radius: 4px; 
             background: #111;
+            display: block;
         }
 
+        /* Painel Lateral */
         .side-panel {
             width: 380px; background: #111; border: 1px solid #222;
             position: sticky; top: 20px; height: fit-content; border-radius: 4px; overflow: hidden;
@@ -176,7 +178,9 @@
                 <h2 id="p-name" style="margin:0; color:#ff9800; font-size: 17px;">Selecione um Boss</h2>
                 <p id="p-loc" style="font-size:11px; color:#888; margin: 8px 0 0 0; line-height: 1.4; white-space: pre-line;"></p>
             </div>
-            <div class="map-container" id="p-map"><p style="color:#333;">O mapa será exibido aqui.</p></div>
+            <div class="map-container" id="p-map">
+                <p style="color:#333;">O mapa será exibido aqui.</p>
+            </div>
         </aside>
     </main>
 
@@ -210,7 +214,7 @@
             {id:'b22', n:'22. Lobo fantasmagorico', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_lobo_lunula_1.webp'], img:'m7_lunula_lobo_fantasma.webp'},
             {id:'b23', n:'23. Poderoso demonio', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_berrante_lunula.webp'], img:'m7_lunula_demonio_de_sangue.webp'},
             {id:'b24', n:'24. Prisão subterranea', m:'c3m7', npc:'Buman', loc:'Prisão', items:['item_tartaruga_negra.webp'], img:'m7_prisao.webp'},
-            {id:'b25', n:'26. Rainha das víboras', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_folha_milenar.webp'], img:'m8_pakua_rainha_viboras.webp'},
+            {id:'b25', n:'25. Rainha das víboras', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_folha_milenar.webp'], img:'m8_pakua_rainha_viboras.webp'},
             {id:'b26', n:'26. Arahan', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_estatua_porco.webp'], img:'m8_pakua_arahan.webp'},
             {id:'b27', n:'27. Gok Danhwa', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_trovao_celeste.webp'], img:'m8_mina_faccao_trovao.webp'},
             {id:'b28', n:'28. Gok Muyeop', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_divindade_terrestre.webp'], img:'m8_mina_faccao_terrestre.webp'},
@@ -228,11 +232,15 @@
                     <div class="boss-card" id="${b.id}" onclick="handleCardClick('${b.id}')">
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
-                            <img src="img/bosses/${b.img}" class="boss-img" onerror="this.src='img/bosses/default.webp'">
+                            <img src="./img/bosses/${b.img}" class="boss-img" onerror="this.src='./img/bosses/default.webp'">
                             <div><span class="boss-name">${b.n}</span><span class="local-info">${b.loc}</span></div>
                         </div>
                         <div class="items-container">
-                            ${b.items.map(i => `<img src="img/craft/${i}" class="item-img" onerror="this.style.display='none'">`).join('')}
+                            ${b.items.map(i => `
+                                <div class="item-wrapper">
+                                    <img src="./img/craft/${i}" class="item-img" title="${i}">
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </div>
@@ -245,14 +253,13 @@
             const boss = bosses.find(x => x.id === id);
             const isExpanded = card.classList.contains('expanded');
             
-            // Fecha outros cards
             document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('expanded'));
             
             if(!isExpanded) {
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
                 document.getElementById('p-loc').innerText = `LOCALIZAÇÃO: ${boss.loc}\nNPC: ${boss.npc}`;
-                document.getElementById('p-map').innerHTML = `<img src="img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='<p style=\'color:#555\'>Mapa não disponível</p>'">`;
+                document.getElementById('p-map').innerHTML = `<img src="./img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='<p style=\'color:#555\'>Mapa não disponível</p>'">`;
             }
         }
 
@@ -289,7 +296,7 @@
         }
 
         function resetChecks() {
-            if(confirm("Deseja resetar o progresso?")) {
+            if(confirm("Deseja resetar o progresso diário?")) {
                 bosses.forEach(b => {
                     localStorage.removeItem('mir4_sum_' + b.id);
                     const el = document.getElementById(b.id);
