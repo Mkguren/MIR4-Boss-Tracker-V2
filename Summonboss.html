@@ -6,56 +6,70 @@
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; padding-bottom: 60px; }
+        body { background: #000; color: #ddd; font-family: sans-serif; padding-bottom: 60px; }
 
+        /* Cabeçalho e Controles */
         .main-header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid #ff9800; }
-        
         .controls-area { 
             background: #111; padding: 15px; display: flex; flex-direction: column; 
             align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; 
             border-bottom: 1px solid #222; 
         }
-        
         .search-bar { width: 100%; max-width: 652px; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; }
 
+        /* Layout Principal */
         .main-content { display: flex; justify-content: center; align-items: flex-start; gap: 20px; padding: 20px; flex-wrap: wrap; }
+        
+        /* Lista de Cards - Largura fixa para 2 colunas */
         .boss-list { display: flex; flex-wrap: wrap; gap: 15px; width: 660px; justify-content: flex-start; }
 
+        /* Card - Altura mínima fixa para evitar o "buraco" */
         .boss-card { 
             width: 320px; min-height: 85px; background: #111; 
             border: 1px solid #222; border-left: 5px solid #333; 
             border-radius: 4px; cursor: pointer; position: relative;
+            transition: border 0.3s;
         }
         .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
         .boss-card.done { opacity: 0.3; filter: grayscale(1); }
 
+        /* Checkbox customizado */
         .check-done { 
             position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; 
             border: 1px solid #444; background: #000; border-radius: 4px; z-index: 5; 
+            display: flex; align-items: center; justify-content: center;
         }
-        .done .check-done { background: #ff9800; }
-        .done .check-done::after { content: '✓'; color: #000; font-weight: bold; display: flex; justify-content: center; align-items: center; height: 100%; }
+        .done .check-done { background: #ff9800; border-color: #ff9800; }
+        .done .check-done::after { content: '✓'; color: #000; font-weight: bold; }
 
+        /* Info do Boss */
         .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
-        .img-box { width: 55px; height: 55px; background: #1a1a1a; flex-shrink: 0; overflow: hidden; }
+        .img-box { width: 55px; height: 55px; background: #1a1a1a; flex-shrink: 0; border-radius: 2px; overflow: hidden; }
         .boss-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .boss-name { font-weight: bold; font-size: 13px; color: #fff; }
+        .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
         .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; display: block; }
 
-        .items-container { display: none; padding: 10px; background: #0a0a0a; border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; }
-        .boss-card.expanded .items-container { display: flex !important; }
+        /* Itens de Craft - Corrigido para não quebrar o layout */
+        .items-container { 
+            display: none; padding: 10px; background: #0a0a0a; 
+            border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; 
+        }
+        .boss-card.expanded .items-container { display: flex; }
         
         .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #333; display: flex; align-items: center; justify-content: center; }
         .item-img { width: 100%; height: 100%; object-fit: contain; }
 
-        .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 150px; height: fit-content; border-radius: 4px; }
+        /* Painel Lateral */
+        .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 150px; border-radius: 4px; overflow: hidden; }
+        .panel-info { padding: 15px; border-bottom: 1px solid #222; }
         .map-container { width: 100%; min-height: 250px; background: #000; display: flex; align-items: center; justify-content: center; }
-        .map-container img { width: 100%; height: auto; }
+        .map-container img { width: 100%; height: auto; display: block; }
 
+        /* Mobile */
         @media (max-width: 1080px) {
             .boss-list { width: 100%; max-width: 320px; justify-content: center; }
-            .side-panel { width: 100% !important; position: static !important; }
+            .side-panel { width: 100%; max-width: 320px; position: static; margin-top: 20px; }
         }
     </style>
 </head>
@@ -64,13 +78,13 @@
     <header class="main-header"><h1 style="color: #ff9800; font-size: 20px;">MIR4 BOSS TRACKER</h1></header>
 
     <div class="controls-area">
-        <input type="text" class="search-bar" id="search" placeholder="Filtrar por nome..." oninput="filter()">
+        <input type="text" class="search-bar" id="search" placeholder="Buscar por boss ou item..." oninput="filter()">
     </div>
 
     <main class="main-content">
         <div class="boss-list" id="lb"></div>
         <aside class="side-panel">
-            <div style="padding:15px;">
+            <div class="panel-info">
                 <h2 id="p-name" style="font-size: 16px; color: #ff9800;">Selecione um Boss</h2>
                 <p id="p-loc" style="font-size: 11px; color: #888; margin-top: 5px; white-space: pre-line;"></p>
             </div>
@@ -124,7 +138,7 @@
                     <div class="check-done" onclick="toggle(event, '${b.id}')"></div>
                     <div class="boss-header">
                         <div class="img-box">
-                            <img src="${BASE}img/bosses/${b.img}" class="boss-img">
+                            <img src="${BASE}img/bosses/${b.img}" class="boss-img" loading="lazy">
                         </div>
                         <div>
                             <span class="boss-name">${b.n}</span>
@@ -134,7 +148,7 @@
                     <div class="items-container">
                         ${b.items.map(item => `
                             <div class="item-box">
-                                <img src="${BASE}img/craft/${item}" class="item-img">
+                                <img src="${BASE}img/craft/${item}" class="item-img" loading="lazy">
                             </div>
                         `).join('')}
                     </div>
@@ -149,7 +163,7 @@
             document.getElementById(id).classList.add('expanded');
             document.getElementById('p-name').innerText = b.n;
             document.getElementById('p-loc').innerText = `NPC: ${b.npc}\nLOCAL: ${b.loc}`;
-            document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='Mapa indisponível'">`;
+            document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" alt="Mapa">`;
         }
 
         function toggle(e, id) {
