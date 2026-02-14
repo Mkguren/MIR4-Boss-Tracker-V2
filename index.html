@@ -5,25 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Bosses de Campo</title>
     <style>
-        /* Estilização da Barra de Rolagem - Aplicada globalmente e em elementos de scroll */
-        *::-webkit-scrollbar {
-            width: 6px; 
-            height: 6px;
-        }
-        *::-webkit-scrollbar-thumb {
-            background: #ff9800; 
-            border-radius: 10px;
-        }
-        *::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
+        /* Estilização da Barra de Rolagem */
+        *::-webkit-scrollbar { width: 6px; height: 6px; }
+        *::-webkit-scrollbar-thumb { background: #ff9800; border-radius: 10px; }
+        *::-webkit-scrollbar-track { background: #1a1a1a; }
         
-        /* Compatibilidade para Firefox */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #ff9800 #1a1a1a;
-            box-sizing: border-box;
-        }
+        * { scrollbar-width: thin; scrollbar-color: #ff9800 #1a1a1a; box-sizing: border-box; }
 
         body {
             background: #000;
@@ -72,23 +59,30 @@
             outline: none; 
         }
 
+        /* Botão de horários ajustado para preto conforme solicitado */
         select { 
             width: 110px; 
             padding: 10px; 
-            background: #000; 
+            background: #000; /* Fundo Preto */
             border: 1px solid #333; 
             color: #fff; 
             border-radius: 4px; 
             font-size: 12px; 
             outline: none; 
             cursor: pointer;
-            /* Garante que o dropdown tente herdar estilos em alguns sistemas */
             appearance: none;
             -webkit-appearance: none;
+            /* Ícone da seta em laranja */
             background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff9800" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
             background-repeat: no-repeat;
             background-position-x: 95%;
             background-position-y: 50%;
+        }
+
+        /* Estilização para as opções do select (preto no fundo) */
+        select option {
+            background-color: #000;
+            color: #fff;
         }
 
         .scroll { 
