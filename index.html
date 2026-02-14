@@ -5,17 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Bosses de Campo</title>
     <style>
-        *::-webkit-scrollbar {width: 4px; height: 4px;}
-        *::-webkit-scrollbar-thumb {background: #ff9800; border-radius: 10px;}
-        *::-webkit-scrollbar-track {background: #1a1a1a;}
-        * { box-sizing: border-box; }
+        /* Estilização da Barra de Rolagem - Aplicada globalmente e em elementos de scroll */
+        *::-webkit-scrollbar {
+            width: 6px; 
+            height: 6px;
+        }
+        *::-webkit-scrollbar-thumb {
+            background: #ff9800; 
+            border-radius: 10px;
+        }
+        *::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        /* Compatibilidade para Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #ff9800 #1a1a1a;
+            box-sizing: border-box;
+        }
 
         body {
             background: #000;
             color: #ddd;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding-bottom: 60px; /* Espaço para o rodapé fixo */
+            padding-bottom: 60px; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -46,14 +61,51 @@
             justify-content: center;
         }
 
-        input { width: 250px; padding: 10px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 12px; outline: none; }
-        select { width: 110px; padding: 10px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 12px; outline: none; cursor: pointer; }
+        input { 
+            width: 250px; 
+            padding: 10px; 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #fff; 
+            border-radius: 4px; 
+            font-size: 12px; 
+            outline: none; 
+        }
 
-        .scroll { flex: 1; width: 100%; max-width: 652px; margin: 0 auto; padding: 20px; }
+        select { 
+            width: 110px; 
+            padding: 10px; 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #fff; 
+            border-radius: 4px; 
+            font-size: 12px; 
+            outline: none; 
+            cursor: pointer;
+            /* Garante que o dropdown tente herdar estilos em alguns sistemas */
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff9800" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: 95%;
+            background-position-y: 50%;
+        }
+
+        .scroll { 
+            flex: 1; width: 100%; max-width: 652px; 
+            margin: 0 auto; padding: 20px; 
+        }
         
-        .section-title { font-size: 10px; color: #ff9800; text-transform: uppercase; margin: 12px 0 5px 0; font-weight: bold; border-left: 2px solid #ff9800; padding-left: 5px; }
+        .section-title { 
+            font-size: 10px; color: #ff9800; text-transform: uppercase; 
+            margin: 12px 0 5px 0; font-weight: bold; border-left: 2px solid #ff9800; padding-left: 5px; 
+        }
 
-        .item { padding: 12px; background: #111; border: 1px solid #222; border-left: 5px solid #333; margin-bottom: 12px; border-radius: 4px; }
+        .item { 
+            padding: 12px; background: #111; border: 1px solid #222;
+            border-left: 5px solid #333; margin-bottom: 12px; border-radius: 4px;
+        }
+        
         .name { color: #fff; font-weight: bold; font-size: 13px; display: block; }
         .lvl-orange { color: #ff9800; font-weight: bold; }
         .loc { color: #777; font-size: 11px; display: block; margin-top: 4px; }
