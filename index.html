@@ -1,145 +1,177 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<style>
- /* Estilização Global da Barra de Rolagem */
- *::-webkit-scrollbar {width: 4px; height: 4px;}
- *::-webkit-scrollbar-thumb {background: #ff9800; border-radius: 10px;}
- *::-webkit-scrollbar-track {background: #1a1a1a;}
- 
- /* ESSENCIAL: Impede que padding ou bordas alterem a largura total */
- * { box-sizing: border-box; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIR4 Boss Tracker - Bosses de Campo</title>
+    <style>
+        /* Estilização Global da Barra de Rolagem */
+        *::-webkit-scrollbar {width: 4px; height: 4px;}
+        *::-webkit-scrollbar-thumb {background: #ff9800; border-radius: 10px;}
+        *::-webkit-scrollbar-track {background: #1a1a1a;}
+        
+        * { box-sizing: border-box; }
 
- body {
-    background: #0f0f0f;
-    color: #ddd;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    padding: 10px;
-    width: 325px;
-    height: 580px;
-    border: 1px solid #ff9800;
-    border-radius: 8px;
-    overflow: hidden;
-    /* Ajuste para alinhar o footer na base */
-    display: flex;
-    flex-direction: column;
- }
+        body {
+            background: #0f0f0f;
+            color: #ddd;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
- .header { background: #0f0f0f; padding-bottom: 10px; border-bottom: 1px solid #333; z-index: 10; }
- h4 { margin: 0 0 8px 0; color: #ff9800; text-align: center; text-transform: uppercase; font-size: 13px; }
- 
- /* MENU DE NAVEGAÇÃO */
- .nav-menu { display: flex; gap: 5px; margin-bottom: 10px; }
- .nav-btn { flex: 1; text-decoration: none; text-align: center; font-size: 10px; font-weight: bold; padding: 6px; border-radius: 3px; transition: 0.3s; }
- .btn-active { background: #ff9800; color: #000; }
- .btn-inactive { background: #252525; color: #fff; border: 1px solid #444; }
+        .main-header {
+            background: #111; 
+            padding: 20px; 
+            text-align: center; 
+            border-bottom: 2px solid #ff9800;
+        }
 
- .search-container { display: flex; gap: 5px; width: 100%; }
- input, select { padding: 7px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px; font-size: 11px; outline: none; }
- input { flex: 2; }
- select { flex: 1.5; cursor: pointer; }
+        .controls-area {
+            background: #111;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
 
- /* AREA DE SCROLL: Agora flexível para empurrar o footer */
- .scroll { flex-grow: 1; overflow-y: auto; margin-top: 10px; margin-bottom: 5px; }
- 
- .section-title { font-size: 10px; color: #ff9800; text-transform: uppercase; margin: 12px 0 5px 0; font-weight: bold; border-left: 2px solid #ff9800; padding-left: 5px; }
- .item { padding: 8px 5px; border-bottom: 1px solid #222; border-left: 4px solid #444; margin-bottom: 4px; background: rgba(255,255,255,0.02); }
- .name { color: #fff; font-weight: bold; font-size: 12px; display: block; }
- .lvl-orange { color: #ff9800; font-weight: bold; }
- .loc { color: #777; font-size: 10px; display: block; margin-top: 2px; }
- .camada { color: #ff9800; font-size: 9px; font-weight: bold; display: block; margin-bottom: 2px; text-transform: uppercase; }
- .time-box { background: rgba(0,230,118,0.1); padding: 5px; border-radius: 4px; margin-top: 5px; }
- .badge { display: inline-block; font-family: monospace; font-size: 11px; margin-right: 6px; color: #00e676; }
- .item-alert { border-left-color: #ff3d00!important; background: rgba(255,61,0,0.1); }
- .alert-active { color: #ff3d00!important; font-weight: bold; text-decoration: underline; animation: blink 1s infinite; }
- @keyframes blink { 50% { opacity: .5; } }
- .L141 { border-left-color: #4caf50; } .L143 { border-left-color: #2196f3; }
- .L150 { border-left-color: #9c27b0; } .L155 { border-left-color: #f44336; }
+        h4 { margin: 0 0 8px 0; color: #ff9800; text-align: center; text-transform: uppercase; font-size: 13px; }
+        
+        /* MENU DE NAVEGAÇÃO PADRONIZADO */
+        .nav-menu { display: flex; gap: 10px; margin-bottom: 5px; }
+        .nav-btn {
+            width: 140px; text-align: center; font-size: 11px; font-weight: bold;
+            padding: 10px; border-radius: 4px; cursor: pointer; border: none; text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-active { background: #ff9800; color: #000; }
+        .btn-inactive { background: #222; color: #888; }
 
- /* NOVO FOOTER UNIFICADO */
- .footer { font-size: 8px; color: #666; text-align: center; padding: 5px 0; border-top: 1px solid #222; margin-top: auto; }
-</style>
+        .search-container { display: flex; gap: 5px; width: 100%; max-width: 652px; }
+        input, select { padding: 10px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 12px; outline: none; }
+        input { flex: 2; }
+        select { flex: 1.5; cursor: pointer; }
+
+        /* AREA DE CONTEÚDO */
+        .scroll { 
+            flex: 1; 
+            width: 100%; 
+            max-width: 652px; 
+            margin: 0 auto; 
+            padding: 20px;
+        }
+        
+        .section-title { font-size: 10px; color: #ff9800; text-transform: uppercase; margin: 12px 0 5px 0; font-weight: bold; border-left: 2px solid #ff9800; padding-left: 5px; }
+        .item { padding: 12px; border-bottom: 1px solid #222; border-left: 4px solid #444; margin-bottom: 8px; background: #111; border-radius: 0 4px 4px 0; }
+        .name { color: #fff; font-weight: bold; font-size: 13px; display: block; }
+        .lvl-orange { color: #ff9800; font-weight: bold; }
+        .loc { color: #777; font-size: 11px; display: block; margin-top: 4px; }
+        .camada { color: #ff9800; font-size: 9px; font-weight: bold; display: block; margin-bottom: 2px; text-transform: uppercase; }
+        .time-box { background: rgba(0,230,118,0.05); padding: 8px; border-radius: 4px; margin-top: 8px; }
+        .badge { display: inline-block; font-family: monospace; font-size: 12px; margin-right: 8px; color: #00e676; }
+        .item-alert { border-left-color: #ff3d00!important; background: rgba(255,61,0,0.05); }
+        .alert-active { color: #ff3d00!important; font-weight: bold; text-decoration: underline; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: .5; } }
+        .L141 { border-left-color: #4caf50; } .L143 { border-left-color: #2196f3; }
+        .L150 { border-left-color: #9c27b0; } .L155 { border-left-color: #f44336; }
+
+        /* FOOTER PADRONIZADO */
+        .footer { 
+            width: 100%; padding: 12px;
+            background: #111; border-top: 1px solid #222;
+            text-align: center; font-size: 11px; color: #666;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body onclick="itA()">
-<div class="header">
- <h4>MIR4 Boss Tracker</h4>
- <div class="nav-menu">
-  <a href="index.html" class="nav-btn btn-active">BOSSES DE CAMPO</a>
-  <a href="Summonboss.html" class="nav-btn btn-inactive">INVOCAÇÃO</a>
- </div>
- <div class="search-container">
-  <input type="text" id="ib" placeholder="Buscar Boss..." onkeyup="up()">
-  <select id="sh" onchange="up()">
-   <option value="">Horários</option>
-   <option value="00:00">00:00</option><option value="00:30">00:30</option><option value="01:00">01:00</option><option value="01:30">01:30</option><option value="02:00">02:00</option><option value="02:30">02:30</option><option value="03:00">03:00</option><option value="03:30">03:30</option><option value="04:00">04:00</option><option value="04:30">04:30</option><option value="05:00">05:00</option><option value="05:30">05:30</option><option value="06:00">06:00</option><option value="06:30">06:30</option><option value="07:00">07:00</option><option value="07:30">07:30</option><option value="08:00">08:00</option><option value="08:30">08:30</option><option value="09:00">09:00</option><option value="09:30">09:30</option><option value="10:00">10:00</option><option value="10:30">10:30</option><option value="11:00">11:00</option><option value="11:30">11:30</option><option value="12:00">12:00</option><option value="12:30">12:30</option><option value="13:00">13:00</option><option value="13:30">13:30</option><option value="14:00">14:00</option><option value="14:30">14:30</option><option value="15:00">15:00</option><option value="15:30">15:30</option><option value="16:00">16:00</option><option value="16:30">16:30</option><option value="17:00">17:00</option><option value="17:30">17:30</option><option value="18:00">18:00</option><option value="18:30">18:30</option><option value="19:00">19:00</option><option value="19:30">19:30</option><option value="20:00">20:00</option><option value="20:30">20:30</option><option value="21:00">21:00</option><option value="21:30">21:30</option><option value="22:00">22:00</option><option value="22:30">22:30</option><option value="23:00">23:00</option><option value="23:30">23:30</option>
-  </select>
- </div>
+
+<header class="main-header">
+    <h1 style="margin:0; font-size: 20px; letter-spacing: 2px; color: #ff9800;">MIR4 BOSS TRACKER</h1>
+</header>
+
+<div class="controls-area">
+    <div class="nav-menu">
+        <a href="index.html" class="nav-btn btn-active">BOSSES DE CAMPO</a>
+        <a href="Summonboss.html" class="nav-btn btn-inactive">INVOCAÇÃO</a>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" id="ib" placeholder="Buscar Boss ou Local..." onkeyup="up()">
+        <select id="sh" onchange="up()">
+            <option value="">Horários</option>
+            <option value="00:00">00:00</option><option value="00:30">00:30</option><option value="01:00">01:00</option><option value="01:30">01:30</option><option value="02:00">02:00</option><option value="02:30">02:30</option><option value="03:00">03:00</option><option value="03:30">03:30</option><option value="04:00">04:00</option><option value="04:30">04:30</option><option value="05:00">05:00</option><option value="05:30">05:30</option><option value="06:00">06:00</option><option value="06:30">06:30</option><option value="07:00">07:00</option><option value="07:30">07:30</option><option value="08:00">08:00</option><option value="08:30">08:30</option><option value="09:00">09:00</option><option value="09:30">09:30</option><option value="10:00">10:00</option><option value="10:30">10:30</option><option value="11:00">11:00</option><option value="11:30">11:30</option><option value="12:00">12:00</option><option value="12:30">12:30</option><option value="13:00">13:00</option><option value="13:30">13:30</option><option value="14:00">14:00</option><option value="14:30">14:30</option><option value="15:00">15:00</option><option value="15:30">15:30</option><option value="16:00">16:00</option><option value="16:30">16:30</option><option value="17:00">17:00</option><option value="17:30">17:30</option><option value="18:00">18:00</option><option value="18:30">18:30</option><option value="19:00">19:00</option><option value="19:30">19:30</option><option value="20:00">20:00</option><option value="20:30">20:30</option><option value="21:00">21:00</option><option value="21:30">21:30</option><option value="22:00">22:00</option><option value="22:30">22:30</option><option value="23:00">23:00</option><option value="23:30">23:30</option>
+        </select>
+    </div>
 </div>
 
 <div class="scroll" id="lb"></div>
 
-<div class="footer">
-    MKguren - desenvolvido por um fã para a comunidade de mir4. Direitos reservados.
-</div>
+<footer class="footer">
+    MKguren - desenvolvido por um fã para a comunidade de mir4.
+</footer>
 
 <script>
- var ctx=null;function itA(){if(!ctx)ctx=new(AudioContext||webkitAudioContext)()}
- function bp(){if(!ctx)return;var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=800;g.gain.setValueAtTime(.1,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3)}
- 
- var ds=[
-  ["L141","Matha","141-","M1-Floresta",["00:00","02:00","04:00","06:00","08:00","10:00","12:00","14:00","16:00","18:00","20:00","22:00"],"C3"],
-  ["L141","Touro Demoniaco","141-","M1-Templo",["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00","17:00","19:00","21:00","23:00"],"C3"],
-  ["L141","Rei dos Touros","141-","M1-Santuario",["00:00","03:00","06:00","09:00","12:00","15:00","18:00","21:00"],"C3"],
-  ["L141","Gigantes Brancos","141-","M8-Selo",["01:00","05:00","09:00","13:00","17:00","21:00"],"C3"],
-  ["L141","Teahyul","141+","M7-Jardim",["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00","17:00","19:00","21:00","23:00"],"C3"],
-  ["L141","Construcao","141+","M7-Culto",["02:00","05:00","08:00","11:00","14:00","17:00","20:00","23:00"],"C3"],
-  ["L141","Nefariox","141+","M4-Phantasia",["00:00","02:00","04:00","06:00","08:00","10:00","12:00","14:00","16:00","18:00","20:00","22:00"],"C3"],
-  ["L141","Kurilaika","141+","M4-Suserano",["00:00","03:00","06:00","09:00","12:00","15:00","18:00","21:00"],"C3"],
-  ["L143","Juhui","143+","M2-Lunula",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C3"],
-  ["L143","Faluk","143+","M5-Sabuk",["03:30","06:30","09:30","12:30","15:30","18:30","21:30","00:30"],"C3"],
-  ["L143","Assombracao","143+","M5-Templo",["01:30","04:30","07:30","10:30","13:30","16:30","19:30","22:30"],"C3"],
-  ["L150","Gyo Besta","150+","M3-Necropole",["02:30","08:30","14:30","20:30"],"C3"],
-  ["L150","Tatu Sombrio","150+","M3-Planicie",["01:30","03:30","05:30","07:30","09:30","11:30","13:30","15:30","17:30","19:30","21:30","23:30"],"C3"],
-  ["L150","Budu","150+","M3-Rockcut",["03:30","09:30","15:30","21:30"],"C3"],
-  ["L150","Mara","150+","M3-Rockcut",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C3"],
-  ["L150","Cheol Mokgang","150+","M6-Bicheon",["00:30","02:30","04:30","06:30","08:30","10:30","12:30","14:30","16:30","18:30","20:30","22:30"],"C3"],
-  ["L150","Asura","150+","M6-Bicheon",["04:30","10:30","16:30","22:30"],"C3"],
-  ["L150","Wuihan","150+","M6-Bosques",["05:30","11:30","17:30","23:30"],"C3"],
-  ["L150","Mina Demoniaca","150+","M6-Abisso",["01:30","03:30","05:30","07:30","09:30","11:30","13:30","15:30","17:30","19:30","21:30","23:30"],"C3"],
-  ["L150","Yeticlops","150+","M6-Labirinto",["06:30","12:30","18:30","00:30"],"C3"],
-  ["L155","Jihwa","155+","M1-Unseo",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C1"],
-  ["L155","Tatu Gigante","155+","M1-Vales",["03:30","06:30","09:30","12:30","15:30","18:30","21:30","00:30"],"C1"],
-  ["L155","Yaksha","155+","M1-Vales",["03:30","09:30","15:30","21:30"],"C1"],
-  ["L155","Bulhu","155+","M1-Fogo",["04:30","10:30","16:30","22:30"],"C1"],
-  ["L155","Gwe Mukang","155+","M2-Gelo",["05:30","11:30","17:30","23:30"],"C1"],
-  ["L155","Molgrash","155+","M2-Prisao",["01:30","04:30","07:30","10:30","13:30","16:30","19:30","22:30"],"C1"],
-  ["L155","Maeongryong","155+","M2-Prisao",["06:30","12:30","18:30","00:30"],"C1"],
-  ["L155","WI Kwangryong","155+","M2-Palacio",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C1"]
- ];
+    var ctx=null;function itA(){if(!ctx)ctx=new(AudioContext||webkitAudioContext)()}
+    function bp(){if(!ctx)return;var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=800;g.gain.setValueAtTime(.1,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3)}
+    
+    var ds=[
+     ["L141","Matha","141-","M1-Floresta",["00:00","02:00","04:00","06:00","08:00","10:00","12:00","14:00","16:00","18:00","20:00","22:00"],"C3"],
+     ["L141","Touro Demoniaco","141-","M1-Templo",["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00","17:00","19:00","21:00","23:00"],"C3"],
+     ["L141","Rei dos Touros","141-","M1-Santuario",["00:00","03:00","06:00","09:00","12:00","15:00","18:00","21:00"],"C3"],
+     ["L141","Gigantes Brancos","141-","M8-Selo",["01:00","05:00","09:00","13:00","17:00","21:00"],"C3"],
+     ["L141","Teahyul","141+","M7-Jardim",["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00","17:00","19:00","21:00","23:00"],"C3"],
+     ["L141","Construcao","141+","M7-Culto",["02:00","05:00","08:00","11:00","14:00","17:00","20:00","23:00"],"C3"],
+     ["L141","Nefariox","141+","M4-Phantasia",["00:00","02:00","04:00","06:00","08:00","10:00","12:00","14:00","16:00","18:00","20:00","22:00"],"C3"],
+     ["L141","Kurilaika","141+","M4-Suserano",["00:00","03:00","06:00","09:00","12:00","15:00","18:00","21:00"],"C3"],
+     ["L143","Juhui","143+","M2-Lunula",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C3"],
+     ["L143","Faluk","143+","M5-Sabuk",["03:30","06:30","09:30","12:30","15:30","18:30","21:30","00:30"],"C3"],
+     ["L143","Assombracao","143+","M5-Templo",["01:30","04:30","07:30","10:30","13:30","16:30","19:30","22:30"],"C3"],
+     ["L150","Gyo Besta","150+","M3-Necropole",["02:30","08:30","14:30","20:30"],"C3"],
+     ["L150","Tatu Sombrio","150+","M3-Planicie",["01:30","03:30","05:30","07:30","09:30","11:30","13:30","15:30","17:30","19:30","21:30","23:30"],"C3"],
+     ["L150","Budu","150+","M3-Rockcut",["03:30","09:30","15:30","21:30"],"C3"],
+     ["L150","Mara","150+","M3-Rockcut",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C3"],
+     ["L150","Cheol Mokgang","150+","M6-Bicheon",["00:30","02:30","04:30","06:30","08:30","10:30","12:30","14:30","16:30","18:30","20:30","22:30"],"C3"],
+     ["L150","Asura","150+","M6-Bicheon",["04:30","10:30","16:30","22:30"],"C3"],
+     ["L150","Wuihan","150+","M6-Bosques",["05:30","11:30","17:30","23:30"],"C3"],
+     ["L150","Mina Demoniaca","150+","M6-Abisso",["01:30","03:30","05:30","07:30","09:30","11:30","13:30","15:30","17:30","19:30","21:30","23:30"],"C3"],
+     ["L150","Yeticlops","150+","M6-Labirinto",["06:30","12:30","18:30","00:30"],"C3"],
+     ["L155","Jihwa","155+","M1-Unseo",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C1"],
+     ["L155","Tatu Gigante","155+","M1-Vales",["03:30","06:30","09:30","12:30","15:30","18:30","21:30","00:30"],"C1"],
+     ["L155","Yaksha","155+","M1-Vales",["03:30","09:30","15:30","21:30"],"C1"],
+     ["L155","Bulhu","155+","M1-Fogo",["04:30","10:30","16:30","22:30"],"C1"],
+     ["L155","Gwe Mukang","155+","M2-Gelo",["05:30","11:30","17:30","23:30"],"C1"],
+     ["L155","Molgrash","155+","M2-Prisao",["01:30","04:30","07:30","10:30","13:30","16:30","19:30","22:30"],"C1"],
+     ["L155","Maeongryong","155+","M2-Prisao",["06:30","12:30","18:30","00:30"],"C1"],
+     ["L155","WI Kwangryong","155+","M2-Palacio",["02:30","05:30","08:30","11:30","14:30","17:30","20:30","23:30"],"C1"]
+    ];
 
- var alertedTimes = new Set();
- function up(){
-  var c=document.getElementById('lb'),q=document.getElementById('ib').value.toLowerCase(),f=document.getElementById('sh').value,now=new Date(),win=[],hA="",hN="",anyA=false;
-  for(var i=0;i<=10;i++){ var d=new Date(now.getTime()+(i*60000)); win.push(("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)); }
-  for(var i=0;i<ds.length;i++){
-   var b=ds[i];
-   if((b[1]+b[3]).toLowerCase().indexOf(q)==-1||(f&&b[4].indexOf(f)==-1))continue;
-   var isA=false, tH="";
-   for(var j=0;j<b[4].length;j++){
-     var act=(win.indexOf(b[4][j])>-1);
-     if(act){ isA=true; var alertKey = b[1] + b[4][j]; if(!alertedTimes.has(alertKey)){ anyA=true; alertedTimes.add(alertKey); } }
-     tH+='<span class="badge '+(act?'alert-active':'')+'">'+b[4][j]+'</span> ';
-   }
-   var card='<div class="item '+b[0]+' '+(isA?'item-alert':'')+'"><span class="camada">'+b[5]+' ('+b[3].split('-')[0]+')</span><span class="name">'+b[1]+' <span class="lvl-orange">'+b[2]+'</span></span><span class="loc">'+b[3]+'</span><div class="time-box">'+tH+'</div></div>';
-   if(isA)hA+=card;else hN+=card;
-  }
-  c.innerHTML=(hA?'<div class="section-title">Prox. Bosses</div>'+hA:'')+'<div class="section-title">Todos os Bosses</div>'+hN;
-  if(anyA){ bp(); }
-  if(now.getMinutes() == 0 && now.getSeconds() < 30) alertedTimes.clear();
- }
- setInterval(up,30000); window.onload=up;
+    var alertedTimes = new Set();
+    function up(){
+     var c=document.getElementById('lb'),q=document.getElementById('ib').value.toLowerCase(),f=document.getElementById('sh').value,now=new Date(),win=[],hA="",hN="",anyA=false;
+     for(var i=0;i<=10;i++){ var d=new Date(now.getTime()+(i*60000)); win.push(("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)); }
+     for(var i=0;i<ds.length;i++){
+      var b=ds[i];
+      if((b[1]+b[3]).toLowerCase().indexOf(q)==-1||(f&&b[4].indexOf(f)==-1))continue;
+      var isA=false, tH="";
+      for(var j=0;j<b[4].length;j++){
+        var act=(win.indexOf(b[4][j])>-1);
+        if(act){ isA=true; var alertKey = b[1] + b[4][j]; if(!alertedTimes.has(alertKey)){ anyA=true; alertedTimes.add(alertKey); } }
+        tH+='<span class="badge '+(act?'alert-active':'')+'">'+b[4][j]+'</span> ';
+      }
+      var card='<div class="item '+b[0]+' '+(isA?'item-alert':'')+'"><span class="camada">'+b[5]+' ('+b[3].split('-')[0]+')</span><span class="name">'+b[1]+' <span class="lvl-orange">'+b[2]+'</span></span><span class="loc">'+b[3]+'</span><div class="time-box">'+tH+'</div></div>';
+      if(isA)hA+=card;else hN+=card;
+     }
+     c.innerHTML=(hA?'<div class="section-title">Prox. Bosses</div>'+hA:'')+'<div class="section-title">Todos os Bosses</div>'+hN;
+     if(anyA){ bp(); }
+     if(now.getMinutes() == 0 && now.getSeconds() < 30) alertedTimes.clear();
+    }
+    setInterval(up,30000); window.onload=up;
 </script>
 </body>
 </html>
