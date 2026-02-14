@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
-        /* CSS REVISADO PARA ESTABILIDADE TOTAL */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; padding-bottom: 60px; }
+        body { background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; padding-bottom: 60px; overflow-x: hidden; }
 
         .main-header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid #ff9800; }
         .controls-area { background: #111; padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #222; }
         
         .search-bar { width: 100%; max-width: 652px; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; }
-
         .nav-menu { display: flex; gap: 10px; }
         .nav-btn { width: 140px; text-align: center; font-size: 11px; font-weight: bold; padding: 10px; border-radius: 4px; cursor: pointer; text-decoration: none; transition: 0.3s; }
         .btn-active { background: #ff9800; color: #000; }
@@ -23,14 +21,13 @@
         .f-btn { padding: 6px 12px; border: 1px solid #333; font-size: 10px; cursor: pointer; background: #111; color: #fff; border-radius: 3px; }
         .f-btn.active { background: #ff9800; color: #000; border-color: #ff9800; }
 
-        /* GRID FIXO - Impede que cards subam ou deixem buracos */
-        .main-content { display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; }
+        /* GRID ESTÁVEL: Impede que os cards flutuem ou deixem buracos */
+        .main-content { display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; align-items: flex-start; }
         .boss-list { 
             display: grid; 
             grid-template-columns: repeat(2, 320px); 
-            grid-auto-rows: max-content; 
+            grid-auto-rows: min-content; 
             gap: 15px; 
-            min-height: 500px; /* Garante que a área não suma */
         }
 
         @media (max-width: 1080px) {
@@ -38,7 +35,7 @@
             .side-panel { width: 100% !important; position: static !important; }
         }
 
-        .boss-card { width: 320px; background: #111; border: 1px solid #222; border-left: 5px solid #333; border-radius: 4px; cursor: pointer; position: relative; height: fit-content; }
+        .boss-card { width: 320px; background: #111; border: 1px solid #222; border-left: 5px solid #333; border-radius: 4px; cursor: pointer; position: relative; }
         .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
         .boss-card.done { opacity: 0.4; filter: grayscale(1); }
 
@@ -48,9 +45,9 @@
 
         .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
         
-        /* Container de imagem com tamanho fixo reserva o espaço no layout */
-        .img-box { width: 55px; height: 55px; background: #1a1a1a; border: 1px solid #333; flex-shrink: 0; overflow: hidden; }
-        .boss-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        /* BLOCOS DE IMAGEM: Reserva o espaço mesmo se a imagem falhar */
+        .img-box { width: 55px; height: 55px; background: #1a1a1a; border: 1px solid #333; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .boss-img { width: 100%; height: 100%; object-fit: cover; }
 
         .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
         .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; }
@@ -58,7 +55,7 @@
         .items-container { display: none; padding: 15px; background: #0a0a0a; border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; }
         .boss-card.expanded .items-container { display: flex !important; }
         
-        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #444; border-radius: 4px; overflow: hidden; }
+        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
         .item-img { width: 100%; height: 100%; object-fit: contain; }
 
         .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 180px; height: fit-content; border-radius: 4px; }
@@ -110,8 +107,8 @@
     <footer class="footer">MKguren - MIR4 Tracker</footer>
 
     <script>
-        // SOLUÇÃO DE GARANTIA: Usando jsDelivr como Proxy para burlar bloqueios do GitHub e Cache viciado
-        const CDN_BASE = "https://cdn.jsdelivr.net/gh/Mkguren/MIR4-Boss-Tracker@main/";
+        // Utilizando jsDelivr para garantir que os arquivos cheguem sem bloqueio de rede
+        const BASE = "https://cdn.jsdelivr.net/gh/Mkguren/MIR4-Boss-Tracker@main/";
 
         const bosses = [
             {id:'b1', n:'1. Larva da água do dragão celeste', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
@@ -159,7 +156,7 @@
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
                             <div class="img-box">
-                                <img src="${CDN_BASE}img/bosses/${b.img}" class="boss-img" onerror="this.src='https://via.placeholder.com/55/222?text=?'">
+                                <img src="${BASE}img/bosses/${b.img}" class="boss-img" onerror="this.style.display='none'">
                             </div>
                             <div>
                                 <span class="boss-name">${b.n}</span>
@@ -169,7 +166,7 @@
                         <div class="items-container">
                             ${b.items.map(i => `
                                 <div class="item-box">
-                                    <img src="${CDN_BASE}img/craft/${i}" class="item-img" onerror="this.src='https://via.placeholder.com/45/222?text=?'">
+                                    <img src="${BASE}img/craft/${i}" class="item-img" onerror="this.style.display='none'">
                                 </div>
                             `).join('')}
                         </div>
@@ -188,7 +185,7 @@
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
                 document.getElementById('p-loc').innerText = `NPC: ${boss.npc}\nMAPA: ${boss.loc}`;
-                document.getElementById('p-map').innerHTML = `<img src="${CDN_BASE}img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='Sem Mapa'">`;
+                document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='Sem Mapa'">`;
             }
         }
 
