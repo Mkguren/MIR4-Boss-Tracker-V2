@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
-        /* Scrollbar Personalizada */
+        /* Estilização da Scrollbar */
         *::-webkit-scrollbar { width: 6px; }
         *::-webkit-scrollbar-thumb { background: #ff9800; border-radius: 10px; }
         *::-webkit-scrollbar-track { background: #1a1a1a; }
+        
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
@@ -48,7 +49,6 @@
             .side-panel { width: 100% !important; max-width: 320px !important; position: static !important; }
         }
 
-        /* CARD */
         .boss-card {
             width: 320px; background: #111; border: 1px solid #222;
             border-left: 5px solid #333; border-radius: 4px; cursor: pointer;
@@ -70,26 +70,13 @@
         .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
         .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; }
 
-        /* ITENS - CORRIGIDO */
         .items-container { 
-            display: none; 
-            padding: 15px; 
-            background: #0a0a0a; 
-            border-top: 1px solid #222; 
-            flex-wrap: wrap; 
-            gap: 12px; 
-            width: 100%;
+            display: none; padding: 15px; background: #0a0a0a; 
+            border-top: 1px solid #222; flex-wrap: wrap; gap: 12px; width: 100%;
         }
         .boss-card.expanded .items-container { display: flex !important; }
-        .item-img { 
-            width: 45px; height: 45px; 
-            border: 1px solid #444; 
-            border-radius: 4px; 
-            background: #1a1a1a;
-            display: block;
-        }
+        .item-img { width: 45px; height: 45px; border: 1px solid #444; border-radius: 4px; background: #1a1a1a; display: block; }
 
-        /* PAINEL */
         .side-panel {
             width: 380px; background: #111; border: 1px solid #222;
             position: sticky; top: 20px; height: fit-content; border-radius: 4px;
@@ -108,7 +95,7 @@
 <body>
 
     <header class="main-header">
-        <h1 style="margin:0; font-size: 20px; letter-spacing: 1px; color: #ff9800;">MIR4 BOSS TRACKER</h1>
+        <h1 style="margin:0; font-size: 20px; color: #ff9800;">MIR4 BOSS TRACKER</h1>
     </header>
 
     <div class="controls-area">
@@ -116,18 +103,18 @@
             <a href="index.html" class="nav-btn btn-inactive">BOSSES DE CAMPO</a>
             <a href="Summonboss.html" class="nav-btn btn-active">INVOCAÇÃO</a>
         </div>
-        <input type="text" class="search-bar" id="search" placeholder="Filtrar por nome ou item..." onkeyup="filter()">
-        <div class="filter-container">
-            <button class="f-btn active" onclick="setMap('all', this)">TUDO</button>
-            <button class="f-btn" onclick="setMap('cmc', this)">MC</button>
-            <button class="f-btn" onclick="setMap('c3m2', this)">C3-M2</button>
-            <button class="f-btn" onclick="setMap('c3m3', this)">C3-M3</button>
-            <button class="f-btn" onclick="setMap('c3m4', this)">C3-M4</button>
-            <button class="f-btn" onclick="setMap('c3m5', this)">C3-M5</button>
-            <button class="f-btn" onclick="setMap('c3m6', this)">C3-M6</button>
-            <button class="f-btn" onclick="setMap('c3m7', this)">C3-M7</button>
-            <button class="f-btn" onclick="setMap('c3m8', this)">C3-M8</button>
-            <button class="f-btn" onclick="setMap('c1m1', this)">155+</button>
+        <input type="text" class="search-bar" id="search" placeholder="Filtrar por nome ou item..." oninput="filter()">
+        <div class="filter-container" id="filter-btns">
+            <button class="f-btn active" data-map="all">TUDO (33)</button>
+            <button class="f-btn" data-map="cmc">MC</button>
+            <button class="f-btn" data-map="c3m2">C3-M2</button>
+            <button class="f-btn" data-map="c3m3">C3-M3</button>
+            <button class="f-btn" data-map="c3m4">C3-M4</button>
+            <button class="f-btn" data-map="c3m5">C3-M5</button>
+            <button class="f-btn" data-map="c3m6">C3-M6</button>
+            <button class="f-btn" data-map="c3m7">C3-M7</button>
+            <button class="f-btn" data-map="c3m8">C3-M8</button>
+            <button class="f-btn" data-map="c1m1">155+</button>
             <button style="background:#600; color:#fff; border:none; padding:6px 10px; cursor:pointer; border-radius:3px; font-size:10px;" onclick="resetChecks()">RESET</button>
         </div>
     </div>
@@ -143,7 +130,7 @@
         </aside>
     </main>
 
-    <footer class="footer">MKguren - Fan Project</footer>
+    <footer class="footer">MKguren - MIR4 Tracker</footer>
 
     <script>
         const bosses = [
@@ -182,6 +169,8 @@
             {id:'b33', n:'33. Grandor', m:'c1m1', npc:'Su Seunghyeon', loc:'Riacho', items:['item_fragmento_caos.webp'], img:'c2_grandor.webp'}
         ];
 
+        let currentMapFilter = 'all';
+
         function render() {
             const lb = document.getElementById('lb');
             lb.innerHTML = bosses.map(b => `
@@ -189,11 +178,11 @@
                     <div class="boss-card" id="${b.id}" onclick="handleCardClick('${b.id}')">
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
-                            <img src="img/bosses/${b.img}" class="boss-img">
+                            <img src="img/bosses/${b.img}" class="boss-img" loading="lazy">
                             <div><span class="boss-name">${b.n}</span><span class="local-info">${b.loc}</span></div>
                         </div>
                         <div class="items-container">
-                            ${b.items.map(i => `<img src="img/craft/${i}" class="item-img">`).join('')}
+                            ${b.items.map(i => `<img src="img/craft/${i}" class="item-img" loading="lazy">`).join('')}
                         </div>
                     </div>
                 </div>
@@ -205,14 +194,12 @@
             const card = document.getElementById(id);
             const boss = bosses.find(x => x.id === id);
             const isExpanded = card.classList.contains('expanded');
-            
             document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('expanded'));
-            
             if(!isExpanded) {
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
                 document.getElementById('p-loc').innerText = `LOCALIZAÇÃO: ${boss.loc}\nNPC: ${boss.npc}`;
-                document.getElementById('p-map').innerHTML = `<img src="img/mapas/${id}.jpg">`;
+                document.getElementById('p-map').innerHTML = `<img src="img/mapas/${id}.jpg" loading="lazy">`;
             }
         }
 
@@ -220,17 +207,20 @@
             const q = document.getElementById('search').value.toLowerCase();
             document.querySelectorAll('.boss-item').forEach(item => {
                 const name = item.querySelector('.boss-name').innerText.toLowerCase();
-                item.style.display = name.includes(q) ? 'block' : 'none';
+                const matchesMap = currentMapFilter === 'all' || item.dataset.map === currentMapFilter;
+                const matchesSearch = name.includes(q);
+                item.style.display = (matchesMap && matchesSearch) ? 'block' : 'none';
             });
         }
 
-        function setMap(map, btn) {
-            document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.boss-item').forEach(item => {
-                item.style.display = (map === 'all' || item.dataset.map === map) ? 'block' : 'none';
-            });
-        }
+        document.getElementById('filter-btns').addEventListener('click', (e) => {
+            if(e.target.classList.contains('f-btn')) {
+                document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentMapFilter = e.target.dataset.map;
+                filter();
+            }
+        });
 
         function toggleDone(e, id) {
             e.stopPropagation();
