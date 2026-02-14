@@ -40,7 +40,7 @@
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
 
-        /* Container de busca centralizado e compacto */
+        /* Container de busca centralizado e compacto conforme solicitado */
         .search-container { 
             display: flex; 
             gap: 5px; 
@@ -140,7 +140,8 @@
 </footer>
 
 <script>
-    var ctx=null;function itA(){if(!ctx)ctx=new(AudioContext||webkitAudioContext)()}
+    var ctx=null;
+    function itA(){if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)()}
     function bp(){if(!ctx)return;var o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=800;g.gain.setValueAtTime(.1,ctx.currentTime);o.start();o.stop(ctx.currentTime+.3)}
     
     var ds=[
