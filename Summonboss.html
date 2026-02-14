@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
-        /* Scrollbar Laranja */
+        /* Scrollbar Personalizada */
         *::-webkit-scrollbar { width: 6px; }
         *::-webkit-scrollbar-thumb { background: #ff9800; border-radius: 10px; }
         *::-webkit-scrollbar-track { background: #1a1a1a; }
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: #000; color: #ddd; font-family: Arial, sans-serif;
+            background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0; padding-bottom: 60px; min-height: 100vh;
             display: flex; flex-direction: column;
         }
@@ -28,7 +28,7 @@
         .nav-menu { display: flex; gap: 10px; }
         .nav-btn {
             width: 140px; text-align: center; font-size: 11px; font-weight: bold;
-            padding: 10px; border-radius: 4px; cursor: pointer; text-decoration: none;
+            padding: 10px; border-radius: 4px; cursor: pointer; text-decoration: none; transition: 0.3s;
         }
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
@@ -41,64 +41,74 @@
         .f-btn.active { background: #ff9800; color: #000; border-color: #ff9800; }
 
         .main-content { display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; flex: 1; }
-
-        .boss-list { display: grid; grid-template-columns: repeat(2, 320px); gap: 15px; }
+        .boss-list { display: grid; grid-template-columns: repeat(2, 320px); gap: 15px; align-content: start; }
 
         @media (max-width: 1080px) {
             .boss-list { grid-template-columns: 1fr; }
-            .side-panel { width: 320px !important; position: static !important; }
+            .side-panel { width: 100% !important; max-width: 320px !important; position: static !important; }
         }
 
-        /* CARD DO BOSS */
+        /* CARD */
         .boss-card {
             width: 320px; background: #111; border: 1px solid #222;
             border-left: 5px solid #333; border-radius: 4px; cursor: pointer;
-            overflow: hidden; position: relative; transition: 0.3s;
+            overflow: hidden; position: relative; transition: 0.2s;
         }
-        .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
+        .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; background: #151515; }
         .boss-card.done { opacity: 0.3; filter: grayscale(1); }
 
         .check-done {
             position: absolute; top: 10px; right: 10px;
-            width: 22px; height: 22px; border: 1px solid #444; background: #000;
-            border-radius: 3px; display: flex; align-items: center; justify-content: center; z-index: 10;
+            width: 24px; height: 24px; border: 1px solid #444; background: #000;
+            border-radius: 4px; display: flex; align-items: center; justify-content: center; z-index: 10;
         }
         .done .check-done { background: #ff9800; border-color: #ff9800; }
         .done .check-done::after { content: '✓'; color: #000; font-weight: bold; }
 
-        .boss-header { padding: 12px; display: flex; align-items: center; gap: 10px; }
-        .boss-img { width: 52px; height: 52px; border: 1px solid #222; background: #000; object-fit: cover; }
-        .boss-name { font-weight: bold; font-size: 12px; color: #fff; display: block; }
-        .local-info { font-size: 10px; color: #ff9800; margin-top: 3px; }
+        .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
+        .boss-img { width: 55px; height: 55px; border: 1px solid #333; background: #000; object-fit: cover; border-radius: 2px; }
+        .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
+        .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; }
 
-        /* ITENS DE CRAFT */
+        /* ITENS - CORRIGIDO */
         .items-container { 
-            display: none; padding: 12px; background: #080808; 
-            border-top: 1px solid #222; flex-wrap: wrap; gap: 10px; 
+            display: none; 
+            padding: 15px; 
+            background: #0a0a0a; 
+            border-top: 1px solid #222; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            width: 100%;
         }
         .boss-card.expanded .items-container { display: flex !important; }
-        .item-img { width: 42px; height: 42px; border: 1px solid #333; border-radius: 4px; background: #111; }
+        .item-img { 
+            width: 45px; height: 45px; 
+            border: 1px solid #444; 
+            border-radius: 4px; 
+            background: #1a1a1a;
+            display: block;
+        }
 
-        /* PAINEL LATERAL */
+        /* PAINEL */
         .side-panel {
             width: 380px; background: #111; border: 1px solid #222;
             position: sticky; top: 20px; height: fit-content; border-radius: 4px;
         }
         .panel-header { padding: 15px; border-bottom: 1px solid #222; }
-        .map-container { width: 100%; min-height: 300px; background: #000; display: flex; align-items: center; justify-content: center; }
-        .map-container img { width: 100%; }
+        .map-container { width: 100%; min-height: 300px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .map-container img { width: 100%; height: auto; display: block; }
 
         .footer {
             position: fixed; bottom: 0; width: 100%; height: 40px;
             background: #111; border-top: 1px solid #222;
-            display: flex; align-items: center; justify-content: center; font-size: 11px; color: #666;
+            display: flex; align-items: center; justify-content: center; font-size: 11px; color: #555;
         }
     </style>
 </head>
 <body>
 
     <header class="main-header">
-        <h1 style="margin:0; font-size: 20px; color: #ff9800;">MIR4 BOSS TRACKER</h1>
+        <h1 style="margin:0; font-size: 20px; letter-spacing: 1px; color: #ff9800;">MIR4 BOSS TRACKER</h1>
     </header>
 
     <div class="controls-area">
@@ -106,9 +116,9 @@
             <a href="index.html" class="nav-btn btn-inactive">BOSSES DE CAMPO</a>
             <a href="Summonboss.html" class="nav-btn btn-active">INVOCAÇÃO</a>
         </div>
-        <input type="text" class="search-bar" id="search" placeholder="Buscar boss ou item..." onkeyup="filter()">
+        <input type="text" class="search-bar" id="search" placeholder="Filtrar por nome ou item..." onkeyup="filter()">
         <div class="filter-container">
-            <button class="f-btn active" onclick="setMap('all', this)">TUDO (33)</button>
+            <button class="f-btn active" onclick="setMap('all', this)">TUDO</button>
             <button class="f-btn" onclick="setMap('cmc', this)">MC</button>
             <button class="f-btn" onclick="setMap('c3m2', this)">C3-M2</button>
             <button class="f-btn" onclick="setMap('c3m3', this)">C3-M3</button>
@@ -118,7 +128,7 @@
             <button class="f-btn" onclick="setMap('c3m7', this)">C3-M7</button>
             <button class="f-btn" onclick="setMap('c3m8', this)">C3-M8</button>
             <button class="f-btn" onclick="setMap('c1m1', this)">155+</button>
-            <button style="background:#900; color:#fff; border:none; padding:6px; cursor:pointer; border-radius:3px; font-size:10px;" onclick="resetChecks()">RESET</button>
+            <button style="background:#600; color:#fff; border:none; padding:6px 10px; cursor:pointer; border-radius:3px; font-size:10px;" onclick="resetChecks()">RESET</button>
         </div>
     </div>
 
@@ -133,44 +143,43 @@
         </aside>
     </main>
 
-    <footer class="footer">MKguren - MIR4 Fan Tool</footer>
+    <footer class="footer">MKguren - Fan Project</footer>
 
     <script>
-        // Removi as extensões dos nomes para bater com o que vi no seu repositório
         const bosses = [
-            {id:'b1', n:'1. Larva da água', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa','item_tesouro_floresta'], img:'mc_larva_centopeia'},
-            {id:'b2', n:'2. Zhang liang', m:'c3m2', npc:'Seocheon', loc:'Feitoria Seocheon', items:['item_feitoria_1'], img:'m2_seocheon'},
-            {id:'b3', n:'3. Zhang bao', m:'c3m2', npc:'Seocheon', loc:'Montanha de lunula', items:['item_japamala_1'], img:'m2_montanha'},
-            {id:'b4', n:'4. Caminho do emaranhado', m:'c3m2', npc:'Seocheon', loc:'Caminho Twinway', items:['item_flor_morta'], img:'m2_twinway'},
-            {id:'b5', n:'5. Rei dos touros malvados', m:'c3m2', npc:'Seocheon', loc:'Campo de Seocheon', items:['item_porco_martelo'], img:'m2_touro'},
-            {id:'b6', n:'6. Urungka', m:'c3m3', npc:'Hyeokjun', loc:'Necropole nefariox', items:['item_casco_tatu'], img:'m3_tatu'},
-            {id:'b7', n:'7. Kaya', m:'c3m3', npc:'Hyeokjun', loc:'Planicie da viboras', items:['item_ornamento_soldado'], img:'m3_planicia_kaya'},
-            {id:'b8', n:'8. Covil do Tatu sombrio', m:'c3m3', npc:'Hyeokjun', loc:'Covil do tatu sombrio', items:['item_flor_morta'], img:'m3_covil_tatu'},
-            {id:'b9', n:'9. Espectro do Osso de Aço', m:'c3m3', npc:'Hyeokjun', loc:'Espectro do Osso', items:['item_flor_morta'], img:'m3_espectro'},
-            {id:'b10', n:'10. Majestoso Nefariox', m:'c3m4', npc:'Dangpo', loc:'Sabuk', items:['item_valor_saqueado'], img:'m4_sabuk_tesouro_dourado'},
-            {id:'b11', n:'11. Santidade Sonido', m:'c3m4', npc:'Dangpo', loc:'Paraíso das Espadas', items:['item_pedra_trovao'], img:'m4_paraiso_trovejante_nefariox'},
-            {id:'b12', n:'12. Santidade Draco', m:'c3m4', npc:'Karungka', loc:'Paraíso das Espadas', items:['item_sangue_nefariox'], img:'m4_paraiso_sangue_contaminado'},
-            {id:'b13', n:'13. Monge de sangue negro', m:'c3m4', npc:'Dangpo', loc:'Masmorra Monge', items:['item_passaro_vermelho'], img:'m4_monge'},
-            {id:'b14', n:'14. Flauta consoladora', m:'c3m5', npc:'Gufa', loc:'Campo de Gelo', items:['item_bambu_magico'], img:'m5_flauta_consoladora'},
-            {id:'b15', n:'15. Ruina do Demonio', m:'c3m5', npc:'Gufa', loc:'Ruína do Demônio', items:['item_fruta_milenar'], img:'m5_ruina'},
-            {id:'b16', n:'16. Demonio Aracnideo', m:'c3m5', npc:'Gufa', loc:'Demônio Aracnídeo', items:['item_tomo_do_culto'], img:'m5_aranha'},
-            {id:'b17', n:'17. Templo ilusorio', m:'c3m5', npc:'Criação', loc:'Templo Ilusório', items:['item_casco_tatu'], img:'m5_templo'},
-            {id:'b18', n:'18. Hangga', m:'c3m6', npc:'Gyeongbin', loc:'Labirinto hangga', items:['item_lingote'], img:'m6_hangga'},
-            {id:'b19', n:'19. Jo Gyu', m:'c3m6', npc:'Gyeongbin', loc:'Jo Gyu', items:['item_grande_centopeia'], img:'m6_jogyu'},
-            {id:'b20', n:'20. Demonio da Mina', m:'c3m6', npc:'Gyeongbin', loc:'Mina Demoníaca', items:['item_cristal_mana'], img:'m6_mina'},
-            {id:'b21', n:'21. Grande Centopeia', m:'c3m6', npc:'Gyeongbin', loc:'Grande Centopeia', items:['item_flor_morta'], img:'m6_centopeia'},
-            {id:'b22', n:'22. Lobo fantasmagorico', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_lobo_lunula_1'], img:'m7_lunula_lobo_fantasma'},
-            {id:'b23', n:'23. Poderoso demonio', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_berrante_lunula'], img:'m7_lunula_demonio_de_sangue'},
-            {id:'b24', n:'24. Prisão subterranea', m:'c3m7', npc:'Buman', loc:'Prisão', items:['item_tartaruga_negra'], img:'m7_prisao'},
-            {id:'b25', n:'25. Rainha das víboras', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_folha_milenar'], img:'m8_pakua_rainha_viboras'},
-            {id:'b26', n:'26. Arahan', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_estatua_porco'], img:'m8_pakua_arahan'},
-            {id:'b27', n:'27. Gok Danhwa', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_trovao_celeste'], img:'m8_mina_faccao_trovao'},
-            {id:'b28', n:'28. Gok Muyeop', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_divindade_terrestre'], img:'m8_mina_faccao_terrestre'},
-            {id:'b29', n:'29. Espectro carmesim', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_flauta_bambu'], img:'m8_mina_primeiro_anciao'},
-            {id:'b30', n:'30. Songkwang', m:'c1m1', npc:'Heojeong', loc:'Sete Vales', items:['item_ombreira_yaksha'], img:'c1_songkwang'},
-            {id:'b31', n:'31. Porung', m:'c1m1', npc:'Heojeong', loc:'Ilha Fogo', items:['item_japamala_2'], img:'c1_porung'},
-            {id:'b32', n:'32. Kang Muhyeon', m:'c1m1', npc:'Su Seunghyeon', loc:'Dragão Noveno', items:['item_pedace_gelo'], img:'c2_kangmuhyeon'},
-            {id:'b33', n:'33. Grandor', m:'c1m1', npc:'Su Seunghyeon', loc:'Riacho', items:['item_fragmento_caos'], img:'c2_grandor'}
+            {id:'b1', n:'1. Larva da água do dragão celeste', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
+            {id:'b2', n:'2. Zhang liang', m:'c3m2', npc:'Seocheon', loc:'Feitoria Seocheon', items:['item_feitoria_1.webp'], img:'m2_seocheon.webp'},
+            {id:'b3', n:'3. Zhang bao', m:'c3m2', npc:'Seocheon', loc:'Montanha de lunula', items:['item_japamala_1.webp'], img:'m2_montanha.webp'},
+            {id:'b4', n:'4. Caminho do emaranhado', m:'c3m2', npc:'Seocheon', loc:'Caminho Twinway', items:['item_flor_morta.webp'], img:'m2_twinway.webp'},
+            {id:'b5', n:'5. Rei dos touros malvados', m:'c3m2', npc:'Seocheon', loc:'Campo de Seocheon', items:['item_porco_martelo.webp'], img:'m2_touro.webp'},
+            {id:'b6', n:'6. Urungka', m:'c3m3', npc:'Hyeokjun', loc:'Necropole nefariox', items:['item_casco_tatu.webp'], img:'m3_tatu.webp'},
+            {id:'b7', n:'7. Kaya', m:'c3m3', npc:'Hyeokjun', loc:'Planicie da viboras', items:['item_ornamento_soldado.webp'], img:'m3_planicia_kaya.webp'},
+            {id:'b8', n:'8. Covil do Tatu sombrio', m:'c3m3', npc:'Hyeokjun', loc:'Covil do tatu sombrio', items:['item_flor_morta.webp'], img:'m3_covil_tatu.webp'},
+            {id:'b9', n:'9. Espectro do Osso de Aço', m:'c3m3', npc:'Hyeokjun', loc:'Espectro do Osso', items:['item_flor_morta.webp'], img:'m3_espectro.webp'},
+            {id:'b10', n:'10. Majestoso Nefariox', m:'c3m4', npc:'Dangpo', loc:'Sabuk', items:['item_valor_saqueado.webp'], img:'m4_sabuk_tesouro_dourado.webp'},
+            {id:'b11', n:'11. Santidade Sonido Trovejante', m:'c3m4', npc:'Dangpo', loc:'Paraíso das Espadas', items:['item_pedra_trovao.webp'], img:'m4_paraiso_trovejante_nefariox.webp'},
+            {id:'b12', n:'12. Santidade Draco Divina', m:'c3m4', npc:'Karungka', loc:'Paraíso das Espadas', items:['item_sangue_nefariox.webp'], img:'m4_paraiso_sangue_contaminado.webp'},
+            {id:'b13', n:'13. Monge de sangue negro', m:'c3m4', npc:'Dangpo', loc:'Masmorra Monge', items:['item_passaro_vermelho.webp'], img:'m4_monge.webp'},
+            {id:'b14', n:'14. Flauta consoladora', m:'c3m5', npc:'Gufa', loc:'Campo de Gelo', items:['item_bambu_magico.webp'], img:'m5_flauta_consoladora.webp'},
+            {id:'b15', n:'15. Ruina do Demonio', m:'c3m5', npc:'Gufa', loc:'Ruína do Demônio', items:['item_fruta_milenar.webp'], img:'m5_ruina.webp'},
+            {id:'b16', n:'16. Demonio Aracnideo', m:'c3m5', npc:'Gufa', loc:'Demônio Aracnídeo', items:['item_tomo_do_culto.webp'], img:'m5_aranha.webp'},
+            {id:'b17', n:'17. Templo ilusorio', m:'c3m5', npc:'Criação', loc:'Templo Ilusório', items:['item_casco_tatu.webp'], img:'m5_templo.webp'},
+            {id:'b18', n:'18. Hangga', m:'c3m6', npc:'Gyeongbin', loc:'Labirinto hangga', items:['item_lingote.webp'], img:'m6_hangga.webp'},
+            {id:'b19', n:'19. Jo Gyu', m:'c3m6', npc:'Gyeongbin', loc:'Jo Gyu', items:['item_grande_centopeia.webp'], img:'m6_jogyu.webp'},
+            {id:'b20', n:'20. Demonio da Mina', m:'c3m6', npc:'Gyeongbin', loc:'Mina Demoníaca', items:['item_cristal_mana.webp'], img:'m6_mina.webp'},
+            {id:'b21', n:'21. Grande Centopeia', m:'c3m6', npc:'Gyeongbin', loc:'Grande Centopeia', items:['item_flor_morta.webp'], img:'m6_centopeia.webp'},
+            {id:'b22', n:'22. Lobo fantasmagorico', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_lobo_lunula_1.webp'], img:'m7_lunula_lobo_fantasma.webp'},
+            {id:'b23', n:'23. Poderoso demonio', m:'c3m7', npc:'Braço Direito', loc:'Lunula', items:['item_berrante_lunula.webp'], img:'m7_lunula_demonio_de_sangue.webp'},
+            {id:'b24', n:'24. Prisão subterranea', m:'c3m7', npc:'Buman', loc:'Prisão', items:['item_tartaruga_negra.webp'], img:'m7_prisao.webp'},
+            {id:'b25', n:'25. Rainha das víboras', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_folha_milenar.webp'], img:'m8_pakua_rainha_viboras.webp'},
+            {id:'b26', n:'26. Arahan', m:'c3m8', npc:'Buman', loc:'Salão de Pakua', items:['item_estatua_porco.webp'], img:'m8_pakua_arahan.webp'},
+            {id:'b27', n:'27. Gok Danhwa', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_trovao_celeste.webp'], img:'m8_mina_faccao_trovao.webp'},
+            {id:'b28', n:'28. Gok Muyeop', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_divindade_terrestre.webp'], img:'m8_mina_faccao_terrestre.webp'},
+            {id:'b29', n:'29. Espectro carmesim', m:'c3m8', npc:'Yong Munki', loc:'Mina Abandonada', items:['item_flauta_bambu.webp'], img:'m8_mina_primeiro_anciao.webp'},
+            {id:'b30', n:'30. Songkwang', m:'c1m1', npc:'Heojeong', loc:'Sete Vales', items:['item_ombreira_yaksha.webp'], img:'c1_songkwang.webp'},
+            {id:'b31', n:'31. Porung', m:'c1m1', npc:'Heojeong', loc:'Ilha Fogo', items:['item_japamala_2.webp'], img:'c1_porung.webp'},
+            {id:'b32', n:'32. Kang Muhyeon', m:'c1m1', npc:'Su Seunghyeon', loc:'Dragão Noveno', items:['item_pedace_gelo.webp'], img:'c2_kangmuhyeon.webp'},
+            {id:'b33', n:'33. Grandor', m:'c1m1', npc:'Su Seunghyeon', loc:'Riacho', items:['item_fragmento_caos.webp'], img:'c2_grandor.webp'}
         ];
 
         function render() {
@@ -180,11 +189,11 @@
                     <div class="boss-card" id="${b.id}" onclick="handleCardClick('${b.id}')">
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
-                            <img src="./img/bosses/${b.img}" class="boss-img" onerror="tryNext(this, '.webp')">
+                            <img src="img/bosses/${b.img}" class="boss-img">
                             <div><span class="boss-name">${b.n}</span><span class="local-info">${b.loc}</span></div>
                         </div>
                         <div class="items-container">
-                            ${b.items.map(i => `<img src="./img/craft/${i}" class="item-img" onerror="tryNext(this, '.webp')">`).join('')}
+                            ${b.items.map(i => `<img src="img/craft/${i}" class="item-img">`).join('')}
                         </div>
                     </div>
                 </div>
@@ -192,25 +201,18 @@
             loadChecks();
         }
 
-        // FUNÇÃO PARA TENTAR EXTENSÕES AUTOMATICAMENTE
-        function tryNext(img, ext) {
-            if (!img.src.includes(ext)) {
-                img.src = img.src + ext;
-            } else if (ext === '.webp') {
-                img.onerror = () => { img.src = img.src.replace('.webp', '.png'); img.onerror = null; };
-            }
-        }
-
         function handleCardClick(id) {
             const card = document.getElementById(id);
             const boss = bosses.find(x => x.id === id);
             const isExpanded = card.classList.contains('expanded');
+            
             document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('expanded'));
+            
             if(!isExpanded) {
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
                 document.getElementById('p-loc').innerText = `LOCALIZAÇÃO: ${boss.loc}\nNPC: ${boss.npc}`;
-                document.getElementById('p-map').innerHTML = `<img src="./img/mapas/${id}.jpg" onerror="this.src='./img/mapas/${id}.png'">`;
+                document.getElementById('p-map').innerHTML = `<img src="img/mapas/${id}.jpg">`;
             }
         }
 
