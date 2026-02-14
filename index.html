@@ -17,7 +17,7 @@
             color: #ddd;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding-bottom: 80px; /* Espaço para o footer fixo */
+            padding-bottom: 80px; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -45,8 +45,10 @@
             padding: 10px; background: #000; border: 1px solid #333; 
             color: #fff; border-radius: 4px; font-size: 12px; outline: none; 
         }
-        input { flex: 2; }
-        select { flex: 1.5; cursor: pointer; }
+        
+        /* Ajuste de proporção: Busca maior, Horário menor */
+        input { flex: 3; } 
+        select { flex: 0.8; cursor: pointer; min-width: 100px; }
 
         .scroll { 
             flex: 1; width: 100%; max-width: 652px; 
