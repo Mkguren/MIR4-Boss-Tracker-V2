@@ -5,103 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
-        /* Estabilização de Layout */
+        /* CSS REVISADO PARA ESTABILIDADE TOTAL */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif;
-            padding-bottom: 60px; min-height: 100vh;
-        }
+        body { background: #000; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; padding-bottom: 60px; }
 
         .main-header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid #ff9800; }
         .controls-area { background: #111; padding: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #222; }
         
-        .search-bar {
-            width: 100%; max-width: 652px; padding: 12px;
-            background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none;
-        }
+        .search-bar { width: 100%; max-width: 652px; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; }
 
         .nav-menu { display: flex; gap: 10px; }
-        .nav-btn {
-            width: 140px; text-align: center; font-size: 11px; font-weight: bold;
-            padding: 10px; border-radius: 4px; cursor: pointer; text-decoration: none; transition: 0.3s;
-        }
+        .nav-btn { width: 140px; text-align: center; font-size: 11px; font-weight: bold; padding: 10px; border-radius: 4px; cursor: pointer; text-decoration: none; transition: 0.3s; }
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
 
         .filter-container { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
-        .f-btn {
-            padding: 6px 12px; border: 1px solid #333; font-size: 10px;
-            cursor: pointer; background: #111; color: #fff; border-radius: 3px;
-        }
+        .f-btn { padding: 6px 12px; border: 1px solid #333; font-size: 10px; cursor: pointer; background: #111; color: #fff; border-radius: 3px; }
         .f-btn.active { background: #ff9800; color: #000; border-color: #ff9800; }
 
-        /* Grid Corrigida para evitar buracos */
-        .main-content { 
-            display: flex; flex-direction: row; justify-content: center; 
-            gap: 20px; padding: 20px; flex-wrap: wrap; 
-        }
-        
+        /* GRID FIXO - Impede que cards subam ou deixem buracos */
+        .main-content { display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; }
         .boss-list { 
             display: grid; 
             grid-template-columns: repeat(2, 320px); 
-            grid-auto-rows: min-content; /* Força os cards a ficarem juntos */
+            grid-auto-rows: max-content; 
             gap: 15px; 
+            min-height: 500px; /* Garante que a área não suma */
         }
 
         @media (max-width: 1080px) {
             .boss-list { grid-template-columns: 1fr; width: 100%; max-width: 320px; }
-            .side-panel { width: 100% !important; position: static !important; margin-top: 20px; }
+            .side-panel { width: 100% !important; position: static !important; }
         }
 
-        .boss-card {
-            width: 320px; background: #111; border: 1px solid #222;
-            border-left: 5px solid #333; border-radius: 4px; cursor: pointer;
-            overflow: hidden; position: relative; height: fit-content;
-        }
+        .boss-card { width: 320px; background: #111; border: 1px solid #222; border-left: 5px solid #333; border-radius: 4px; cursor: pointer; position: relative; height: fit-content; }
         .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
-        .boss-card.done { opacity: 0.4; filter: grayscale(0.8); }
+        .boss-card.done { opacity: 0.4; filter: grayscale(1); }
 
-        .check-done {
-            position: absolute; top: 10px; right: 10px;
-            width: 24px; height: 24px; border: 1px solid #444; background: #000;
-            border-radius: 4px; display: flex; align-items: center; justify-content: center; z-index: 5;
-        }
+        .check-done { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border: 1px solid #444; background: #000; border-radius: 4px; display: flex; align-items: center; justify-content: center; z-index: 5; }
         .done .check-done { background: #ff9800; border-color: #ff9800; }
         .done .check-done::after { content: '✓'; color: #000; font-weight: bold; }
 
         .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
         
-        /* Fix de tamanho para evitar que o card colapse sem imagem */
-        .img-box { width: 55px; height: 55px; background: #1a1a1a; border: 1px solid #333; flex-shrink: 0; }
-        .boss-img { width: 100%; height: 100%; object-fit: cover; }
+        /* Container de imagem com tamanho fixo reserva o espaço no layout */
+        .img-box { width: 55px; height: 55px; background: #1a1a1a; border: 1px solid #333; flex-shrink: 0; overflow: hidden; }
+        .boss-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
         .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; }
 
-        .items-container { 
-            display: none; padding: 15px; background: #0a0a0a; 
-            border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; width: 100%;
-        }
+        .items-container { display: none; padding: 15px; background: #0a0a0a; border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; }
         .boss-card.expanded .items-container { display: flex !important; }
         
-        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #444; border-radius: 4px; }
-        .item-img { width: 100%; height: 100%; }
+        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #444; border-radius: 4px; overflow: hidden; }
+        .item-img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Painel Lateral */
-        .side-panel {
-            width: 380px; background: #111; border: 1px solid #222;
-            position: sticky; top: 160px; height: fit-content; border-radius: 4px;
-        }
+        .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 180px; height: fit-content; border-radius: 4px; }
         .panel-header { padding: 15px; border-bottom: 1px solid #222; }
         .map-container { width: 100%; min-height: 300px; background: #000; display: flex; align-items: center; justify-content: center; }
         .map-container img { width: 100%; height: auto; display: block; }
 
-        .footer {
-            position: fixed; bottom: 0; width: 100%; height: 40px;
-            background: #111; border-top: 1px solid #222;
-            display: flex; align-items: center; justify-content: center; font-size: 11px; color: #555; z-index: 100;
-        }
+        .footer { position: fixed; bottom: 0; width: 100%; height: 40px; background: #111; border-top: 1px solid #222; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #555; z-index: 100; }
     </style>
 </head>
 <body>
@@ -145,8 +110,8 @@
     <footer class="footer">MKguren - MIR4 Tracker</footer>
 
     <script>
-        // URL RAW DIRETA PARA EVITAR BLOQUEIO DO GITHUB PAGES
-        const BASE = "https://raw.githubusercontent.com/Mkguren/MIR4-Boss-Tracker/main/";
+        // SOLUÇÃO DE GARANTIA: Usando jsDelivr como Proxy para burlar bloqueios do GitHub e Cache viciado
+        const CDN_BASE = "https://cdn.jsdelivr.net/gh/Mkguren/MIR4-Boss-Tracker@main/";
 
         const bosses = [
             {id:'b1', n:'1. Larva da água do dragão celeste', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
@@ -184,7 +149,7 @@
             {id:'b33', n:'33. Grandor', m:'c1m1', npc:'Su Seunghyeon', loc:'Riacho', items:['item_fragmento_caos.webp'], img:'c2_grandor.webp'}
         ];
 
-        let currentMap = 'all';
+        let curMap = 'all';
 
         function render() {
             const lb = document.getElementById('lb');
@@ -194,7 +159,7 @@
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
                             <div class="img-box">
-                                <img src="${BASE}img/bosses/${b.img}" class="boss-img">
+                                <img src="${CDN_BASE}img/bosses/${b.img}" class="boss-img" onerror="this.src='https://via.placeholder.com/55/222?text=?'">
                             </div>
                             <div>
                                 <span class="boss-name">${b.n}</span>
@@ -204,7 +169,7 @@
                         <div class="items-container">
                             ${b.items.map(i => `
                                 <div class="item-box">
-                                    <img src="${BASE}img/craft/${i}" class="item-img">
+                                    <img src="${CDN_BASE}img/craft/${i}" class="item-img" onerror="this.src='https://via.placeholder.com/45/222?text=?'">
                                 </div>
                             `).join('')}
                         </div>
@@ -218,14 +183,12 @@
             const card = document.getElementById(id);
             const boss = bosses.find(x => x.id === id);
             const isExpanded = card.classList.contains('expanded');
-            
             document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('expanded'));
-            
             if(!isExpanded) {
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
-                document.getElementById('p-loc').innerText = `NPC: ${boss.npc}\nLOCAL: ${boss.loc}`;
-                document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg">`;
+                document.getElementById('p-loc').innerText = `NPC: ${boss.npc}\nMAPA: ${boss.loc}`;
+                document.getElementById('p-map').innerHTML = `<img src="${CDN_BASE}img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='Sem Mapa'">`;
             }
         }
 
@@ -233,8 +196,8 @@
             const q = document.getElementById('search').value.toLowerCase();
             document.querySelectorAll('.boss-item').forEach(item => {
                 const name = item.querySelector('.boss-name').innerText.toLowerCase();
-                const m = item.getAttribute('data-map');
-                const matchesMap = currentMap === 'all' || m === currentMap;
+                const m = item.dataset.map;
+                const matchesMap = curMap === 'all' || m === curMap;
                 const matchesSearch = name.includes(q);
                 item.style.display = (matchesMap && matchesSearch) ? 'block' : 'none';
             });
@@ -244,7 +207,7 @@
             if(e.target.classList.contains('f-btn')) {
                 document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-                currentMap = e.target.getAttribute('data-map');
+                curMap = e.target.dataset.map;
                 filter();
             }
         });
@@ -266,7 +229,7 @@
         }
 
         function resetChecks() {
-            if(confirm("Resetar progresso?")) {
+            if(confirm("Resetar?")) {
                 bosses.forEach(b => {
                     localStorage.removeItem('mir4_sum_' + b.id);
                     const el = document.getElementById(b.id);
