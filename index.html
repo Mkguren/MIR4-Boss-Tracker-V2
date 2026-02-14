@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Bosses de Campo</title>
     <style>
-        /* Estilização Global */
         *::-webkit-scrollbar {width: 4px; height: 4px;}
         *::-webkit-scrollbar-thumb {background: #ff9800; border-radius: 10px;}
         *::-webkit-scrollbar-track {background: #1a1a1a;}
-        
         * { box-sizing: border-box; }
 
         body {
@@ -17,7 +15,7 @@
             color: #ddd;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding-bottom: 80px; 
+            padding-bottom: 60px; /* Espaço para o rodapé fixo */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -40,7 +38,6 @@
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
 
-        /* Container de busca centralizado e compacto conforme solicitado */
         .search-container { 
             display: flex; 
             gap: 5px; 
@@ -49,44 +46,14 @@
             justify-content: center;
         }
 
-        input { 
-            width: 250px; 
-            padding: 10px; 
-            background: #000; 
-            border: 1px solid #333; 
-            color: #fff; 
-            border-radius: 4px; 
-            font-size: 12px; 
-            outline: none; 
-        }
+        input { width: 250px; padding: 10px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 12px; outline: none; }
+        select { width: 110px; padding: 10px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; font-size: 12px; outline: none; cursor: pointer; }
 
-        select { 
-            width: 110px; 
-            padding: 10px; 
-            background: #000; 
-            border: 1px solid #333; 
-            color: #fff; 
-            border-radius: 4px; 
-            font-size: 12px; 
-            outline: none; 
-            cursor: pointer; 
-        }
-
-        .scroll { 
-            flex: 1; width: 100%; max-width: 652px; 
-            margin: 0 auto; padding: 20px; 
-        }
+        .scroll { flex: 1; width: 100%; max-width: 652px; margin: 0 auto; padding: 20px; }
         
-        .section-title { 
-            font-size: 10px; color: #ff9800; text-transform: uppercase; 
-            margin: 12px 0 5px 0; font-weight: bold; border-left: 2px solid #ff9800; padding-left: 5px; 
-        }
+        .section-title { font-size: 10px; color: #ff9800; text-transform: uppercase; margin: 12px 0 5px 0; font-weight: bold; border-left: 2px solid #ff9800; padding-left: 5px; }
 
-        .item { 
-            padding: 12px; background: #111; border: 1px solid #222;
-            border-left: 5px solid #333; margin-bottom: 12px; border-radius: 4px;
-        }
-        
+        .item { padding: 12px; background: #111; border: 1px solid #222; border-left: 5px solid #333; margin-bottom: 12px; border-radius: 4px; }
         .name { color: #fff; font-weight: bold; font-size: 13px; display: block; }
         .lvl-orange { color: #ff9800; font-weight: bold; }
         .loc { color: #777; font-size: 11px; display: block; margin-top: 4px; }
@@ -106,9 +73,19 @@
         .L155 { border-left-color: #f44336; }
 
         .footer { 
-            position: fixed; bottom: 0; width: 100%; padding: 12px;
-            background: #111; border-top: 1px solid #222;
-            text-align: center; font-size: 11px; z-index: 1000; color: #666;
+            position: fixed; 
+            bottom: 0; 
+            left: 0;
+            width: 100%; 
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111; 
+            border-top: 1px solid #222;
+            font-size: 11px; 
+            z-index: 1000; 
+            color: #666;
         }
     </style>
 </head>
