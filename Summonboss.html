@@ -21,13 +21,13 @@
         .f-btn { padding: 6px 12px; border: 1px solid #333; font-size: 10px; cursor: pointer; background: #111; color: #fff; border-radius: 3px; }
         .f-btn.active { background: #ff9800; color: #000; border-color: #ff9800; }
 
-        /* GRID ESTÁVEL: Impede que os cards flutuem ou deixem buracos */
+        /* GRID CORRIGIDO - Impede buracos e desalinhamento */
         .main-content { display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; align-items: flex-start; }
         .boss-list { 
             display: grid; 
             grid-template-columns: repeat(2, 320px); 
-            grid-auto-rows: min-content; 
-            gap: 15px; 
+            grid-auto-rows: max-content; 
+            gap: 15px;
         }
 
         @media (max-width: 1080px) {
@@ -35,7 +35,7 @@
             .side-panel { width: 100% !important; position: static !important; }
         }
 
-        .boss-card { width: 320px; background: #111; border: 1px solid #222; border-left: 5px solid #333; border-radius: 4px; cursor: pointer; position: relative; }
+        .boss-card { width: 320px; background: #111; border: 1px solid #222; border-left: 5px solid #333; border-radius: 4px; cursor: pointer; position: relative; height: fit-content; }
         .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
         .boss-card.done { opacity: 0.4; filter: grayscale(1); }
 
@@ -45,8 +45,8 @@
 
         .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
         
-        /* BLOCOS DE IMAGEM: Reserva o espaço mesmo se a imagem falhar */
-        .img-box { width: 55px; height: 55px; background: #1a1a1a; border: 1px solid #333; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        /* Travamento de tamanho para evitar colapso do layout */
+        .img-box { width: 55px; height: 55px; background: #1a1a1a; border: 1px solid #333; flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .boss-img { width: 100%; height: 100%; object-fit: cover; }
 
         .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
@@ -55,7 +55,7 @@
         .items-container { display: none; padding: 15px; background: #0a0a0a; border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; }
         .boss-card.expanded .items-container { display: flex !important; }
         
-        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+        .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #444; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .item-img { width: 100%; height: 100%; object-fit: contain; }
 
         .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 180px; height: fit-content; border-radius: 4px; }
@@ -107,8 +107,8 @@
     <footer class="footer">MKguren - MIR4 Tracker</footer>
 
     <script>
-        // Utilizando jsDelivr para garantir que os arquivos cheguem sem bloqueio de rede
-        const BASE = "https://cdn.jsdelivr.net/gh/Mkguren/MIR4-Boss-Tracker@main/";
+        // Link direto via CDN para evitar bloqueio de rede
+        const BASE = "https://cdn.jsdelivr.net/gh/Mkguren/MIR4-Boss-Tracker-V2@main/";
 
         const bosses = [
             {id:'b1', n:'1. Larva da água do dragão celeste', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
@@ -156,7 +156,7 @@
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
                             <div class="img-box">
-                                <img src="${BASE}img/bosses/${b.img}" class="boss-img" onerror="this.style.display='none'">
+                                <img src="${BASE}img/bosses/${b.img}" class="boss-img" onerror="this.style.opacity='0'">
                             </div>
                             <div>
                                 <span class="boss-name">${b.n}</span>
@@ -166,7 +166,7 @@
                         <div class="items-container">
                             ${b.items.map(i => `
                                 <div class="item-box">
-                                    <img src="${BASE}img/craft/${i}" class="item-img" onerror="this.style.display='none'">
+                                    <img src="${BASE}img/craft/${i}" class="item-img" onerror="this.style.opacity='0'">
                                 </div>
                             `).join('')}
                         </div>
@@ -184,8 +184,8 @@
             if(!isExpanded) {
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
-                document.getElementById('p-loc').innerText = `NPC: ${boss.npc}\nMAPA: ${boss.loc}`;
-                document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='Sem Mapa'">`;
+                document.getElementById('p-loc').innerText = `NPC: ${boss.npc}\nLOCAL: ${boss.loc}`;
+                document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" onerror="this.parentElement.innerHTML='Mapa Indisponível'">`;
             }
         }
 
@@ -226,7 +226,7 @@
         }
 
         function resetChecks() {
-            if(confirm("Resetar?")) {
+            if(confirm("Deseja resetar o progresso?")) {
                 bosses.forEach(b => {
                     localStorage.removeItem('mir4_sum_' + b.id);
                     const el = document.getElementById(b.id);
