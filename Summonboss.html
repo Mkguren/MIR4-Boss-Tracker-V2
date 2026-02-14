@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
+        /* Scrollbar Personalizada */
         *::-webkit-scrollbar { width: 6px; }
         *::-webkit-scrollbar-thumb { background: #ff9800; border-radius: 10px; }
         *::-webkit-scrollbar-track { background: #1a1a1a; }
@@ -47,6 +48,7 @@
             .side-panel { width: 100% !important; max-width: 320px !important; position: static !important; }
         }
 
+        /* CARD */
         .boss-card {
             width: 320px; background: #111; border: 1px solid #222;
             border-left: 5px solid #333; border-radius: 4px; cursor: pointer;
@@ -128,14 +130,12 @@
         </aside>
     </main>
 
-    <footer class="footer">MKguren - MIR4 Tracker</footer>
+    <footer class="footer">MKguren - Fan Project</footer>
 
     <script>
-        // Nomeando as pastas de forma constante para evitar erro de digitação
-        const PATH_BOSS = "img/bosses/";
-        const PATH_CRAFT = "img/craft/";
-        const PATH_MAPS = "img/mapas/";
-
+        // URL ABSOLUTA PARA GARANTIR CARREGAMENTO INDEPENDENTE DE CACHE DO PAGES
+        const BASE_URL = "https://raw.githubusercontent.com/Mkguren/MIR4-Boss-Tracker/main/";
+        
         const bosses = [
             {id:'b1', n:'1. Larva da água do dragão celeste', m:'cmc', npc:'Buman', loc:'Deserto Phantasia', items:['item_pipa.webp','item_tesouro_floresta.webp'], img:'mc_larva_centopeia.webp'},
             {id:'b2', n:'2. Zhang liang', m:'c3m2', npc:'Seocheon', loc:'Feitoria Seocheon', items:['item_feitoria_1.webp'], img:'m2_seocheon.webp'},
@@ -181,11 +181,11 @@
                     <div class="boss-card" id="${b.id}" onclick="handleCardClick('${b.id}')">
                         <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                         <div class="boss-header">
-                            <img src="${PATH_BOSS + b.img}" class="boss-img" loading="lazy">
+                            <img src="${BASE_URL}img/bosses/${b.img}" class="boss-img" loading="lazy">
                             <div><span class="boss-name">${b.n}</span><span class="local-info">${b.loc}</span></div>
                         </div>
                         <div class="items-container">
-                            ${b.items.map(i => `<img src="${PATH_CRAFT + i}" class="item-img" loading="lazy">`).join('')}
+                            ${b.items.map(i => `<img src="${BASE_URL}img/craft/${i}" class="item-img" loading="lazy">`).join('')}
                         </div>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                 card.classList.add('expanded');
                 document.getElementById('p-name').innerText = boss.n;
                 document.getElementById('p-loc').innerText = `LOCALIZAÇÃO: ${boss.loc}\nNPC: ${boss.npc}`;
-                document.getElementById('p-map').innerHTML = `<img src="${PATH_MAPS + id}.jpg" loading="lazy">`;
+                document.getElementById('p-map').innerHTML = `<img src="${BASE_URL}img/mapas/${id}.jpg" loading="lazy">`;
             }
         }
 
