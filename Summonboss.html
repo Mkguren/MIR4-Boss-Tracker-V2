@@ -6,79 +6,77 @@
     <title>MIR4 Boss Tracker - Invocação</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #000; color: #ddd; font-family: sans-serif; padding-bottom: 60px; }
+        body { background: #000; color: #ddd; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bottom: 60px; }
 
         .main-header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid #ff9800; }
         
+        /* CONTROLES RESTAURADOS */
         .controls-area { 
             background: #111; padding: 15px; display: flex; flex-direction: column; 
-            align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; 
+            align-items: center; gap: 15px; position: sticky; top: 0; z-index: 1000; 
             border-bottom: 1px solid #222; 
         }
         
         .search-bar { width: 100%; max-width: 652px; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; }
 
+        .button-group { display: flex; gap: 10px; }
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s; }
+        .btn-reset { background: #e53935; color: white; }
+        .btn-expand { background: #ff9800; color: black; }
+        
+        #counter { font-size: 13px; color: #ff9800; font-weight: bold; }
+
+        /* LAYOUT WEB - DUAS COLUNAS FIXAS */
         .main-content { display: flex; justify-content: center; align-items: flex-start; gap: 20px; padding: 20px; flex-wrap: wrap; }
         
         .boss-list { 
             display: flex; flex-wrap: wrap; gap: 15px; 
-            width: 660px; 
+            width: 660px; /* 320px * 2 + 20px gap */
             align-content: flex-start;
         }
 
+        /* CARD */
         .boss-card { 
-            width: 320px; 
-            min-height: 85px; 
-            background: #111; 
-            border: 1px solid #222; 
-            border-left: 5px solid #333; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            position: relative;
-            overflow: hidden;
+            width: 320px; min-height: 85px; background: #111; 
+            border: 1px solid #222; border-left: 5px solid #333; 
+            border-radius: 4px; cursor: pointer; position: relative;
         }
-        
-        /* CORREÇÃO DA EXPANSÃO */
-        .boss-card.expanded { border-color: #ff9800 !important; border-left-color: #ff9800 !important; }
+        .boss-card.expanded { border-color: #ff9800; border-left-color: #ff9800; }
         .boss-card.done { opacity: 0.3; filter: grayscale(1); }
 
         .check-done { 
-            position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; 
-            border: 1px solid #444; background: #000; border-radius: 4px; z-index: 5; 
-            display: flex; align-items: center; justify-content: center;
+            position: absolute; top: 12px; right: 12px; width: 22px; height: 22px; 
+            border: 1px solid #444; background: #000; border-radius: 4px; z-index: 10; 
         }
-        .done .check-done { background: #ff9800; }
-        .done .check-done::after { content: '✓'; color: #000; font-weight: bold; }
+        .done .check-done { background: #ff9800; border-color: #ff9800; }
+        .done .check-done::after { content: '✓'; color: #000; font-weight: bold; display: flex; justify-content: center; align-items: center; height: 100%; }
 
-        .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; height: 83px; }
+        .boss-header { padding: 12px; display: flex; align-items: center; gap: 12px; }
         .img-box { width: 55px; height: 55px; background: #1a1a1a; flex-shrink: 0; overflow: hidden; border-radius: 2px; }
         .boss-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .boss-name { font-weight: bold; font-size: 13px; color: #fff; display: block; }
+        .boss-name { font-weight: bold; font-size: 13px; color: #fff; }
         .local-info { font-size: 11px; color: #ff9800; margin-top: 4px; display: block; }
 
-        /* CORREÇÃO DOS ITENS: DISPLAY FLEX QUANDO EXPANDIDO */
+        /* ITENS DE CRAFT - GARANTIA DE EXIBIÇÃO */
         .items-container { 
-            display: none; 
-            padding: 10px; 
-            background: #080808; 
-            border-top: 1px solid #222; 
-            flex-wrap: wrap; 
-            gap: 8px; 
+            display: none; padding: 12px; background: #080808; 
+            border-top: 1px solid #222; flex-wrap: wrap; gap: 8px; 
         }
-        .expanded .items-container { display: flex !important; }
+        .boss-card.expanded .items-container { display: flex !important; }
         
         .item-box { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid #333; display: flex; align-items: center; justify-content: center; }
-        .item-img { width: 100%; height: 100%; object-fit: contain; }
+        .item-img { width: 32px; height: 32px; object-fit: contain; }
 
-        .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 150px; border-radius: 4px; overflow: hidden; }
+        /* PAINEL LATERAL */
+        .side-panel { width: 380px; background: #111; border: 1px solid #222; position: sticky; top: 180px; border-radius: 4px; }
         .panel-info { padding: 15px; border-bottom: 1px solid #222; }
         .map-container { width: 100%; min-height: 250px; background: #000; display: flex; align-items: center; justify-content: center; }
-        .map-container img { width: 100%; height: auto; }
+        .map-container img { width: 100%; height: auto; display: block; }
 
         @media (max-width: 1080px) {
-            .boss-list { width: 320px; }
-            .side-panel { width: 320px; position: static; margin-top: 20px; }
+            .boss-list { width: 100%; justify-content: center; }
+            .side-panel { width: 320px; position: static; margin: 20px auto; }
         }
     </style>
 </head>
@@ -87,7 +85,12 @@
     <header class="main-header"><h1 style="color: #ff9800; font-size: 20px;">MIR4 BOSS TRACKER</h1></header>
 
     <div class="controls-area">
-        <input type="text" class="search-bar" id="search" placeholder="Filtrar por nome..." oninput="filter()">
+        <input type="text" class="search-bar" id="search" placeholder="Buscar por nome ou item..." oninput="filter()">
+        <div class="button-group">
+            <button class="btn btn-expand" onclick="toggleAll()">Expandir/Recolher Tudo</button>
+            <button class="btn btn-reset" onclick="resetAll()">Limpar Progresso</button>
+        </div>
+        <div id="counter">Concluídos: 0 / 33</div>
     </div>
 
     <main class="main-content">
@@ -143,39 +146,25 @@
         function render() {
             const list = document.getElementById('lb');
             list.innerHTML = bosses.map(b => `
-                <div class="boss-card" id="${b.id}" onclick="handleCardClick('${b.id}')">
+                <div class="boss-card" id="${b.id}" onclick="toggleExpand('${b.id}')">
                     <div class="check-done" onclick="toggleDone(event, '${b.id}')"></div>
                     <div class="boss-header">
-                        <div class="img-box">
-                            <img src="${BASE}img/bosses/${b.img}" class="boss-img">
-                        </div>
-                        <div>
-                            <span class="boss-name">${b.n}</span>
-                            <span class="local-info">${b.loc}</span>
-                        </div>
+                        <div class="img-box"><img src="${BASE}img/bosses/${b.img}" class="boss-img"></div>
+                        <div><span class="boss-name">${b.n}</span><span class="local-info">${b.loc}</span></div>
                     </div>
                     <div class="items-container">
-                        ${b.items.map(item => `
-                            <div class="item-box">
-                                <img src="${BASE}img/craft/${item}" class="item-img">
-                            </div>
-                        `).join('')}
+                        ${b.items.map(item => `<div class="item-box"><img src="${BASE}img/craft/${item}" class="item-img"></div>`).join('')}
                     </div>
                 </div>
             `).join('');
-            loadStatus();
+            updateCounter();
         }
 
-        // FUNÇÃO DE CLIQUE REVISADA: ABRE, FECHA E ATUALIZA PAINEL
-        function handleCardClick(id) {
+        function toggleExpand(id) {
             const card = document.getElementById(id);
-            const isExpanded = card.classList.contains('expanded');
-            
-            // Fecha todos os outros
+            const isExp = card.classList.contains('expanded');
             document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('expanded'));
-            
-            // Se não estava aberto, abre este
-            if (!isExpanded) {
+            if(!isExp) {
                 card.classList.add('expanded');
                 updatePanel(id);
             }
@@ -185,30 +174,48 @@
             const b = bosses.find(x => x.id === id);
             document.getElementById('p-name').innerText = b.n;
             document.getElementById('p-loc').innerText = `NPC: ${b.npc}\nLOCAL: ${b.loc}`;
-            document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" alt="mapa">`;
+            document.getElementById('p-map').innerHTML = `<img src="${BASE}img/mapas/${id}.jpg" alt="Mapa">`;
         }
 
         function toggleDone(e, id) {
-            e.stopPropagation(); // Impede de abrir/fechar o card ao clicar no check
+            e.stopPropagation();
             const card = document.getElementById(id);
             card.classList.toggle('done');
-            localStorage.setItem('summon_done_' + id, card.classList.contains('done'));
+            localStorage.setItem('done_'+id, card.classList.contains('done'));
+            updateCounter();
         }
 
-        function loadStatus() {
+        function updateCounter() {
+            let done = 0;
             bosses.forEach(b => {
-                if(localStorage.getItem('summon_done_' + b.id) === 'true') {
-                    const card = document.getElementById(b.id);
-                    if(card) card.classList.add('done');
+                const el = document.getElementById(b.id);
+                if(localStorage.getItem('done_'+b.id) === 'true') {
+                    if(el) el.classList.add('done');
+                    done++;
                 }
             });
+            document.getElementById('counter').innerText = `Concluídos: ${done} / ${bosses.length}`;
+        }
+
+        function toggleAll() {
+            const anyOpen = document.querySelector('.boss-card.expanded');
+            document.querySelectorAll('.boss-card').forEach(c => {
+                anyOpen ? c.classList.remove('expanded') : c.classList.add('expanded');
+            });
+        }
+
+        function resetAll() {
+            if(confirm("Deseja limpar todo o progresso?")) {
+                bosses.forEach(b => localStorage.removeItem('done_'+b.id));
+                location.reload();
+            }
         }
 
         function filter() {
             const val = document.getElementById('search').value.toLowerCase();
-            document.querySelectorAll('.boss-card').forEach(card => {
-                const name = card.querySelector('.boss-name').innerText.toLowerCase();
-                card.style.display = name.includes(val) ? 'block' : 'none';
+            document.querySelectorAll('.boss-card').forEach(c => {
+                const txt = c.innerText.toLowerCase();
+                c.style.display = txt.includes(val) ? 'block' : 'none';
             });
         }
 
