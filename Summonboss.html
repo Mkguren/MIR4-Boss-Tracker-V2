@@ -39,19 +39,18 @@
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
 
-        .filter-container { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+        .filter-container { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; align-items: center; }
         .f-btn {
             padding: 5px 10px; border: 1px solid #333; font-size: 10px;
             cursor: pointer; background: #111; color: #fff;
         }
         .f-btn.active { background: #ff9800; color: #000; }
 
-        .info-bar {
-            width: 100%; max-width: 652px; padding: 10px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 12px; background: #1a1a1a; margin-top: 10px; border-radius: 4px;
+        /* Estilo do botão reset mantido, mas posicionado no container de filtros */
+        .btn-reset { 
+            background: #900; color: #fff; border: none; padding: 5px 12px; 
+            border-radius: 3px; cursor: pointer; font-size: 10px; margin-left: 5px;
         }
-        .btn-reset { background: #900; color: #fff; border: none; padding: 5px 12px; border-radius: 3px; cursor: pointer; font-size: 10px; }
 
         .main-content { display: flex; flex-direction: row; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; }
 
@@ -125,7 +124,7 @@
         <input type="text" class="search-bar" id="search" placeholder="Buscar por boss ou item..." onkeyup="filter()">
 
         <div class="filter-container">
-            <button class="f-btn active" onclick="setMap('all', this)">TUDO</button>
+            <button class="f-btn active" onclick="setMap('all', this)">TUDO (33)</button>
             <button class="f-btn" onclick="setMap('cmc', this)">MC</button>
             <button class="f-btn" onclick="setMap('c3m2', this)">C3-M2</button>
             <button class="f-btn" onclick="setMap('c3m3', this)">C3-M3</button>
@@ -135,10 +134,6 @@
             <button class="f-btn" onclick="setMap('c3m7', this)">C3-M7</button>
             <button class="f-btn" onclick="setMap('c3m8', this)">C3-M8</button>
             <button class="f-btn" onclick="setMap('c1m1', this)">155+</button>
-        </div>
-
-        <div class="info-bar">
-            <span id="count">Total: 33</span>
             <button class="btn-reset" onclick="resetChecks()">RESET</button>
         </div>
     </div>
