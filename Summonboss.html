@@ -28,47 +28,27 @@
             position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #222;
         }
 
-        .nav-menu { display: flex; gap: 10px; margin-bottom: 5px; }
+        .nav-menu { display: flex; gap: 8px; margin-bottom: 5px; }
         .nav-btn {
-            width: 140px; text-align: center; font-size: 11px; font-weight: bold;
-            padding: 10px; border-radius: 4px; cursor: pointer; border: none; text-decoration: none;
+            width: 130px; text-align: center; font-size: 11px; font-weight: bold;
+            padding: 8px; border-radius: 4px; cursor: pointer; border: none; text-decoration: none;
             transition: 0.3s;
         }
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
 
-        /* AJUSTE DOS BOTÕES PARA O TAMANHO ORIGINAL */
+        /* FILTROS NO TAMANHO ORIGINAL E EM DUAS LINHAS */
         .filter-container { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 5px; 
-            width: 100%; 
-            max-width: 520px; /* Limita a largura para organizar em 2 linhas sem esticar */
-            justify-content: center;
+            display: flex; flex-wrap: wrap; gap: 4px; width: 100%; max-width: 500px; justify-content: center;
         }
 
         .f-btn, .reset-btn { 
-            padding: 6px 10px; /* Padding reduzido para voltar ao tamanho original */
-            background: #000; 
-            border: 1px solid #333; 
-            color: #fff; 
-            border-radius: 4px; 
-            font-size: 10px; /* Fonte pequena como solicitado */
-            cursor: pointer; 
-            font-weight: bold;
-            transition: 0.2s;
-            text-transform: uppercase;
-            height: 28px; /* Altura fixa para manter todos iguais */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 5px 8px; background: #000; border: 1px solid #333; color: #fff; 
+            border-radius: 3px; font-size: 10px; cursor: pointer; font-weight: bold;
+            transition: 0.2s; text-transform: uppercase;
         }
-
         .f-btn.active { border-color: #ff9800; color: #ff9800; }
-        
-        /* Reset discreto ao lado dos outros */
         .reset-btn { border-color: #4a1a1a; color: #ff4444; }
-        .reset-btn:hover { background: #4a1a1a; color: #fff; }
 
         .scroll { flex: 1; width: 100%; max-width: 700px; margin: 0 auto; padding: 20px; }
 
@@ -77,11 +57,10 @@
             border-left: 5px solid #444; margin-bottom: 12px; border-radius: 4px;
             cursor: pointer; transition: 0.2s;
         }
-        
         .boss-card.done { opacity: 0.2; filter: grayscale(1); }
         
         .boss-header { display: flex; align-items: center; gap: 15px; }
-        .boss-img { width: 55px; height: 55px; border: 2px solid #333; border-radius: 4px; background: #000; }
+        .boss-img { width: 55px; height: 55px; border: 2px solid #333; border-radius: 4px; background: #000; cursor: pointer; }
         .boss-img:hover { border-color: #ff9800; }
         
         .boss-name { color: #fff; font-weight: bold; font-size: 14px; display: block; }
@@ -95,7 +74,7 @@
         .expanded .items-container { display: flex; }
         .item-img { width: 40px; height: 40px; border: 1px solid #333; border-radius: 3px; }
 
-        /* Cores Regionais */
+        /* Cores das Bordas */
         .cmc { border-left-color: #607d8b; } .c3m8 { border-left-color: #ff5252; }
         .c3m7 { border-left-color: #f28d8d; } .c3m4 { border-left-color: #ffe082; }
         .c3m2 { border-left-color: #ffcc80; } .c3m5 { border-left-color: #ce93d8; }
@@ -103,9 +82,9 @@
         .c1m1 { border-left-color: #4caf50; }
 
         .footer { 
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 40px;
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 35px;
             display: flex; align-items: center; justify-content: center;
-            background: #111; border-top: 1px solid #222; font-size: 11px; color: #666;
+            background: #111; border-top: 1px solid #222; font-size: 10px; color: #555;
         }
     </style>
 </head>
@@ -143,12 +122,138 @@
             <div><span class="boss-name">1. Larva da água do dragão celeste</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Deserto Phantasia</span></div>
         </div>
         <div class="items-container">
-            <img src="img/craft/item_energia_demonio_vazio.webp" class="item-img">
-            <img src="img/craft/item_pipa.webp" class="item-img">
-            <img src="img/craft/item_tesouro_floresta.webp" class="item-img">
+            <img src="img/craft/item_energia_demonio_vazio.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_floresta.webp" class="item-img">
         </div>
     </div>
+    <div class="boss-card c3m8" data-mundo="c3m8" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m8_pakua_rainha_viboras.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">2. Rainha das víboras monstruosas</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Salão de Pedra de Pakua</span></div></div>
+        <div class="items-container"><img src="img/craft/item_folha_milenar.webp" class="item-img"><img src="img/craft/item_escama_viboras.webp" class="item-img"><img src="img/craft/item_veneno_viboras.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"></div>
     </div>
+    <div class="boss-card c3m8" data-mundo="c3m8" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m8_pakua_arahan.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">3. Arahan</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Salão de Pedra de Pakua</span></div></div>
+        <div class="items-container"><img src="img/craft/item_estatua_porco.webp" class="item-img"><img src="img/craft/item_rancor_arahan.webp" class="item-img"><img src="img/craft/item_malicia_arahan.webp" class="item-img"><img src="img/craft/item_tenacidade_arahan.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m8" data-mundo="c3m8" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m8_mina_faccao_trovao.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">4. Gok Danhwa</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div></div>
+        <div class="items-container"><img src="img/craft/item_trovao_celeste.webp" class="item-img"><img src="img/craft/item_energia_assombrada.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m8" data-mundo="c3m8" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m8_mina_faccao_terrestre.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">5. Gok Muyeop</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div></div>
+        <div class="items-container"><img src="img/craft/item_divindade_terrestre.webp" class="item-img"><img src="img/craft/item_energia_assombrada.webp" class="item-img"><img src="img/craft/item_coracao_tatu.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m8" data-mundo="c3m8" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m8_mina_primeiro_anciao.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">6. Espectro carmesim</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div></div>
+        <div class="items-container"><img src="img/craft/item_flauta_bambu.webp" class="item-img"><img src="img/craft/item_selo_fogofernal.webp" class="item-img"><img src="img/craft/item_energia_assombrada.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m7" data-mundo="c3m7" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m7_lunula_lobo_fantasma.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">7. Lobo fantasmagorico</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula</span></div></div>
+        <div class="items-container"><img src="img/craft/item_lobo_lunula_1.webp" class="item-img"><img src="img/craft/item_pilula_de_gelo.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_terra.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m7" data-mundo="c3m7" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m7_lunula_demonio_de_sangue.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">8. Poderoso demonio de sangue</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula</span></div></div>
+        <div class="items-container"><img src="img/craft/item_berrante_lunula.webp" class="item-img"><img src="img/craft/item_pilula_de_gelo.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_vento.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m7" data-mundo="c3m7" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m7_prisao.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">9. Prisão subterranea</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Prisão Subterrânea</span></div></div>
+        <div class="items-container"><img src="img/craft/item_tartaruga_negra.webp" class="item-img"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m4" data-mundo="c3m4" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m4_sabuk_tesouro_dourado.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">10. Majestoso Nefariox</span><span class="npc-info">NPC: Dangpo - Sabuk</span><span class="local-info">Província de Sabuk</span></div></div>
+        <div class="items-container"><img src="img/craft/item_valor_saqueado.webp" class="item-img"><img src="img/craft/item_forca_vital.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m4" data-mundo="c3m4" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m4_paraiso_trovejante_nefariox.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">11. Santidade Sonido Trovejante</span><span class="npc-info">NPC: Dangpo - Sabuk</span><span class="local-info">Paraíso das Espadas</span></div></div>
+        <div class="items-container"><img src="img/craft/item_pedra_trovao.webp" class="item-img"><img src="img/craft/item_forca_vital.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_agua.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m4" data-mundo="c3m4" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m4_paraiso_sangue_contaminado.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">12. Santidade Draco Divina</span><span class="npc-info">NPC: Karungka - Paraíso</span><span class="local-info">Paraíso das Espadas</span></div></div>
+        <div class="items-container"><img src="img/craft/item_sangue_nefariox.webp" class="item-img"><img src="img/craft/item_forca_vital.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_luz.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m4" data-mundo="c3m4" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m4_monge.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">13. Monge de sangue negro</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Monge de Sangue Negro</span></div></div>
+        <div class="items-container"><img src="img/craft/item_passaro_vermelho.webp" class="item-img"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"><img src="img/craft/item_tesouro_agua.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m2" data-mundo="c3m2" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m2_seocheon.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">14. Zhang liang</span><span class="npc-info">NPC: Condutor Seocheon</span><span class="local-info">Feitoria Seocheon</span></div></div>
+        <div class="items-container"><img src="img/craft/item_feitoria_1.webp" class="item-img"><img src="img/craft/item_feitoria_2.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_pedra_rara.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m2" data-mundo="c3m2" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m2_montanha.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">15. Zhang bao</span><span class="npc-info">NPC: Condutor Seocheon</span><span class="local-info">Montanha de lunula</span></div></div>
+        <div class="items-container"><img src="img/craft/item_japamala_1.webp" class="item-img"><img src="img/craft/item_montanha_2.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_estatua_epica.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m2" data-mundo="c3m2" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m2_twinway.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">16. Caminho do emaranhado</span><span class="npc-info">NPC: Condutor Seocheon</span><span class="local-info">Caminho Twinway</span></div></div>
+        <div class="items-container"><img src="img/craft/item_flor_morta.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_pedra_cresci.webp" class="item-img"><img src="img/craft/item_tesouro_floresta.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m2" data-mundo="c3m2" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m2_touro.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">17. Rei dos touros malvados</span><span class="npc-info">NPC: Condutor Seocheon</span><span class="local-info">Rei dos Touros Malvados</span></div></div>
+        <div class="items-container"><img src="img/craft/item_porco_martelo.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_pedra_ant.webp" class="item-img"><img src="img/craft/item_tesouro_terra.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m5" data-mundo="c3m5" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m5_flauta_consoladora.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">18. Flauta consoladora de Almas</span><span class="npc-info">NPC: Gufa - Campo Gelo</span><span class="local-info">Campo de Gelo</span></div></div>
+        <div class="items-container"><img src="img/craft/item_bambu_magico.webp" class="item-img"><img src="img/craft/item_essencia_selvagem.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_armadura_celestial.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m5" data-mundo="c3m5" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m5_ruina.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">19. Ruina do Demonio</span><span class="npc-info">NPC: Gufa - Campo Gelo</span><span class="local-info">Ruína do Demônio</span></div></div>
+        <div class="items-container"><img src="img/craft/item_fruta_milenar.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_pedra_agilidade.webp" class="item-img"><img src="img/craft/item_tesouro_luz.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m5" data-mundo="c3m5" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m5_aranha.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">20. Demonio Aracnideo Etereo</span><span class="npc-info">NPC: Gufa - Campo Gelo</span><span class="local-info">Demônio Aracnídeo</span></div></div>
+        <div class="items-container"><img src="img/craft/item_tomo_do_culto.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_pedra_acerto.webp" class="item-img"><img src="img/craft/item_tesouro_vento.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m5" data-mundo="c3m5" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m5_templo.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">21. Templo ilusorio</span><span class="npc-info">NPC: Muralha Criação</span><span class="local-info">Templo Ilusório</span></div></div>
+        <div class="items-container"><img src="img/craft/item_casco_tatu.webp" class="item-img"><img src="img/craft/item_po_ilusorio.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_agua.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m3" data-mundo="c3m3" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m3_tatu.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">22. Urungka</span><span class="npc-info">NPC: Hyeokjun - Necrópole</span><span class="local-info">Necropole nefariox</span></div></div>
+        <div class="items-container"><img src="img/craft/item_casco_tatu.webp" class="item-img"><img src="img/craft/item_pedra_energia.webp" class="item-img"><img src="img/craft/item_estatua_rara.webp" class="item-img"><img src="img/craft/item_sino_violeta.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m3" data-mundo="c3m3" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m3_planicia_kaya.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">23. Kaya</span><span class="npc-info">NPC: Hyeokjun - Necrópole</span><span class="local-info">Planicie da viboras</span></div></div>
+        <div class="items-container"><img src="img/craft/item_ornamento_soldado.webp" class="item-img"><img src="img/craft/item_montanha_2.webp" class="item-img"><img src="img/craft/item_estatua_epica.webp" class="item-img"><img src="img/craft/item_tesouro_floresta.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m3" data-mundo="c3m3" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m3_covil_tatu.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">24. Covil do Tatu sombrio</span><span class="npc-info">NPC: Hyeokjun - Necrópole</span><span class="local-info">Covil do tatu sombrio</span></div></div>
+        <div class="items-container"><img src="img/craft/item_flor_roma_rara.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_espada_lunula.webp" class="item-img"><img src="img/craft/item_tesouro_terra.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m3" data-mundo="c3m3" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m3_espectro.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">25. Espectro do Osso de Aço</span><span class="npc-info">NPC: Hyeokjun - Necrópole</span><span class="local-info">Espectro do Osso</span></div></div>
+        <div class="items-container"><img src="img/craft/item_flor_roma_rara.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_pedra_acerto.webp" class="item-img"><img src="img/craft/item_tesouro_agua.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m6" data-mundo="c3m6" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m6_hangga.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">26. Hangga</span><span class="npc-info">NPC: Gyeongbin - Bicheon</span><span class="local-info">Labirinto hangga</span></div></div>
+        <div class="items-container"><img src="img/craft/item_lingote.webp" class="item-img"><img src="img/craft/item_pedra_amarela.webp" class="item-img"><img src="img/craft/item_pedra_epica.webp" class="item-img"><img src="img/craft/item_sino_relampago.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m6" data-mundo="c3m6" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m6_jogyu.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">27. Jo Gyu</span><span class="npc-info">NPC: Gyeongbin - Bicheon</span><span class="local-info">Jo Gyu</span></div></div>
+        <div class="items-container"><img src="img/craft/item_grande_centopeia.webp" class="item-img"><img src="img/craft/item_livro_ceu_caotico.webp" class="item-img"><img src="img/craft/item_selo_vigor_t2.webp" class="item-img"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m6" data-mundo="c3m6" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m6_mina.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">28. Demonio da Mina Demoniaca</span><span class="npc-info">NPC: Gyeongbin - Bicheon</span><span class="local-info">Mina Demoníaca</span></div></div>
+        <div class="items-container"><img src="img/craft/item_flor_roma_rara.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_cristal_mana.webp" class="item-img"><img src="img/craft/item_tesouro_luz.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c3m6" data-mundo="c3m6" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/m6_centopeia.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">29. Grande Centopeia</span><span class="npc-info">NPC: Gyeongbin - Bicheon</span><span class="local-info">Grande Centopeia</span></div></div>
+        <div class="items-container"><img src="img/craft/item_flor_roma_rara.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_pedra_agilidade.webp" class="item-img"><img src="img/craft/item_tesouro_vento.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c1m1" data-mundo="c1m1" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/c1_songkwang.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">30. Songkwang</span><span class="npc-info">NPC: Heojeong - Unseo</span><span class="local-info">Sete Vales</span></div></div>
+        <div class="items-container"><img src="img/craft/item_ombreira_yaksha.webp" class="item-img"><img src="img/craft/item_selo_refinaria_carmesim.webp" class="item-img"><img src="img/craft/item_pedaco_dragao_divino.webp" class="item-img"><img src="img/craft/item_pedra_mana_t2.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c1m1" data-mundo="c1m1" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/c1_porung.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">31. Porung</span><span class="npc-info">NPC: Heojeong - Unseo</span><span class="local-info">Ilha Fogo Ardente</span></div></div>
+        <div class="items-container"><img src="img/craft/item_japamala_2.webp" class="item-img"><img src="img/craft/item_placa_refinaria_carmesim.webp" class="item-img"><img src="img/craft/item_pedaco_dragao_divino.webp" class="item-img"><img src="img/craft/item_tigre_branco.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c1m1" data-mundo="c1m1" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/c2_kangmuhyeon.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">32. Kang Muhyeon</span><span class="npc-info">NPC: Su Seunghyeon</span><span class="local-info">Campo de dragao noveno</span></div></div>
+        <div class="items-container"><img src="img/craft/item_pedaco_gelo.webp" class="item-img"><img src="img/craft/item_pedaco_dragao_divino.webp" class="item-img"><img src="img/craft/item_pedra_vigor.webp" class="item-img"></div>
+    </div>
+    <div class="boss-card c1m1" data-mundo="c1m1" onclick="toggleBoss(event, this)">
+        <div class="boss-header"><img src="img/bosses/c2_grandor.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">33. Grandor</span><span class="npc-info">NPC: Su Seunghyeon</span><span class="local-info">Riacho do sangue</span></div></div>
+        <div class="items-container"><img src="img/craft/item_fragmento_caos.webp" class="item-img"><img src="img/craft/item_fragmento_ordem.webp" class="item-img"><img src="img/craft/item_fragmento_equilibrio.webp" class="item-img"><img src="img/craft/item_tartaruga_negra.webp" class="item-img"></div>
+    </div>
+</div>
 
 <footer class="footer">MKguren - MIR4 Tracker</footer>
 
@@ -166,7 +271,7 @@
  }
 
  function resetDone() {
-  if(confirm("Deseja resetar os bosses feitos?")) {
+  if(confirm("Resetar bosses feitos?")) {
     document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('done'));
   }
  }
