@@ -73,6 +73,7 @@
             cursor: pointer; transition: 0.2s;
         }
 
+        /* ESTILO DO BOSS CONCLUÍDO */
         .boss-card.done { 
             opacity: 0.3; 
             filter: grayscale(1); 
@@ -80,7 +81,7 @@
         }
         
         .boss-header { display: flex; align-items: center; gap: 15px; }
-        .boss-img { width: 55px; height: 55px; border: 2px solid #333; border-radius: 4px; background: #000; }
+        .boss-img { width: 55px; height: 55px; border: 2px solid #333; border-radius: 4px; background: #000; cursor: crosshair; }
         
         .boss-name { color: #fff; font-weight: bold; font-size: 14px; display: block; }
         .npc-info { color: #ff9800; font-size: 11px; font-weight: bold; display: block; margin-top: 2px; }
@@ -93,6 +94,7 @@
         .expanded .items-container { display: flex; }
         .item-img { width: 40px; height: 40px; border: 1px solid #333; border-radius: 3px; }
 
+        /* Cores Mundos */
         .cmc { border-left-color: #607d8b; } .c3m8 { border-left-color: #ff5252; }
         .c3m7 { border-left-color: #f28d8d; } .c3m4 { border-left-color: #ffe082; }
         .c3m2 { border-left-color: #ffcc80; } .c3m5 { border-left-color: #ce93d8; }
@@ -118,7 +120,6 @@
     <div class="filter-container">
         <button class="f-btn active btn-all" onclick="filter('all', this)">TUDO (33)</button>
         <button class="reset-btn btn-reset" onclick="resetDone()">RESET</button>
-        
         <button class="f-btn" style="grid-area: m1" onclick="filter('cmc', this)">MC</button>
         <button class="f-btn" style="grid-area: m2" onclick="filter('c3m2', this)">C3-M2</button>
         <button class="f-btn" style="grid-area: m3" onclick="filter('c3m3', this)">C3-M3</button>
@@ -274,49 +275,52 @@
 <footer class="footer">MKguren - MIR4 Tracker</footer>
 
 <script>
- window.onload = function() {
-    const doneList = JSON.parse(localStorage.getItem('summonBossesDone')) || [];
-    doneList.forEach(id => {
+    // CARREGA O ESTADO DO LOCALSTORAGE
+    window.onload = function() {
+        const doneList = JSON.parse(localStorage.getItem('summonBossesDone')) || [];
+        doneList.forEach(id => {
+            const card = document.getElementById(id);
+            if(card) card.classList.add('done');
+        });
+    }
+
+    function toggleBoss(e, c) {
+        // Se o clique for na imagem do boss, não abre os itens
+        if (e.target.classList.contains('boss-img')) return;
+        
+        const isE = c.classList.contains('expanded');
+        document.querySelectorAll('.boss-card').forEach(x => x.classList.remove('expanded'));
+        if (!isE) c.classList.add('expanded');
+    }
+
+    function markDone(e, id) {
+        e.stopPropagation(); // Evita expandir o card ao clicar na foto
         const card = document.getElementById(id);
-        if(card) card.classList.add('done');
-    });
- }
+        card.classList.toggle('done');
+        saveState();
+    }
 
- function toggleBoss(e, c) {
-  if (e.target.classList.contains('boss-img')) return;
-  const isE = c.classList.contains('expanded');
-  document.querySelectorAll('.boss-card').forEach(x => x.classList.remove('expanded'));
-  if (!isE) c.classList.add('expanded');
- }
+    function saveState() {
+        const doneCards = document.querySelectorAll('.boss-card.done');
+        const doneIds = Array.from(doneCards).map(c => c.id);
+        localStorage.setItem('summonBossesDone', JSON.stringify(doneIds));
+    }
 
- function markDone(e, id) {
-  e.stopPropagation();
-  const card = document.getElementById(id);
-  card.classList.toggle('done');
-  saveState();
- }
+    function resetDone() {
+        if(confirm("Deseja resetar todos os bosses marcados?")) {
+            document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('done'));
+            localStorage.removeItem('summonBossesDone');
+        }
+    }
 
- function saveState() {
-    const doneCards = document.querySelectorAll('.boss-card.done');
-    const doneIds = Array.from(doneCards).map(c => c.id);
-    localStorage.setItem('summonBossesDone', JSON.stringify(doneIds));
- }
-
- function resetDone() {
-  if(confirm("Deseja resetar todos os bosses marcados como feitos?")) {
-    document.querySelectorAll('.boss-card').forEach(c => c.classList.remove('done'));
-    localStorage.removeItem('summonBossesDone');
-  }
- }
-
- function filter(m, btn) {
-  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.boss-card').forEach(card => {
-   card.style.display = (m === 'all' || card.getAttribute('data-mundo') === m) ? 'block' : 'none';
-   card.classList.remove('expanded');
-  });
- }
+    function filter(m, btn) {
+        document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.boss-card').forEach(card => {
+            card.style.display = (m === 'all' || card.getAttribute('data-mundo') === m) ? 'block' : 'none';
+            card.classList.remove('expanded');
+        });
+    }
 </script>
 </body>
 </html>
