@@ -37,15 +37,29 @@
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
 
-        /* FILTROS NO TAMANHO ORIGINAL E EM DUAS LINHAS */
+        /* AJUSTE DOS BOTÕES PARA FICAREM PEQUENOS E EM LINHAS */
         .filter-container { 
-            display: flex; flex-wrap: wrap; gap: 4px; width: 100%; max-width: 500px; justify-content: center;
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 4px; 
+            width: 100%; 
+            max-width: 480px; 
+            justify-content: center;
         }
 
         .f-btn, .reset-btn { 
-            padding: 5px 8px; background: #000; border: 1px solid #333; color: #fff; 
-            border-radius: 3px; font-size: 10px; cursor: pointer; font-weight: bold;
-            transition: 0.2s; text-transform: uppercase;
+            flex: 0 1 auto; /* Impede que o botão estique */
+            padding: 5px 8px; 
+            background: #000; 
+            border: 1px solid #333; 
+            color: #fff; 
+            border-radius: 3px; 
+            font-size: 10px; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: 0.2s; 
+            text-transform: uppercase;
+            white-space: nowrap;
         }
         .f-btn.active { border-color: #ff9800; color: #ff9800; }
         .reset-btn { border-color: #4a1a1a; color: #ff4444; }
@@ -60,7 +74,7 @@
         .boss-card.done { opacity: 0.2; filter: grayscale(1); }
         
         .boss-header { display: flex; align-items: center; gap: 15px; }
-        .boss-img { width: 55px; height: 55px; border: 2px solid #333; border-radius: 4px; background: #000; cursor: pointer; }
+        .boss-img { width: 55px; height: 55px; border: 2px solid #333; border-radius: 4px; background: #000; }
         .boss-img:hover { border-color: #ff9800; }
         
         .boss-name { color: #fff; font-weight: bold; font-size: 14px; display: block; }
@@ -74,7 +88,6 @@
         .expanded .items-container { display: flex; }
         .item-img { width: 40px; height: 40px; border: 1px solid #333; border-radius: 3px; }
 
-        /* Cores das Bordas */
         .cmc { border-left-color: #607d8b; } .c3m8 { border-left-color: #ff5252; }
         .c3m7 { border-left-color: #f28d8d; } .c3m4 { border-left-color: #ffe082; }
         .c3m2 { border-left-color: #ffcc80; } .c3m5 { border-left-color: #ce93d8; }
@@ -90,16 +103,13 @@
 </head>
 <body>
 
-<header class="main-header">
-    <h1 style="margin:0; font-size: 20px; letter-spacing: 2px; color: #ff9800;">MIR4 BOSS TRACKER</h1>
-</header>
+<header class="main-header"><h1 style="margin:0; font-size: 20px; letter-spacing: 2px; color: #ff9800;">MIR4 BOSS TRACKER</h1></header>
 
 <div class="controls-area">
     <div class="nav-menu">
         <a href="index.html" class="nav-btn btn-inactive">BOSSES DE CAMPO</a>
         <a href="Summonboss.html" class="nav-btn btn-active">INVOCAÇÃO</a>
     </div>
-    
     <div class="filter-container">
         <button class="f-btn active" onclick="filter('all', this)">TUDO (33)</button>
         <button class="f-btn" onclick="filter('cmc', this)">MC</button>
@@ -121,9 +131,7 @@
             <img src="img/bosses/mc_larva_centopeia.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)">
             <div><span class="boss-name">1. Larva da água do dragão celeste</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Deserto Phantasia</span></div>
         </div>
-        <div class="items-container">
-            <img src="img/craft/item_energia_demonio_vazio.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_floresta.webp" class="item-img">
-        </div>
+        <div class="items-container"><img src="img/craft/item_energia_demonio_vazio.webp" class="item-img"><img src="img/craft/item_pipa.webp" class="item-img"><img src="img/craft/item_tesouro_floresta.webp" class="item-img"></div>
     </div>
     <div class="boss-card c3m8" data-mundo="c3m8" onclick="toggleBoss(event, this)">
         <div class="boss-header"><img src="img/bosses/m8_pakua_rainha_viboras.webp" class="boss-img" onclick="markDone(event, this.parentElement.parentElement)"><div><span class="boss-name">2. Rainha das víboras monstruosas</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Salão de Pedra de Pakua</span></div></div>
