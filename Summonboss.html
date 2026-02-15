@@ -37,14 +37,16 @@
         .btn-active { background: #ff9800; color: #000; }
         .btn-inactive { background: #222; color: #888; }
 
-        /* AJUSTE ESTILO WIDGET - DUAS LINHAS COMPACTAS */
+        /* AJUSTE COLUNA TUDO/RESET + MUNDOS */
         .filter-container { 
             display: grid;
-            grid-template-columns: repeat(6, auto); /* Organiza em colunas automáticas */
+            grid-template-areas: 
+                "tudo m1 m2 m3 m4 m5"
+                "reset m6 m7 m8 m9 m10";
             gap: 4px; 
             justify-content: center;
             width: 100%;
-            max-width: 380px; /* Limita a largura para forçar a segunda linha como no widget */
+            max-width: 400px;
         }
 
         .f-btn, .reset-btn { 
@@ -60,8 +62,12 @@
             text-transform: uppercase;
             white-space: nowrap;
         }
+        
+        /* Posicionamento via Grid Areas */
+        .btn-all { grid-area: tudo; }
+        .btn-reset { grid-area: reset; border-color: #4a1a1a; color: #ff4444; }
+        
         .f-btn.active { border-color: #ff9800; color: #ff9800; }
-        .reset-btn { border-color: #4a1a1a; color: #ff4444; grid-column: span 1; }
 
         .scroll { flex: 1; width: 100%; max-width: 700px; margin: 0 auto; padding: 20px; }
 
@@ -110,17 +116,18 @@
         <a href="Summonboss.html" class="nav-btn btn-active">INVOCAÇÃO</a>
     </div>
     <div class="filter-container">
-        <button class="f-btn active" onclick="filter('all', this)">TUDO (33)</button>
-        <button class="f-btn" onclick="filter('cmc', this)">MC</button>
-        <button class="f-btn" onclick="filter('c3m2', this)">C3-M2</button>
-        <button class="f-btn" onclick="filter('c3m3', this)">C3-M3</button>
-        <button class="f-btn" onclick="filter('c3m4', this)">C3-M4</button>
-        <button class="f-btn" onclick="filter('c3m5', this)">C3-M5</button>
-        <button class="f-btn" onclick="filter('c3m6', this)">C3-M6</button>
-        <button class="f-btn" onclick="filter('c3m7', this)">C3-M7</button>
-        <button class="f-btn" onclick="filter('c3m8', this)">C3-M8</button>
-        <button class="f-btn" onclick="filter('c1m1', this)">155+</button>
-        <button class="reset-btn" onclick="resetDone()">RESET</button>
+        <button class="f-btn active btn-all" onclick="filter('all', this)">TUDO (33)</button>
+        <button class="reset-btn btn-reset" onclick="resetDone()">RESET</button>
+        
+        <button class="f-btn" style="grid-area: m1" onclick="filter('cmc', this)">MC</button>
+        <button class="f-btn" style="grid-area: m2" onclick="filter('c3m2', this)">C3-M2</button>
+        <button class="f-btn" style="grid-area: m3" onclick="filter('c3m3', this)">C3-M3</button>
+        <button class="f-btn" style="grid-area: m4" onclick="filter('c3m4', this)">C3-M4</button>
+        <button class="f-btn" style="grid-area: m5" onclick="filter('c3m5', this)">C3-M5</button>
+        <button class="f-btn" style="grid-area: m6" onclick="filter('c3m6', this)">C3-M6</button>
+        <button class="f-btn" style="grid-area: m7" onclick="filter('c3m7', this)">C3-M7</button>
+        <button class="f-btn" style="grid-area: m8" onclick="filter('c3m8', this)">C3-M8</button>
+        <button class="f-btn" style="grid-area: m9" onclick="filter('c1m1', this)">155+</button>
     </div>
 </div>
 
