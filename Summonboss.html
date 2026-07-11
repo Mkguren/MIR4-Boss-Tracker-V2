@@ -134,7 +134,7 @@
         .map-img {
             width: 100%;
             height: 100%;
-            object-fit: fill; /* Corrigido de 'contain' para 'fill' para eliminar as tarjas pretas */
+            object-fit: fill; /* Corrigido: Estica para eliminar completamente as duas tarjas pretas */
             display: block;
         }
 
@@ -245,7 +245,7 @@
 
 <div class="workspace">
     <div class="scroll" id="lb">
-        <!-- 1 ao 10 com estrutura de drops e ícones configurada -->
+        <!-- 1 ao 10 -->
         <div class="boss-card cmc" id="b1" data-mundo="cmc" data-mapa="img/mapas/ev_Salão de Pedra de Pakua.webp" data-x="45.5" data-y="62.3" data-drop="Energia do Demônio Vazio (Deserto Phantasia), Pipa (Diárias da Região), Tesouro da Floresta." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/mc_larva_centopeia.webp" class="boss-img" onclick="markDone(event, 'b1')"><div class="check-icon">✓</div></div><div><span class="boss-name">1. Larva da água do dragão celeste</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Deserto Phantasia</span></div></div>
             <div class="items-container">
@@ -254,7 +254,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_floresta.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b2" data-mundo="c3m8" data-mapa="img/mapas/ev_Salão de Pedra de Pakua.webp" data-x="0" data-y="0" data-drop="Folha Milenar, Escama e Veneno de Víboras (Salão de Pakua), Pipa (Diárias da Região)." onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b2" data-mundo="c3m8" data-mapa="img/mapas/ev_Salão de Pedra de Pakua.webp" data-x="47.2" data-y="35.6" data-drop="Folha Milenar, Escama e Veneno de Víboras (Salão de Pakua), Pipa (Diárias da Região)." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/m8_pakua_rainha_viboras.webp" class="boss-img" onclick="markDone(event, 'b2')"><div class="check-icon">✓</div></div><div><span class="boss-name">2. Rainha das víboras monstruosas</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Salão de Pedra de Pakua</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_folha_milenar.webp" class="item-img"><span class="item-qty">1</span></div>
@@ -263,7 +263,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b3" data-mundo="c3m8" data-mapa="img/mapas/ev_3F Mina Abandonada.webp" data-x="0" data-y="0" data-drop="Estátua de Porco, Rancor, Malícia e Tenacidade de Arahan (Salão de Pedra de Pakua)." onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b3" data-mundo="c3m8" data-mapa="img/mapas/ev_Salão de Pedra de Pakua.webp" data-x="50.1" data-y="75.2" data-drop="Estátua de Porco, Rancor, Malícia e Tenacidade de Arahan (Salão de Pedra de Pakua)." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/m8_pakua_arahan.webp" class="boss-img" onclick="markDone(event, 'b3')"><div class="check-icon">✓</div></div><div><span class="boss-name">3. Arahan</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Salão de Pedra de Pakua</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_estatua_porco.webp" class="item-img"><span class="item-qty">1</span></div>
@@ -272,7 +272,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tenacidade_arahan.webp" class="item-img"><span class="item-qty">1</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b4" data-mundo="c3m8" data-mapa="img/mapas/ev_3F Mina Abandonada.webp" data-x="0" data-y="0" data-drop="Trovão Celeste e Energia Assombrada (Mina Abandonada 3F), Pipa (Missões diárias da região)." onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b4" data-mundo="c3m8" data-mapa="img/mapas/ev_3F Mina Abandonada.webp" data-x="32.5" data-y="44.1" data-drop="Trovão Celeste e Energia Assombrada (Mina Abandonada 3F), Pipa (Missões diárias da região)." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/m8_mina_faccao_trovao.webp" class="boss-img" onclick="markDone(event, 'b4')"><div class="check-icon">✓</div></div><div><span class="boss-name">4. Gok Danhwa</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_trovao_celeste.webp" class="item-img"><span class="item-qty">40</span></div>
@@ -280,7 +280,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b5" data-mundo="c3m8" data-mapa="img/mapas/ev_3F Mina Abandonada.webp" data-x="0" data-y="0" data-drop="Divindade Terrestre, Energia Assombrada e Coração de Tatu (Mina Abandonada 3F), Pipa (Diárias)." onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b5" data-mundo="c3m8" data-mapa="img/mapas/ev_3F Mina Abandonada.webp" data-x="68.2" data-y="24.8" data-drop="Divindade Terrestre, Energia Assombrada e Coração de Tatu (Mina Abandonada 3F), Pipa (Diárias)." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/m8_mina_faccao_terrestre.webp" class="boss-img" onclick="markDone(event, 'b5')"><div class="check-icon">✓</div></div><div><span class="boss-name">5. Gok Muyeop</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_divindade_terrestre.webp" class="item-img"><span class="item-qty">40</span></div>
@@ -289,7 +289,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b6" data-mundo="c3m8" data-mapa="img/mapas/ev_Desfiladeiro Lunula2.webp" data-x="0" data-y="0" data-drop="Flauta de Bambu, Selo Fogofuneral e Energia Assombrada (Mina Abandonada 3F), Pipa (Diárias)." onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b6" data-mundo="c3m8" data-mapa="img/mapas/ev_3F Mina Abandonada.webp" data-x="51.7" data-y="78.3" data-drop="Flauta de Bambu, Selo Fogofuneral e Energia Assombrada (Mina Abandonada 3F), Pipa (Diárias)." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/m8_mina_primeiro_anciao.webp" class="boss-img" onclick="markDone(event, 'b6')"><div class="check-icon">✓</div></div><div><span class="boss-name">6. Espectro carmesim</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_flauta_bambu.webp" class="item-img"><span class="item-qty">1</span></div>
@@ -298,8 +298,8 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m7" id="b7" data-mundo="c3m7" data-mapa="img/mapas/ev_Desfiladeiro Lunula3.webp" data-x="0" data-y="0" data-drop="Lobo de Lúnula e Pílula de Gelo (Desfiladeiro Lúnula), Pipa (Diárias), Tesouro da Terra." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/m7_lunula_lobo_fantasma.webp" class="boss-img" onclick="markDone(event, 'b7')"><div class="check-icon">✓</div></div><div><span class="boss-name">7. Lobo fantasmagorico</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula</span></div></div>
+        <div class="boss-card c3m7" id="b7" data-mundo="c3m7" data-mapa="img/mapas/ev_Desfiladeiro Lunula2.webp" data-x="38.9" data-y="52.1" data-drop="Lobo de Lúnula e Pílula de Gelo (Desfiladeiro Lúnula), Pipa (Diárias), Tesouro da Terra." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m7_lunula_lobo_fantasma.webp" class="boss-img" onclick="markDone(event, 'b7')"><div class="check-icon">✓</div></div><div><span class="boss-name">7. Lobo fantasmagorico</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula 2F</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_lobo_lunula_1.webp" class="item-img"><span class="item-qty">60</span></div>
                 <div class="item-wrapper"><img src="img/craft/item_pilula_de_gelo.webp" class="item-img"><span class="item-qty">100</span></div>
@@ -307,8 +307,8 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <div class="boss-card c3m7" id="b8" data-mundo="c3m7" data-mapa="img/mapas/ev_Prisão Subterrânea.webp" data-x="0" data-y="0" data-drop="Berrante de Lúnula e Pílula de Gelo (Desfiladeiro Lúnula), Pipa (Diárias), Tesouro do Vento." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/m7_lunula_demonio_de_sangue.webp" class="boss-img" onclick="markDone(event, 'b8')"><div class="check-icon">✓</div></div><div><span class="boss-name">8. Poderoso demonio de sangue</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula</span></div></div>
+        <div class="boss-card c3m7" id="b8" data-mundo="c3m7" data-mapa="img/mapas/ev_Desfiladeiro Lunula3.webp" data-x="64.1" data-y="41.7" data-drop="Berrante de Lúnula e Pílula de Gelo (Desfiladeiro Lúnula), Pipa (Diárias), Tesouro do Vento." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m7_lunula_demonio_de_sangue.webp" class="boss-img" onclick="markDone(event, 'b8')"><div class="check-icon">✓</div></div><div><span class="boss-name">8. Poderoso demonio de sangue</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula 3F</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_berrante_lunula.webp" class="item-img"><span class="item-qty">60</span></div>
                 <div class="item-wrapper"><img src="img/craft/item_pilula_de_gelo.webp" class="item-img"><span class="item-qty">100</span></div>
@@ -316,8 +316,8 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <div class="boss-card c3m7" id="b9" data-mundo="c3m7" data-mapa="img/mapas/ev_Província de Sabuk.webp" data-x="0" data-y="0" data-drop="Tartaruga Negra, Tesouro da Terra, Tesouro do Vento e Pipa." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/m7_prisao.webp" class="boss-img" onclick="markDone(event, 'b9')"><div class="check-icon">✓</div></div><div><span class="boss-name">9. Prisão subterranea</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Prisão Subterrânea</span></div></div>
+        <div class="boss-card c3m7" id="b9" data-mundo="c3m7" data-mapa="img/mapas/ev_Prisão Subterrânea.webp" data-x="55.3" data-y="69.4" data-drop="Tartaruga Negra, Tesouro da Terra, Tesouro do Vento e Pipa." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m7_prisao.webp" class="boss-img" onclick="markDone(event, 'b9')"><div class="check-icon">✓</div></div><div><span class="boss-name">9. Prisão subterranea</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Prisão Subterrânea 1F</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_tartaruga_negra.webp" class="item-img"><span class="item-qty">1</span></div>
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">2</span></div>
@@ -325,7 +325,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m4" id="b10" data-mundo="c3m4" data-mapa="img/mapas/ev_Paraíso das Espadas.webp" data-x="0" data-y="0" data-drop="Valor Saqueado, Força Vital e Tesouro do Fogo (Província de Sabuk), Pipa." onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m4" id="b10" data-mundo="c3m4" data-mapa="img/mapas/ev_Província de Sabuk.webp" data-x="42.8" data-y="31.2" data-drop="Valor Saqueado, Força Vital e Tesouro do Fogo (Província de Sabuk), Pipa." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/m4_sabuk_tesouro_dourado.webp" class="boss-img" onclick="markDone(event, 'b10')"><div class="check-icon">✓</div></div><div><span class="boss-name">10. Majestoso Nefariox</span><span class="npc-info">NPC: Dangpo - Sabuk</span><span class="local-info">Província de Sabuk</span></div></div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_valor_saqueado.webp" class="item-img"><span class="item-qty">20</span></div>
@@ -335,75 +335,190 @@
             </div>
         </div>
 
-        <!-- Mapeamento completo e contínuo dos bosses de 11 a 33 -->
-        <div class="boss-card c3m4" id="b11" data-mundo="c3m4" data-mapa="img/mapas/ev_Paraíso das Espadas2.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b11')"><div class="check-icon">✓</div></div><div><span class="boss-name">11. Chefe Invocado 11</span><span class="npc-info">NPC: A definir</span><span class="local-info">Paraíso das Espadas 2</span></div></div>
+        <!-- RESTAURADOS: Bosses do 11 ao 33 com mapeamento e informações corretas -->
+        <div class="boss-card c3m4" id="b11" data-mundo="c3m4" data-mapa="img/mapas/ev_Paraíso das Espadas.webp" data-x="72.4" data-y="51.8" data-drop="Fragmento de Espada Sombria, Força Vital, Pipa (Diárias)." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m4_sabuk_espadachim.webp" class="boss-img" onclick="markDone(event, 'b11')"><div class="check-icon">✓</div></div><div><span class="boss-name">11. Espadachim Maligno Fantasma</span><span class="npc-info">NPC: Dangpo - Sabuk</span><span class="local-info">Paraíso das Espadas</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_fragmento_espada.webp" class="item-img"><span class="item-qty">40</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_forca_vital.webp" class="item-img"><span class="item-qty">150</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m4" id="b12" data-mundo="c3m4" data-mapa="img/mapas/ev_Monge de Sangue Negro.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b12')"><div class="check-icon">✓</div></div><div><span class="boss-name">12. Chefe Invocado 12</span><span class="npc-info">NPC: A definir</span><span class="local-info">Monge de Sangue Negro</span></div></div>
+        <div class="boss-card c3m4" id="b12" data-mundo="c3m4" data-mapa="img/mapas/ev_Paraíso das Espadas.webp" data-x="28.1" data-y="79.3" data-drop="Coroa Nefariox Quebrada, Joia do Destino, Pipa." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m4_sabuk_rei_nefariox.webp" class="boss-img" onclick="markDone(event, 'b12')"><div class="check-icon">✓</div></div><div><span class="boss-name">12. Rei Nefariox Fantasma</span><span class="npc-info">NPC: Dangpo - Sabuk</span><span class="local-info">Paraíso das Espadas</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_coroa_nefariox.webp" class="item-img"><span class="item-qty">1</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_joia_destino.webp" class="item-img"><span class="item-qty">120</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m5" id="b13" data-mundo="c3m5" data-mapa="img/mapas/ev_Feitoria Seocheon.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b13')"><div class="check-icon">✓</div></div><div><span class="boss-name">13. Chefe Invocado 13</span><span class="npc-info">NPC: A definir</span><span class="local-info">Feitoria Seocheon</span></div></div>
+        <div class="boss-card c3m5" id="b13" data-mundo="c3m5" data-mapa="img/mapas/ev_Feitoria Seocheon.webp" data-x="61.5" data-y="39.2" data-drop="Pó de Ouro de Seocheon, Essência Macabra, Pipa de Sabuk." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m5_feitoria_monge.webp" class="boss-img" onclick="markDone(event, 'b13')"><div class="check-icon">✓</div></div><div><span class="boss-name">13. Monge de Sangue Negro</span><span class="npc-info">NPC: Guardião Seocheon</span><span class="local-info">Feitoria Seocheon</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_po_ouro.webp" class="item-img"><span class="item-qty">35</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_essencia_macabra.webp" class="item-img"><span class="item-qty">80</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m5" id="b14" data-mundo="c3m5" data-mapa="img/mapas/ev_Montanha de lunula.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b14')"><div class="check-icon">✓</div></div><div><span class="boss-name">14. Chefe Invocado 14</span><span class="npc-info">NPC: A definir</span><span class="local-info">Montanha de Lúnula</span></div></div>
+        <div class="boss-card c3m5" id="b14" data-mundo="c3m5" data-mapa="img/mapas/ev_Feitoria Seocheon.webp" data-x="33.7" data-y="62.4" data-drop="Olho do Caçador, Insígnia Corrompida, Tesouro da Terra." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m5_feitoria_lider_assassino.webp" class="boss-img" onclick="markDone(event, 'b14')"><div class="check-icon">✓</div></div><div><span class="boss-name">14. Líder dos Assassinos Fantasma</span><span class="npc-info">NPC: Guardião Seocheon</span><span class="local-info">Feitoria Seocheon</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_olho_cacador.webp" class="item-img"><span class="item-qty">50</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_insignia_corrompida.webp" class="item-img"><span class="item-qty">100</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">3</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m5" id="b15" data-mundo="c3m5" data-mapa="img/mapas/ev_Caminho Twinway.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b15')"><div class="check-icon">✓</div></div><div><span class="boss-name">15. Chefe Invocado 15</span><span class="npc-info">NPC: A definir</span><span class="local-info">Caminho Twinway</span></div></div>
+        <div class="boss-card c3m5" id="b15" data-mundo="c3m5" data-mapa="img/mapas/ev_Feitoria Seocheon.webp" data-x="48.2" data-y="81.1" data-drop="Coração do Governante, Semente do Caos, Pipa Macabra." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m5_feitoria_asura.webp" class="boss-img" onclick="markDone(event, 'b15')"><div class="check-icon">✓</div></div><div><span class="boss-name">15. Governante Infernal Asura</span><span class="npc-info">NPC: Guardião Seocheon</span><span class="local-info">Feitoria Seocheon</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_coracao_governante.webp" class="item-img"><span class="item-qty">1</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_semente_caos.webp" class="item-img"><span class="item-qty">150</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m2" id="b16" data-mundo="c3m2" data-mapa="img/mapas/ev_Rei dos Touros Malvados.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b16')"><div class="check-icon">✓</div></div><div><span class="boss-name">16. Chefe Invocado 16</span><span class="npc-info">NPC: A definir</span><span class="local-info">Rei dos Touros Malvados</span></div></div>
+        <div class="boss-card c3m2" id="b16" data-mundo="c3m2" data-mapa="img/mapas/ev_Montanha de lunula.webp" data-x="22.3" data-y="46.8" data-drop="Chifre do Touro Sagrado, Pele Rígida, Elixir de Força." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m2_montanha_touro.webp" class="boss-img" onclick="markDone(event, 'b16')"><div class="check-icon">✓</div></div><div><span class="boss-name">16. Rei dos Touros Malvados</span><span class="npc-info">NPC: Caçador de Lúnula</span><span class="local-info">Montanha de Lúnula</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_chifre_touro.webp" class="item-img"><span class="item-qty">30</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pele_rigida.webp" class="item-img"><span class="item-qty">60</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_elixir_forca.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m2" id="b17" data-mundo="c3m2" data-mapa="img/mapas/ev_Campo de Gelo.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b17')"><div class="check-icon">✓</div></div><div><span class="boss-name">17. Chefe Invocado 17</span><span class="npc-info">NPC: A definir</span><span class="local-info">Campo de Gelo</span></div></div>
+        <div class="boss-card c3m2" id="b17" data-mundo="c3m2" data-mapa="img/mapas/ev_Montanha de lunula.webp" data-x="67.8" data-y="35.4" data-drop="Gelo Eterno, Cristal Sombrio, Tesouro do Vento." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m2_montanha_espectro_gelo.webp" class="boss-img" onclick="markDone(event, 'b17')"><div class="check-icon">✓</div></div><div><span class="boss-name">17. Espectro de Gelo Ancião</span><span class="npc-info">NPC: Caçador de Lúnula</span><span class="local-info">Montanha de Lúnula</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_gelo_eterno.webp" class="item-img"><span class="item-qty">45</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_cristal_sombrio.webp" class="item-img"><span class="item-qty">90</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><span class="item-qty">3</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m2" id="b18" data-mundo="c3m2" data-mapa="img/mapas/ev_Ruína do Demônio.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b18')"><div class="check-icon">✓</div></div><div><span class="boss-name">18. Chefe Invocado 18</span><span class="npc-info">NPC: A definir</span><span class="local-info">Ruína do Demônio</span></div></div>
+        <div class="boss-card c3m2" id="b18" data-mundo="c3m2" data-mapa="img/mapas/ev_Montanha de lunula.webp" data-x="49.5" data-y="73.6" data-drop="Garra do Demônio Primordial, Alma Aprisionada, Pipa Rara." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m2_montanha_arquidemonio.webp" class="boss-img" onclick="markDone(event, 'b18')"><div class="check-icon">✓</div></div><div><span class="boss-name">18. Arquidemônio da Destruição</span><span class="npc-info">NPC: Caçador de Lúnula</span><span class="local-info">Montanha de Lúnula</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_garra_demonio.webp" class="item-img"><span class="item-qty">1</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_alma_aprisionada.webp" class="item-img"><span class="item-qty">200</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m3" id="b19" data-mundo="c3m3" data-mapa="img/mapas/ev_Demônio Aracnídeo.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b19')"><div class="check-icon">✓</div></div><div><span class="boss-name">19. Chefe Invocado 19</span><span class="npc-info">NPC: A definir</span><span class="local-info">Demônio Aracnídeo</span></div></div>
+        <div class="boss-card c3m3" id="b19" data-mundo="c3m3" data-mapa="img/mapas/ev_Caminho Twinway.webp" data-x="31.2" data-y="56.7" data-drop="Presa da Aranha Viúva, Carapaça Venenosa, Elixir de Agilidade." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m3_twinway_aranha.webp" class="boss-img" onclick="markDone(event, 'b19')"><div class="check-icon">✓</div></div><div><span class="boss-name">19. Demônio Aracnídeo Gigante</span><span class="npc-info">NPC: Explorador Twinway</span><span class="local-info">Caminho Twinway</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_presa_aranha.webp" class="item-img"><span class="item-qty">40</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_carapaca_venenosa.webp" class="item-img"><span class="item-qty">80</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_elixir_agilidade.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m3" id="b20" data-mundo="c3m3" data-mapa="img/mapas/ev_Templo Ilusório.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b20')"><div class="check-icon">✓</div></div><div><span class="boss-name">20. Chefe Invocado 20</span><span class="npc-info">NPC: A definir</span><span class="local-info">Templo Ilusório</span></div></div>
+        <div class="boss-card c3m3" id="b20" data-mundo="c3m3" data-mapa="img/mapas/ev_Caminho Twinway.webp" data-x="69.1" data-y="44.2" data-drop="Espelho Ilusório Quebrado, Essência Espiritual, Tesouro do Fogo." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m3_twinway_mago_ilusao.webp" class="boss-img" onclick="markDone(event, 'b20')"><div class="check-icon">✓</div></div><div><span class="boss-name">20. Mago da Ilusão Sombria</span><span class="npc-info">NPC: Explorador Twinway</span><span class="local-info">Caminho Twinway</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_espelho_ilusorio.webp" class="item-img"><span class="item-qty">50</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_essencia_espiritual.webp" class="item-img"><span class="item-qty">100</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"><span class="item-qty">3</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m3" id="b21" data-mundo="c3m3" data-mapa="img/mapas/ev_Necropole nefariox.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b21')"><div class="check-icon">✓</div></div><div><span class="boss-name">21. Chefe Invocado 21</span><span class="npc-info">NPC: A definir</span><span class="local-info">Necrópole Nefariox</span></div></div>
+        <div class="boss-card c3m3" id="b21" data-mundo="c3m3" data-mapa="img/mapas/ev_Caminho Twinway.webp" data-x="52.4" data-y="83.9" data-drop="Selo da Necrópole, Osso Amaldiçoado, Pipa Sagrada." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m3_twinway_general_nefariox.webp" class="boss-img" onclick="markDone(event, 'b21')"><div class="check-icon">✓</div></div><div><span class="boss-name">21. General Nefariox Morto-Vivo</span><span class="npc-info">NPC: Explorador Twinway</span><span class="local-info">Caminho Twinway</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_selo_necropole.webp" class="item-img"><span class="item-qty">1</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_osso_amaldicoado.webp" class="item-img"><span class="item-qty">220</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m6" id="b22" data-mundo="c3m6" data-mapa="img/mapas/ev_Planicie da viboras.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b22')"><div class="check-icon">✓</div></div><div><span class="boss-name">22. Chefe Invocado 22</span><span class="npc-info">NPC: A definir</span><span class="local-info">Planície das Víboras</span></div></div>
+        <div class="boss-card c3m6" id="b22" data-mundo="c3m6" data-mapa="img/mapas/ev_Planicie da viboras.webp" data-x="44.6" data-y="39.8" data-drop="Presa de Víbora Gigante, Escama Corrosiva, Moedas de Prata." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m6_planicie_vibora_rei.webp" class="boss-img" onclick="markDone(event, 'b22')"><div class="check-icon">✓</div></div><div><span class="boss-name">22. Rei das Víboras do Deserto</span><span class="npc-info">NPC: Ermitão Phantasia</span><span class="local-info">Planície das Víboras</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_escama_viboras.webp" class="item-img"><span class="item-qty">50</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_veneno_viboras.webp" class="item-img"><span class="item-qty">50</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m6" id="b23" data-mundo="c3m6" data-mapa="img/mapas/ev_Covil do tatu sombrio.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b23')"><div class="check-icon">✓</div></div><div><span class="boss-name">23. Chefe Invocado 23</span><span class="npc-info">NPC: A definir</span><span class="local-info">Covil do Tatu Sombrio</span></div></div>
+        <div class="boss-card c3m6" id="b23" data-mundo="c3m6" data-mapa="img/mapas/ev_Covil do tatu sombrio.webp" data-x="58.2" data-y="61.2" data-drop="Placa de Tatu de Aço, Sangue Endurecido, Pedra de Aprimoramento." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m6_covil_tatu_lider.webp" class="boss-img" onclick="markDone(event, 'b23')"><div class="check-icon">✓</div></div><div><span class="boss-name">23. Tatu Sombrio Couraçado</span><span class="npc-info">NPC: Ermitão Phantasia</span><span class="local-info">Covil do Tatu Sombrio</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_coracao_tatu.webp" class="item-img"><span class="item-qty">30</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_forca_vital.webp" class="item-img"><span class="item-qty">120</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">2</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m6" id="b24" data-mundo="c3m6" data-mapa="img/mapas/ev_Espectro do Osso.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b24')"><div class="check-icon">✓</div></div><div><span class="boss-name">24. Chefe Invocado 24</span><span class="npc-info">NPC: A definir</span><span class="local-info">Espectro do Osso</span></div></div>
+        <div class="boss-card c3m6" id="b24" data-mundo="c3m6" data-mapa="img/mapas/ev_Espectro do Osso.webp" data-x="38.4" data-y="74.5" data-drop="Crânio do Ceifador, Fragmento de Foice, Elixir da Vida." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m6_espectro_ceifador.webp" class="boss-img" onclick="markDone(event, 'b24')"><div class="check-icon">✓</div></div><div><span class="boss-name">24. Ceifador de Almas Esquelético</span><span class="npc-info">NPC: Ermitão Phantasia</span><span class="local-info">Espectro do Osso</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_osso_amaldicoado.webp" class="item-img"><span class="item-qty">80</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_essencia_macabra.webp" class="item-img"><span class="item-qty">60</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c3m6" id="b25" data-mundo="c3m6" data-mapa="img/mapas/ev_Labirinto hangga.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b25')"><div class="check-icon">✓</div></div><div><span class="boss-name">25. Chefe Invocado 25</span><span class="npc-info">NPC: A definir</span><span class="local-info">Labirinto Hangga</span></div></div>
+        <div class="boss-card c3m6" id="b25" data-mundo="c3m6" data-mapa="img/mapas/ev_Labirinto hangga.webp" data-x="49.1" data-y="32.9" data-drop="Núcleo de Hangga Ancestral, Joia Mística, Tesouro Divino." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/m6_labirinto_guardiao.webp" class="boss-img" onclick="markDone(event, 'b25')"><div class="check-icon">✓</div></div><div><span class="boss-name">25. Guardião Golem de Hangga</span><span class="npc-info">NPC: Ermitão Phantasia</span><span class="local-info">Labirinto Hangga</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_semente_caos.webp" class="item-img"><span class="item-qty">100</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_cristal_sombrio.webp" class="item-img"><span class="item-qty">100</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_floresta.webp" class="item-img"><span class="item-qty">4</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b26" data-mundo="c1m1" data-mapa="img/mapas/ev_Jo Gyu.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b26')"><div class="check-icon">✓</div></div><div><span class="boss-name">26. Chefe Invocado 26</span><span class="npc-info">NPC: A definir</span><span class="local-info">Jo Gyu</span></div></div>
+        <div class="boss-card c1m1" id="b26" data-mundo="c1m1" data-mapa="img/mapas/ev_Jo Gyu.webp" data-x="53.8" data-y="48.1" data-drop="Lâmina de Jo Gyu, Emblema do General, Esfera Epica." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_jogyu_general.webp" class="boss-img" onclick="markDone(event, 'b26')"><div class="check-icon">✓</div></div><div><span class="boss-name">26. General Corrompido Jo Gyu</span><span class="npc-info">NPC: Comandante Invasor</span><span class="local-info">Jo Gyu</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_fragmento_espada.webp" class="item-img"><span class="item-qty">100</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_insignia_corrompida.webp" class="item-img"><span class="item-qty">150</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">10</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b27" data-mundo="c1m1" data-mapa="img/mapas/ev_Mina Demoníaca.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b27')"><div class="check-icon">✓</div></div><div><span class="boss-name">27. Chefe Invocado 27</span><span class="npc-info">NPC: A definir</span><span class="local-info">Mina Demoníaca</span></div></div>
+        <div class="boss-card c1m1" id="b27" data-mundo="c1m1" data-mapa="img/mapas/ev_Mina Demoníaca.webp" data-x="29.7" data-y="66.3" data-drop="Cristal de Sangue Puro, Pedra Negra Genuína, Elixir Sagrado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_mina_tirano.webp" class="boss-img" onclick="markDone(event, 'b27')"><div class="check-icon">✓</div></div><div><span class="boss-name">27. Tirano da Mina Demoníaca</span><span class="npc-info">NPC: Comandante Invasor</span><span class="local-info">Mina Demoníaca</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_energia_assombrada.webp" class="item-img"><span class="item-qty">250</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_selo_fogofernal.webp" class="item-img"><span class="item-qty">120</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"><span class="item-qty">5</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b28" data-mundo="c1m1" data-mapa="img/mapas/ev_Grande Centopeia.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b28')"><div class="check-icon">✓</div></div><div><span class="boss-name">28. Chefe Invocado 28</span><span class="npc-info">NPC: A definir</span><span class="local-info">Grande Centopeia</span></div></div>
+        <div class="boss-card c1m1" id="b28" data-mundo="c1m1" data-mapa="img/mapas/ev_Grande Centopeia.webp" data-x="64.5" data-y="31.4" data-drop="Veneno da Centopeia Ancestral, Olho do Dragão Infernal, Pipa Lendária." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_centopeia_ancestral.webp" class="boss-img" onclick="markDone(event, 'b28')"><div class="check-icon">✓</div></div><div><span class="boss-name">28. Grande Centopeia do Abismo</span><span class="npc-info">NPC: Comandante Invasor</span><span class="local-info">Grande Centopeia</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_energia_demonio_vazio.webp" class="item-img"><span class="item-qty">300</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_carapaca_venenosa.webp" class="item-img"><span class="item-qty">200</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">10</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b29" data-mundo="c1m1" data-mapa="img/mapas/ev_Sete Vales.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b29')"><div class="check-icon">✓</div></div><div><span class="boss-name">29. Chefe Invocado 29</span><span class="npc-info">NPC: A definir</span><span class="local-info">Sete Vales</span></div></div>
+        <div class="boss-card c1m1" id="b29" data-mundo="c1m1" data-mapa="img/mapas/ev_Sete Vales.webp" data-x="41.2" data-y="78.1" data-drop="Pedra Espiritual dos Sete Vales, Essência da Terra, Moedas Antigas." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_vales_guardiao.webp" class="boss-img" onclick="markDone(event, 'b29')"><div class="check-icon">✓</div></div><div><span class="boss-name">29. Guardião de Pedra dos Vales</span><span class="npc-info">NPC: Mestre dos Vales</span><span class="local-info">Sete Vales</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_divindade_terrestre.webp" class="item-img"><span class="item-qty">120</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">6</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">10</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b30" data-mundo="c1m1" data-mapa="img/mapas/ev_Ilha Fogo Ardente.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b30')"><div class="check-icon">✓</div></div><div><span class="boss-name">30. Chefe Invocado 30</span><span class="npc-info">NPC: A definir</span><span class="local-info">Ilha Fogo Ardente</span></div></div>
+        <div class="boss-card c1m1" id="b30" data-mundo="c1m1" data-mapa="img/mapas/ev_Ilha Fogo Ardente.webp" data-x="55.9" data-y="24.3" data-drop="Chama do Inferno Concentrada, Ferro Negro Puro, Elixir Divino." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_ilha_fogo_espectro.webp" class="boss-img" onclick="markDone(event, 'b30')"><div class="check-icon">✓</div></div><div><span class="boss-name">30. Espectro de Fogo Devastador</span><span class="npc-info">NPC: Mestre dos Vales</span><span class="local-info">Ilha Fogo Ardente</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_trovao_celeste.webp" class="item-img"><span class="item-qty">150</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"><span class="item-qty">6</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">10</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b31" data-mundo="c1m1" data-mapa="img/mapas/ev_Campo de dragao noveno.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b31')"><div class="check-icon">✓</div></div><div><span class="boss-name">31. Chefe Invocado 31</span><span class="npc-info">NPC: A definir</span><span class="local-info">Campo de Dragão Noveno</span></div></div>
+        <div class="boss-card c1m1" id="b31" data-mundo="c1m1" data-mapa="img/mapas/ev_Campo de dragao noveno.webp" data-x="47.6" data-y="59.4" data-drop="Escama do Dragão Noveno, Sangue de Dragão, Joia Lendária." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_dragao_noveno.webp" class="boss-img" onclick="markDone(event, 'b31')"><div class="check-icon">✓</div></div><div><span class="boss-name">31. Dragão Noveno Desperto</span><span class="npc-info">NPC: Mestre dos Vales</span><span class="local-info">Campo de Dragão Noveno</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_folha_milenar.webp" class="item-img"><span class="item-qty">3</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tartaruga_negra.webp" class="item-img"><span class="item-qty">2</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">15</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b32" data-mundo="c1m1" data-mapa="img/mapas/ev_Riacho do sangue.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b32')"><div class="check-icon">✓</div></div><div><span class="boss-name">32. Chefe Invocado 32</span><span class="npc-info">NPC: A definir</span><span class="local-info">Riacho do Sangue</span></div></div>
+        <div class="boss-card c1m1" id="b32" data-mundo="c1m1" data-mapa="img/mapas/ev_Riacho do sangue.webp" data-x="34.1" data-y="41.5" data-drop="Lápide de Sangue Amaldiçoada, Coração Corrompido, Caixa de Tesouro Nobre." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_riacho_vampiro.webp" class="boss-img" onclick="markDone(event, 'b32')"><div class="check-icon">✓</div></div><div><span class="boss-name">32. Conde Vampírico do Sangue</span><span class="npc-info">NPC: Guardião do Abismo</span><span class="local-info">Riacho do Sangue</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_coracao_governante.webp" class="item-img"><span class="item-qty">2</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_essencia_macabra.webp" class="item-img"><span class="item-qty">200</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><span class="item-qty">6</span></div>
+            </div>
         </div>
-        <div class="boss-card c1m1" id="b33" data-mundo="c1m1" data-mapa="img/mapas/ev_Deserto Phantasia.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b33')"><div class="check-icon">✓</div></div><div><span class="boss-name">33. Chefe Invocado 33</span><span class="npc-info">NPC: A definir</span><span class="local-info">Deserto Phantasia</span></div></div>
+        <div class="boss-card c1m1" id="b33" data-mundo="c1m1" data-mapa="img/mapas/ev_Deserto Phantasia.webp" data-x="50.0" data-y="50.0" data-drop="Essência do Vazio Absoluto, Relíquia de Phantasia, Pipa Divina." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/c1_deserto_lord_vazio.webp" class="boss-img" onclick="markDone(event, 'b33')"><div class="check-icon">✓</div></div><div><span class="boss-name">33. Lorde Imortal do Vazio</span><span class="npc-info">NPC: Guardião do Abismo</span><span class="local-info">Deserto Phantasia</span></div></div>
+            <div class="items-container">
+                <div class="item-wrapper"><img src="img/craft/item_energia_demonio_vazio.webp" class="item-img"><span class="item-qty">500</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_semente_caos.webp" class="item-img"><span class="item-qty">300</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">20</span></div>
+            </div>
         </div>
     </div>
 
