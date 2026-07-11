@@ -118,7 +118,6 @@
             max-height: 450px;
             display: block;
             object-fit: contain;
-            cursor: crosshair; /* Muda o mouse para uma mira para facilitar o clique */
         }
 
         /* --- ESTILOS DO PIN E POP-UP --- */
@@ -272,7 +271,7 @@
 
 <div class="main-container">
     <div class="scroll" id="lb">
-        <div class="boss-card cmc" id="b1" data-mundo="cmc" data-mapimg="img/mapas/ev_Deserto Phantasia.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card cmc" id="b1" data-mundo="cmc" data-mapimg="img/mapas/ev_Deserte Phantasia.webp" data-x="58" data-y="73" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/mc_larva_centopeia.webp" class="boss-img" onclick="markDone(event, 'b1')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">1. Larva da água do dragão celeste</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Deserto Phantasia</span></div>
@@ -283,7 +282,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_floresta.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b2" data-mundo="c3m8" data-mapimg="img/mapas/ev_Salão de Pedra de Pakua.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b2" data-mundo="c3m8" data-mapimg="img/mapas/ev_Salão de Pedra de Pakua.webp" data-x="31" data-y="62" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m8_pakua_rainha_viboras.webp" class="boss-img" onclick="markDone(event, 'b2')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">2. Rainha das víboras monstruosas</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Salão de Pedra de Pakua</span></div>
@@ -295,7 +294,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b3" data-mundo="c3m8" data-mapimg="img/mapas/ev_Salão de Pedra de Pakua.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b3" data-mundo="c3m8" data-mapimg="img/mapas/ev_Salão de Pedra de Pakua.webp" data-x="44" data-y="41" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m8_pakua_arahan.webp" class="boss-img" onclick="markDone(event, 'b3')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">3. Arahan</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Salão de Pedra de Pakua</span></div>
@@ -307,7 +306,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tenacidade_arahan.webp" class="item-img"><span class="item-qty">1</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b4" data-mundo="c3m8" data-mapimg="img/mapas/ev_3F Mina Abandonada.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b4" data-mundo="c3m8" data-mapimg="img/mapas/ev_3F Mina Abandonada.webp" data-x="28" data-y="76" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m8_mina_faccao_trovao.webp" class="boss-img" onclick="markDone(event, 'b4')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">4. Gok Danhwa</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div>
@@ -318,7 +317,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b5" data-mundo="c3m8" data-mapimg="img/mapas/ev_3F Mina Abandonada.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b5" data-mundo="c3m8" data-mapimg="img/mapas/ev_3F Mina Abandonada.webp" data-x="69" data-y="57" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m8_mina_faccao_terrestre.webp" class="boss-img" onclick="markDone(event, 'b5')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">5. Gok Muyeop</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div>
@@ -330,7 +329,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m8" id="b6" data-mundo="c3m8" data-mapimg="img/mapas/ev_3F Mina Abandonada.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m8" id="b6" data-mundo="c3m8" data-mapimg="img/mapas/ev_3F Mina Abandonada.webp" data-x="43" data-y="45" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m8_mina_primeiro_anciao.webp" class="boss-img" onclick="markDone(event, 'b6')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">6. Espectro carmesim</span><span class="npc-info">NPC: Yong Munki - Pakua</span><span class="local-info">3F Mina Abandonada</span></div>
@@ -342,7 +341,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m7" id="b7" data-mundo="c3m7" data-mapimg="img/mapas/ev_Desfiladeiro Lunula2.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m7" id="b7" data-mundo="c3m7" data-mapimg="img/mapas/ev_Desfiladeiro Lunula2.webp" data-x="43" data-y="91" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m7_lunula_lobo_fantasma.webp" class="boss-img" onclick="markDone(event, 'b7')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">7. Lobo fantasmagorico</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula</span></div>
@@ -354,7 +353,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <div class="boss-card c3m7" id="b8" data-mundo="c3m7" data-mapimg="img/mapas/ev_Desfiladeiro Lunula3.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m7" id="b8" data-mundo="c3m7" data-mapimg="img/mapas/ev_Desfiladeiro Lunula3.webp" data-x="65" data-y="85" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m7_lunula_demonio_de_sangue.webp" class="boss-img" onclick="markDone(event, 'b8')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">8. Poderoso demonio de sangue</span><span class="npc-info">NPC: Braço Direito</span><span class="local-info">Desfiladeiro Lunula</span></div>
@@ -373,12 +372,12 @@
             </div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_tartaruga_negra.webp" class="item-img"><span class="item-qty">1</span></div>
-                <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-qty">2</span></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">2</span></div>
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><span class="item-qty">2</span></div>
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m4" id="b10" data-mundo="c3m4" data-mapimg="img/mapas/ev_Província de Sabuk.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m4" id="b10" data-mundo="c3m4" data-mapimg="img/mapas/ev_Província de Sabuk.webp" data-x="31" data-y="59" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m4_sabuk_tesouro_dourado.webp" class="boss-img" onclick="markDone(event, 'b10')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">10. Majestoso Nefariox</span><span class="npc-info">NPC: Dangpo - Sabuk</span><span class="local-info">Província de Sabuk</span></div>
@@ -390,7 +389,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <div class="boss-card c3m4" id="b11" data-mundo="c3m4" data-mapimg="img/mapas/ev_Paraíso das Espadas.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m4" id="b11" data-mundo="c3m4" data-mapimg="img/mapas/ev_Paraíso das Espadas.webp" data-x="65" data-y="86" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m4_paraiso_trovejante_nefariox.webp" class="boss-img" onclick="markDone(event, 'b11')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">11. Santidade Sonido Trovejante</span><span class="npc-info">NPC: Dangpo - Sabuk</span><span class="local-info">Paraíso das Espadas</span></div>
@@ -402,7 +401,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_agua.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <div class="boss-card c3m4" id="b12" data-mundo="c3m4" data-mapimg="img/mapas/ev_Paraíso das Espadas2.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m4" id="b12" data-mundo="c3m4" data-mapimg="img/mapas/ev_Paraíso das Espadas2.webp" data-x="63" data-y="68" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m4_paraiso_sangue_contaminado.webp" class="boss-img" onclick="markDone(event, 'b12')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">12. Santidade Draco Divina</span><span class="npc-info">NPC: Karungka - Paraíso</span><span class="local-info">Paraíso das Espadas</span></div>
@@ -426,7 +425,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
         </div>
-        <div class="boss-card c3m2" id="b14" data-mundo="c3m2" data-mapimg="img/mapas/ev_Feitoria Seocheon.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m2" id="b14" data-mundo="c3m2" data-mapimg="img/mapas/ev_Feitoria Seocheon.webp" data-x="42" data-y="37" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m2_seocheon.webp" class="boss-img" onclick="markDone(event, 'b14')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">14. Zhang liang</span><span class="npc-info">NPC: Condutor Seocheon</span><span class="local-info">Feitoria Seocheon</span></div>
@@ -438,7 +437,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pedra_rara.webp" class="item-img"><span class="item-qty">100</span></div>
             </div>
         </div>
-        <div class="boss-card c3m2" id="b15" data-mundo="c3m2" data-mapimg="img/mapas/ev_Montanha de lunula.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m2" id="b15" data-mundo="c3m2" data-mapimg="img/mapas/ev_Montanha de lunula.webp" data-x="30" data-y="44" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m2_montanha.webp" class="boss-img" onclick="markDone(event, 'b15')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">15. Zhang bao</span><span class="npc-info">NPC: Condutor Seocheon</span><span class="local-info">Montanha de lunula</span></div>
@@ -474,7 +473,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-img"><span class="item-qty">10</span></div>
             </div>
         </div>
-        <div class="boss-card c3m5" id="b18" data-mundo="c3m5" data-mapimg="img/mapas/ev_Campo de Gelo.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m5" id="b18" data-mundo="c3m5" data-mapimg="img/mapas/ev_Campo de Gelo.webp" data-x="49" data-y="73" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m5_flauta_consoladora.webp" class="boss-img" onclick="markDone(event, 'b18')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">18. Flauta consoladora de Almas</span><span class="npc-info">NPC: Gufa - Campo Gelo</span><span class="local-info">Campo de Gelo</span></div>
@@ -498,7 +497,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_luz.webp" class="item-img"><span class="item-qty">10</span></div>
             </div>
         </div>
-        <div class="boss-card c3m5" id="b20" data-mundo="c3m5" data-mapimg="img/mapas/ev_Demônio Aracnídeo.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m5" id="b20" data-mundo="c3m5" data-mapimg="img/mapas/ev_Demônio Aracnídeo.webp" data-x="31" data-y="62" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m5_aranha.webp" class="boss-img" onclick="markDone(event, 'b20')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">20. Demonio Aracnideo Etereo</span><span class="npc-info">NPC: Gufa - Campo Gelo</span><span class="local-info">Demônio Aracnídeo</span></div>
@@ -510,7 +509,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><span class="item-qty">10</span></div>
             </div>
         </div>
-        <div class="boss-card c3m5" id="b21" data-mundo="c3m5" data-mapimg="img/mapas/ev_Templo Ilusório.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m5" id="b21" data-mundo="c3m5" data-mapimg="img/mapas/ev_Templo Ilusório.webp" data-x="51" data-y="26" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m5_templo.webp" class="boss-img" onclick="markDone(event, 'b21')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">21. Templo ilusorio</span><span class="npc-info">NPC: Muralha Criação</span><span class="local-info">Templo Ilusório</span></div>
@@ -522,7 +521,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_agua.webp" class="item-img"><span class="item-qty">10</span></div>
             </div>
         </div>
-        <div class="boss-card c3m3" id="b22" data-mundo="c3m3" data-mapimg="img/mapas/ev_Necropole nefariox.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m3" id="b22" data-mundo="c3m3" data-mapimg="img/mapas/ev_Necropole nefariox.webp" data-x="70" data-y="75" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m3_tatu.webp" class="boss-img" onclick="markDone(event, 'b22')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">22. Urungka</span><span class="npc-info">NPC: Hyeokjun - Necrópole</span><span class="local-info">Necropole nefariox</span></div>
@@ -534,7 +533,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_sino_violeta.webp" class="item-img"><span class="item-qty">1</span></div>
             </div>
         </div>
-        <div class="boss-card c3m3" id="b23" data-mundo="c3m3" data-mapimg="img/mapas/ev_Planicie da viboras.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m3" id="b23" data-mundo="c3m3" data-mapimg="img/mapas/ev_Planicie da viboras.webp" data-x="40" data-y="39" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m3_planicia_kaya.webp" class="boss-img" onclick="markDone(event, 'b23')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">23. Kaya</span><span class="npc-info">NPC: Hyeokjun - Necrópole</span><span class="local-info">Planicie da viboras</span></div>
@@ -570,7 +569,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_agua.webp" class="item-img"><span class="item-qty">20</span></div>
             </div>
         </div>
-        <div class="boss-card c3m6" id="b26" data-mundo="c3m6" data-mapimg="img/mapas/ev_Labirinto hangga.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m6" id="b26" data-mundo="c3m6" data-mapimg="img/mapas/ev_Labirinto hangga.webp" data-x="40" data-y="53" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m6_hangga.webp" class="boss-img" onclick="markDone(event, 'b26')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">26. Hangga</span><span class="npc-info">NPC: Gyeongbin - Bicheon</span><span class="local-info">Labirinto hangga</span></div>
@@ -582,7 +581,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_sino_relampago.webp" class="item-img"><span class="item-qty">1</span></div>
             </div>
         </div>
-        <div class="boss-card c3m6" id="b27" data-mundo="c3m6" data-mapimg="img/mapas/ev_Jo Gyu.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c3m6" id="b27" data-mundo="c3m6" data-mapimg="img/mapas/ev_Jo Gyu.webp" data-x="59" data-y="45" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/m6_jogyu.webp" class="boss-img" onclick="markDone(event, 'b27')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">27. Jo Gyu</span><span class="npc-info">NPC: Gyeongbin - Bicheon</span><span class="local-info">Jo Gyu</span></div>
@@ -618,7 +617,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><span class="item-qty">20</span></div>
             </div>
         </div>
-        <div class="boss-card c1m1" id="b30" data-mundo="c1m1" data-mapimg="img/mapas/ev_Sete Vales.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c1m1" id="b30" data-mundo="c1m1" data-mapimg="img/mapas/ev_Sete Vales.webp" data-x="52" data-y="70" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/c1_songkwang.webp" class="boss-img" onclick="markDone(event, 'b30')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">30. Songkwang</span><span class="npc-info">NPC: Heojeong - Unseo</span><span class="local-info">Sete Vales</span></div>
@@ -630,7 +629,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pedra_mana_t2.webp" class="item-img"><span class="item-qty">1</span></div>
             </div>
         </div>
-        <div class="boss-card c1m1" id="b31" data-mundo="c1m1" data-mapimg="img/mapas/ev_Ilha Fogo Ardente.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c1m1" id="b31" data-mundo="c1m1" data-mapimg="img/mapas/ev_Ilha Fogo Ardente.webp" data-x="58" data-y="56" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/c1_porung.webp" class="boss-img" onclick="markDone(event, 'b31')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">31. Porung</span><span class="npc-info">NPC: Heojeong - Unseo</span><span class="local-info">Ilha Fogo Ardente</span></div>
@@ -642,7 +641,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_tigre_branco.webp" class="item-img"><span class="item-qty">1</span></div>
             </div>
         </div>
-        <div class="boss-card c1m1" id="b32" data-mundo="c1m1" data-mapimg="img/mapas/ev_Campo de dragao noveno.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c1m1" id="b32" data-mundo="c1m1" data-mapimg="img/mapas/ev_Campo de dragao noveno.webp" data-x="45" data-y="37" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/c2_kangmuhyeon.webp" class="boss-img" onclick="markDone(event, 'b32')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">32. Kang Muhyeon</span><span class="npc-info">NPC: Su Seunghyeon</span><span class="local-info">Campo de dragao noveno</span></div>
@@ -654,7 +653,7 @@
                 <div class="item-wrapper"><img src="img/craft/item_pedra_vigor.webp" class="item-img"><span class="item-qty">1</span></div>
             </div>
         </div>
-        <div class="boss-card c1m1" id="b33" data-mundo="c1m1" data-mapimg="img/mapas/ev_Riacho do sangue.webp" onclick="toggleBoss(event, this)">
+        <div class="boss-card c1m1" id="b33" data-mundo="c1m1" data-mapimg="img/mapas/ev_Riacho do sangue.webp" data-x="39" data-y="80" data-dropinfo="Local de invocação do chefe" onclick="toggleBoss(event, this)">
             <div class="boss-header">
                 <div class="img-container"><img src="img/bosses/c2_grandor.webp" class="boss-img" onclick="markDone(event, 'b33')"><div class="check-icon">✓</div></div>
                 <div class="boss-info-text"><span class="boss-name">33. Grandor</span><span class="npc-info">NPC: Su Seunghyeon</span><span class="local-info">Riacho do sangue</span></div>
@@ -788,27 +787,6 @@
             toggleBoss(fakeEvent, firstVisible);
         }
     }
-
-    // =========================================================================
-    // FERRAMENTA DE MAPEAMENTO (MODO DESENVOLVEDOR)
-    // Clique no mapa ampliado para ver as propriedades exatas de X e Y!
-    // =========================================================================
-    document.getElementById('big-map-img').addEventListener('click', function(e) {
-        const rect = e.target.getBoundingClientRect();
-        
-        // Descobre as porcentagens com base no tamanho atual da imagem
-        const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
-        const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
-        
-        const activeCard = document.querySelector('.boss-card.selected');
-        const bossNum = activeCard ? activeCard.id : 'bX';
-        
-        // Gera o texto mastigado para você copiar
-        const resultado = `Para o Boss ${bossNum}:\ndata-x="${x}" data-y="${y}" data-dropinfo="DIGITE O SEU TEXTO DO POPUP AQUI"`;
-        
-        alert(resultado);
-        console.log(resultado);
-    });
 </script>
 </body>
 </html>
