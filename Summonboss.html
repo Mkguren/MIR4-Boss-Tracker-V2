@@ -134,7 +134,7 @@
         .map-img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: fill; /* Corrigido de 'contain' para 'fill' para eliminar as tarjas pretas */
             display: block;
         }
 
@@ -245,6 +245,7 @@
 
 <div class="workspace">
     <div class="scroll" id="lb">
+        <!-- 1 ao 10 com estrutura de drops e ícones configurada -->
         <div class="boss-card cmc" id="b1" data-mundo="cmc" data-mapa="img/mapas/ev_Salão de Pedra de Pakua.webp" data-x="45.5" data-y="62.3" data-drop="Energia do Demônio Vazio (Deserto Phantasia), Pipa (Diárias da Região), Tesouro da Floresta." onclick="toggleBoss(event, this)">
             <div class="boss-header"><div class="img-container"><img src="img/bosses/mc_larva_centopeia.webp" class="boss-img" onclick="markDone(event, 'b1')"><div class="check-icon">✓</div></div><div><span class="boss-name">1. Larva da água do dragão celeste</span><span class="npc-info">NPC: Buman - Convés</span><span class="local-info">Deserto Phantasia</span></div></div>
             <div class="items-container">
@@ -334,74 +335,75 @@
             </div>
         </div>
 
-        <div class="boss-card c3m4" id="b11" data-mundo="c3m4" data-mapa="img/mapas/ev_Paraíso das Espadas2.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">11. Boss Exemplo 11</span><span class="local-info">Local</span></div></div>
+        <!-- Mapeamento completo e contínuo dos bosses de 11 a 33 -->
+        <div class="boss-card c3m4" id="b11" data-mundo="c3m4" data-mapa="img/mapas/ev_Paraíso das Espadas2.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b11')"><div class="check-icon">✓</div></div><div><span class="boss-name">11. Chefe Invocado 11</span><span class="npc-info">NPC: A definir</span><span class="local-info">Paraíso das Espadas 2</span></div></div>
         </div>
-        <div class="boss-card c3m4" id="b12" data-mundo="c3m4" data-mapa="img/mapas/ev_Monge de Sangue Negro.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">12. Boss Exemplo 12</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m4" id="b12" data-mundo="c3m4" data-mapa="img/mapas/ev_Monge de Sangue Negro.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b12')"><div class="check-icon">✓</div></div><div><span class="boss-name">12. Chefe Invocado 12</span><span class="npc-info">NPC: A definir</span><span class="local-info">Monge de Sangue Negro</span></div></div>
         </div>
-        <div class="boss-card c3m5" id="b13" data-mundo="c3m5" data-mapa="img/mapas/ev_Feitoria Seocheon.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">13. Boss Exemplo 13</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m5" id="b13" data-mundo="c3m5" data-mapa="img/mapas/ev_Feitoria Seocheon.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b13')"><div class="check-icon">✓</div></div><div><span class="boss-name">13. Chefe Invocado 13</span><span class="npc-info">NPC: A definir</span><span class="local-info">Feitoria Seocheon</span></div></div>
         </div>
-        <div class="boss-card c3m5" id="b14" data-mundo="c3m5" data-mapa="img/mapas/ev_Montanha de lunula.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">14. Boss Exemplo 14</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m5" id="b14" data-mundo="c3m5" data-mapa="img/mapas/ev_Montanha de lunula.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b14')"><div class="check-icon">✓</div></div><div><span class="boss-name">14. Chefe Invocado 14</span><span class="npc-info">NPC: A definir</span><span class="local-info">Montanha de Lúnula</span></div></div>
         </div>
-        <div class="boss-card c3m5" id="b15" data-mundo="c3m5" data-mapa="img/mapas/ev_Caminho Twinway.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">15. Boss Exemplo 15</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m5" id="b15" data-mundo="c3m5" data-mapa="img/mapas/ev_Caminho Twinway.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b15')"><div class="check-icon">✓</div></div><div><span class="boss-name">15. Chefe Invocado 15</span><span class="npc-info">NPC: A definir</span><span class="local-info">Caminho Twinway</span></div></div>
         </div>
-        <div class="boss-card c3m2" id="b16" data-mundo="c3m2" data-mapa="img/mapas/ev_Rei dos Touros Malvados.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">16. Boss Exemplo 16</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m2" id="b16" data-mundo="c3m2" data-mapa="img/mapas/ev_Rei dos Touros Malvados.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b16')"><div class="check-icon">✓</div></div><div><span class="boss-name">16. Chefe Invocado 16</span><span class="npc-info">NPC: A definir</span><span class="local-info">Rei dos Touros Malvados</span></div></div>
         </div>
-        <div class="boss-card c3m2" id="b17" data-mundo="c3m2" data-mapa="img/mapas/ev_Campo de Gelo.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">17. Boss Exemplo 17</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m2" id="b17" data-mundo="c3m2" data-mapa="img/mapas/ev_Campo de Gelo.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b17')"><div class="check-icon">✓</div></div><div><span class="boss-name">17. Chefe Invocado 17</span><span class="npc-info">NPC: A definir</span><span class="local-info">Campo de Gelo</span></div></div>
         </div>
-        <div class="boss-card c3m2" id="b18" data-mundo="c3m2" data-mapa="img/mapas/ev_Ruína do Demônio.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">18. Boss Exemplo 18</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m2" id="b18" data-mundo="c3m2" data-mapa="img/mapas/ev_Ruína do Demônio.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b18')"><div class="check-icon">✓</div></div><div><span class="boss-name">18. Chefe Invocado 18</span><span class="npc-info">NPC: A definir</span><span class="local-info">Ruína do Demônio</span></div></div>
         </div>
-        <div class="boss-card c3m3" id="b19" data-mundo="c3m3" data-mapa="img/mapas/ev_Demônio Aracnídeo.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">19. Boss Exemplo 19</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m3" id="b19" data-mundo="c3m3" data-mapa="img/mapas/ev_Demônio Aracnídeo.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b19')"><div class="check-icon">✓</div></div><div><span class="boss-name">19. Chefe Invocado 19</span><span class="npc-info">NPC: A definir</span><span class="local-info">Demônio Aracnídeo</span></div></div>
         </div>
-        <div class="boss-card c3m3" id="b20" data-mundo="c3m3" data-mapa="img/mapas/ev_Templo Ilusório.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">20. Boss Exemplo 20</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m3" id="b20" data-mundo="c3m3" data-mapa="img/mapas/ev_Templo Ilusório.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b20')"><div class="check-icon">✓</div></div><div><span class="boss-name">20. Chefe Invocado 20</span><span class="npc-info">NPC: A definir</span><span class="local-info">Templo Ilusório</span></div></div>
         </div>
-        <div class="boss-card c3m3" id="b21" data-mundo="c3m3" data-mapa="img/mapas/ev_Necropole nefariox.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">21. Boss Exemplo 21</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m3" id="b21" data-mundo="c3m3" data-mapa="img/mapas/ev_Necropole nefariox.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b21')"><div class="check-icon">✓</div></div><div><span class="boss-name">21. Chefe Invocado 21</span><span class="npc-info">NPC: A definir</span><span class="local-info">Necrópole Nefariox</span></div></div>
         </div>
-        <div class="boss-card c3m6" id="b22" data-mundo="c3m6" data-mapa="img/mapas/ev_Planicie da viboras.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">22. Boss Exemplo 22</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m6" id="b22" data-mundo="c3m6" data-mapa="img/mapas/ev_Planicie da viboras.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b22')"><div class="check-icon">✓</div></div><div><span class="boss-name">22. Chefe Invocado 22</span><span class="npc-info">NPC: A definir</span><span class="local-info">Planície das Víboras</span></div></div>
         </div>
-        <div class="boss-card c3m6" id="b23" data-mundo="c3m6" data-mapa="img/mapas/ev_Covil do tatu sombrio.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">23. Boss Exemplo 23</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m6" id="b23" data-mundo="c3m6" data-mapa="img/mapas/ev_Covil do tatu sombrio.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b23')"><div class="check-icon">✓</div></div><div><span class="boss-name">23. Chefe Invocado 23</span><span class="npc-info">NPC: A definir</span><span class="local-info">Covil do Tatu Sombrio</span></div></div>
         </div>
-        <div class="boss-card c3m6" id="b24" data-mundo="c3m6" data-mapa="img/mapas/ev_Espectro do Osso.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">24. Boss Exemplo 24</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m6" id="b24" data-mundo="c3m6" data-mapa="img/mapas/ev_Espectro do Osso.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b24')"><div class="check-icon">✓</div></div><div><span class="boss-name">24. Chefe Invocado 24</span><span class="npc-info">NPC: A definir</span><span class="local-info">Espectro do Osso</span></div></div>
         </div>
-        <div class="boss-card c3m6" id="b25" data-mundo="c3m6" data-mapa="img/mapas/ev_Labirinto hangga.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">25. Boss Exemplo 25</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c3m6" id="b25" data-mundo="c3m6" data-mapa="img/mapas/ev_Labirinto hangga.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b25')"><div class="check-icon">✓</div></div><div><span class="boss-name">25. Chefe Invocado 25</span><span class="npc-info">NPC: A definir</span><span class="local-info">Labirinto Hangga</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b26" data-mundo="c1m1" data-mapa="img/mapas/ev_Jo Gyu.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">26. Boss Exemplo 26</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b26" data-mundo="c1m1" data-mapa="img/mapas/ev_Jo Gyu.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b26')"><div class="check-icon">✓</div></div><div><span class="boss-name">26. Chefe Invocado 26</span><span class="npc-info">NPC: A definir</span><span class="local-info">Jo Gyu</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b27" data-mundo="c1m1" data-mapa="img/mapas/ev_Mina Demoníaca.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">27. Boss Exemplo 27</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b27" data-mundo="c1m1" data-mapa="img/mapas/ev_Mina Demoníaca.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b27')"><div class="check-icon">✓</div></div><div><span class="boss-name">27. Chefe Invocado 27</span><span class="npc-info">NPC: A definir</span><span class="local-info">Mina Demoníaca</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b28" data-mundo="c1m1" data-mapa="img/mapas/ev_Grande Centopeia.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">28. Boss Exemplo 28</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b28" data-mundo="c1m1" data-mapa="img/mapas/ev_Grande Centopeia.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b28')"><div class="check-icon">✓</div></div><div><span class="boss-name">28. Chefe Invocado 28</span><span class="npc-info">NPC: A definir</span><span class="local-info">Grande Centopeia</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b29" data-mundo="c1m1" data-mapa="img/mapas/ev_Sete Vales.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">29. Boss Exemplo 29</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b29" data-mundo="c1m1" data-mapa="img/mapas/ev_Sete Vales.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b29')"><div class="check-icon">✓</div></div><div><span class="boss-name">29. Chefe Invocado 29</span><span class="npc-info">NPC: A definir</span><span class="local-info">Sete Vales</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b30" data-mundo="c1m1" data-mapa="img/mapas/ev_Ilha Fogo Ardente.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">30. Boss Exemplo 30</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b30" data-mundo="c1m1" data-mapa="img/mapas/ev_Ilha Fogo Ardente.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b30')"><div class="check-icon">✓</div></div><div><span class="boss-name">30. Chefe Invocado 30</span><span class="npc-info">NPC: A definir</span><span class="local-info">Ilha Fogo Ardente</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b31" data-mundo="c1m1" data-mapa="img/mapas/ev_Campo de dragao noveno.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">31. Boss Exemplo 31</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b31" data-mundo="c1m1" data-mapa="img/mapas/ev_Campo de dragao noveno.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b31')"><div class="check-icon">✓</div></div><div><span class="boss-name">31. Chefe Invocado 31</span><span class="npc-info">NPC: A definir</span><span class="local-info">Campo de Dragão Noveno</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b32" data-mundo="c1m1" data-mapa="img/mapas/ev_Riacho do sangue.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">32. Boss Exemplo 32</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b32" data-mundo="c1m1" data-mapa="img/mapas/ev_Riacho do sangue.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b32')"><div class="check-icon">✓</div></div><div><span class="boss-name">32. Chefe Invocado 32</span><span class="npc-info">NPC: A definir</span><span class="local-info">Riacho do Sangue</span></div></div>
         </div>
-        <div class="boss-card c1m1" id="b33" data-mundo="c1m1" data-mapa="img/mapas/ev_Deserto Phantasia.webp" onclick="toggleBoss(event, this)">
-            <div class="boss-header"><div><span class="boss-name">33. Boss Exemplo 33</span><span class="local-info">Local</span></div></div>
+        <div class="boss-card c1m1" id="b33" data-mundo="c1m1" data-mapa="img/mapas/ev_Deserto Phantasia.webp" data-x="0" data-y="0" data-drop="Não especificado." onclick="toggleBoss(event, this)">
+            <div class="boss-header"><div class="img-container"><img src="img/bosses/default.webp" class="boss-img" onclick="markDone(event, 'b33')"><div class="check-icon">✓</div></div><div><span class="boss-name">33. Chefe Invocado 33</span><span class="npc-info">NPC: A definir</span><span class="local-info">Deserto Phantasia</span></div></div>
         </div>
     </div>
 
