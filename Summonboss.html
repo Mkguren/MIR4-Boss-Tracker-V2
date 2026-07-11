@@ -55,7 +55,6 @@
         .btn-reset { grid-area: reset; border-color: #4a1a1a; color: #ff4444; }
         .f-btn.active { border-color: #ff9800; color: #ff9800; }
 
-        /* Estrutura de Colunas Receptiva */
         .main-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -75,7 +74,6 @@
 
         .scroll { width: 100%; }
 
-        /* Coluna Direita - Visualizador de Mapa Ampliado */
         .map-viewer-column {
             position: relative;
         }
@@ -101,10 +99,9 @@
             padding-bottom: 6px;
         }
 
-        /* Container ajustado para mudar de tamanho com base na imagem real */
         .big-map-box {
             width: 100%;
-            height: auto; /* Remove a altura fixa para colapsar faixas pretas */
+            height: auto;
             background: transparent;
             border: 1px solid #333;
             border-radius: 4px;
@@ -112,14 +109,73 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .big-map-box img {
             width: 100%;
-            height: auto; /* Permite o cálculo dinâmico da proporção */
-            max-height: 450px; /* Evita que mapas excessivamente altos quebrem a tela */
+            height: auto;
+            max-height: 450px;
             display: block;
             object-fit: contain;
+            cursor: crosshair; /* Muda o mouse para uma mira para facilitar o clique */
+        }
+
+        /* --- ESTILOS DO PIN E POP-UP --- */
+        .map-pin {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #ff9800;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 8px #000, 0 0 0 4px rgba(255, 152, 0, 0.4);
+            animation: pulse-pin 1.5s infinite ease-in-out;
+            display: none;
+            z-index: 10;
+        }
+
+        @keyframes pulse-pin {
+            0% { box-shadow: 0 0 8px #000, 0 0 0 0px rgba(255, 152, 0, 0.6); }
+            70% { box-shadow: 0 0 8px #000, 0 0 0 8px rgba(255, 152, 0, 0.0); }
+            100% { box-shadow: 0 0 8px #000, 0 0 0 0px rgba(255, 152, 0, 0.0); }
+        }
+
+        .map-popup {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: rgba(17, 17, 17, 0.95);
+            border: 1px solid #ff9800;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            pointer-events: none;
+            opacity: 0;
+            transition: 0.2s ease-in-out;
+            z-index: 11;
+        }
+
+        .map-popup::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #ff9800 transparent transparent transparent;
+        }
+
+        .map-pin:hover .map-popup {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
         }
 
         .viewer-details {
@@ -128,13 +184,8 @@
             line-height: 1.4;
         }
 
-        .viewer-details p {
-            margin: 6px 0;
-        }
-
-        .viewer-details strong {
-            color: #fff;
-        }
+        .viewer-details p { margin: 6px 0; }
+        .viewer-details strong { color: #fff; }
 
         /* Estilos dos Cards */
         .boss-card { 
@@ -143,11 +194,7 @@
             cursor: pointer; transition: 0.2s; position: relative;
         }
 
-        .boss-card.selected {
-            border-color: #ff9800;
-            background: #151515;
-        }
-
+        .boss-card.selected { border-color: #ff9800; background: #151515; }
         .boss-card.done { opacity: 0.5; border-left-color: #222 !important; }
         
         .boss-header { display: flex; align-items: center; gap: 15px; width: 100%; }
@@ -326,7 +373,7 @@
             </div>
             <div class="items-container">
                 <div class="item-wrapper"><img src="img/craft/item_tartaruga_negra.webp" class="item-img"><span class="item-qty">1</span></div>
-                <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-qty">2</span class="item-qty"></div>
+                <div class="item-wrapper"><img src="img/craft/item_tesouro_terra.webp" class="item-qty">2</span></div>
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_vento.webp" class="item-img"><span class="item-qty">2</span></div>
                 <div class="item-wrapper"><img src="img/craft/item_pipa.webp" class="item-img"><span class="item-qty">5</span></div>
             </div>
@@ -626,6 +673,10 @@
             <div class="viewer-title">Localização Selecionada</div>
             <div class="big-map-box">
                 <img id="big-map-img" src="img/mapas/ev_Deserte Phantasia.webp" alt="Selecione um boss">
+                
+                <div id="map-drop-pin" class="map-pin">
+                    <span id="map-drop-popup" class="map-popup">Informação de Drop</span>
+                </div>
             </div>
             <div class="viewer-details" id="map-details">
                 <p><strong>Boss:</strong> <span id="v-name">1. Larva da água do dragão celeste</span></p>
@@ -646,10 +697,11 @@
             if(card) card.classList.add('done');
         });
         
-        // Seleciona o primeiro card por padrão ao carregar a página
         const firstCard = document.getElementById('b1');
         if(firstCard) {
             firstCard.classList.add('expanded', 'selected');
+            const fakeEvent = { target: firstCard };
+            toggleBoss(fakeEvent, firstCard);
         }
     }
 
@@ -673,11 +725,28 @@
         const localInfo = card.querySelector('.local-info').innerText;
         const npcInfo = card.querySelector('.npc-info').innerText;
 
+        // Captura dos dados do Pin do Card
+        const pinX = card.getAttribute('data-x');
+        const pinY = card.getAttribute('data-y');
+        const dropInfo = card.getAttribute('data-dropinfo');
+        const pinEl = document.getElementById('map-drop-pin');
+        const popupEl = document.getElementById('map-drop-popup');
+
         if (mapUrl) {
             document.getElementById('big-map-img').src = mapUrl;
             document.getElementById('v-name').innerText = bossName;
             document.getElementById('v-local').innerText = localInfo;
             document.getElementById('v-npc').innerText = npcInfo;
+
+            // Se o card possuir coordenadas mapeadas, exibe o Pin
+            if (pinX && pinY) {
+                pinEl.style.left = pinX + '%';
+                pinEl.style.top = pinY + '%';
+                popupEl.innerText = dropInfo ? dropInfo : "Local de drop";
+                pinEl.style.display = 'block';
+            } else {
+                pinEl.style.display = 'none'; // Se não tiver, mantém o mapa limpo
+            }
         }
     }
 
@@ -719,6 +788,27 @@
             toggleBoss(fakeEvent, firstVisible);
         }
     }
+
+    // =========================================================================
+    // FERRAMENTA DE MAPEAMENTO (MODO DESENVOLVEDOR)
+    // Clique no mapa ampliado para ver as propriedades exatas de X e Y!
+    // =========================================================================
+    document.getElementById('big-map-img').addEventListener('click', function(e) {
+        const rect = e.target.getBoundingClientRect();
+        
+        // Descobre as porcentagens com base no tamanho atual da imagem
+        const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+        const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+        
+        const activeCard = document.querySelector('.boss-card.selected');
+        const bossNum = activeCard ? activeCard.id : 'bX';
+        
+        // Gera o texto mastigado para você copiar
+        const resultado = `Para o Boss ${bossNum}:\ndata-x="${x}" data-y="${y}" data-dropinfo="DIGITE O SEU TEXTO DO POPUP AQUI"`;
+        
+        alert(resultado);
+        console.log(resultado);
+    });
 </script>
 </body>
 </html>
