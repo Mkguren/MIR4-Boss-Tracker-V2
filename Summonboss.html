@@ -55,7 +55,7 @@
         .btn-reset { grid-area: reset; border-color: #4a1a1a; color: #ff4444; }
         .f-btn.active { border-color: #ff9800; color: #ff9800; }
 
-        /* Estrutura de Duas Colunas para Desktop */
+        /* Estrutura de Duas Colunas - Redefinida para dar prioridade ao mapa */
         .workspace {
             display: flex;
             flex: 1;
@@ -63,9 +63,10 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-            gap: 20px;
+            gap: 24px;
         }
 
+        /* Coluna da esquerda reduzida ligeiramente para equilibrar o layout */
         .scroll { 
             flex: 1; 
             max-height: calc(100vh - 200px); 
@@ -73,13 +74,13 @@
             padding-right: 10px;
         }
 
-        /* Coluna Fixa do Mapa e Detalhes */
+        /* Coluna Fixa do Mapa EXPANDIDA de 500px para 650px */
         .map-panel {
-            width: 500px;
+            width: 650px;
             background: #111;
             border: 1px solid #222;
             border-radius: 4px;
-            padding: 15px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             position: sticky;
@@ -89,28 +90,28 @@
 
         .map-title {
             color: #ff9800;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-align: center;
             text-transform: uppercase;
             border-bottom: 1px solid #222;
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
 
         .map-info-section {
-            margin-bottom: 15px;
-            font-size: 13px;
-            line-height: 1.4;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         .map-info-label {
             color: #ff9800;
             font-weight: bold;
             display: block;
-            margin-top: 8px;
+            margin-top: 10px;
             text-transform: uppercase;
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 0.5px;
         }
 
@@ -120,10 +121,11 @@
             margin-left: 2px;
         }
 
+        /* Wrapper do mapa ampliado dinamicamente */
         .map-wrapper {
             position: relative;
             width: 100%;
-            max-width: 450px;
+            max-width: 610px;
             aspect-ratio: 1;
             background: #000;
             border: 2px solid #333;
@@ -143,8 +145,8 @@
         /* Ícone de Portal Roxo Pulsante */
         .boss-pin {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             background: url('img/icons/purple_portal.webp') no-repeat center center;
             background-size: contain;
             transform: translate(-50%, -50%);
@@ -216,7 +218,7 @@
             z-index: 110;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
             .workspace { flex-direction: column; }
             .map-panel { width: 100%; position: relative; top: 0; }
             .scroll { max-height: none; overflow-y: visible; }
@@ -338,14 +340,12 @@
                 <div class="item-wrapper"><img src="img/craft/item_tesouro_fogo.webp" class="item-img"><span class="item-qty">3</span></div>
             </div>
         </div>
-        <!-- [Cards de 11 a 33 ocultados aqui para brevidade e limpeza do código, mantendo a estrutura exata] -->
     </div>
 
-    <!-- Coluna 2: Painel de Mapas Fixo Modificado -->
+    <!-- Coluna 2: Painel de Mapas Fixo e Ampliado para 650px -->
     <div class="map-panel">
         <div class="map-title" id="map-name">Selecione um Boss</div>
         
-        <!-- Seção das descrições dinâmicas idênticas ao seu exemplo -->
         <div class="map-info-section">
             <span class="map-info-label">Mapa de Evocação:</span>
             <span class="map-info-value" id="map-evocacao">-</span>
@@ -393,7 +393,6 @@
             const xCoord = parseFloat(card.getAttribute('data-x')) || 0;
             const yCoord = parseFloat(card.getAttribute('data-y')) || 0;
 
-            // Alimenta a coluna da direita com as descrições baseadas no exemplo fornecido
             document.getElementById('current-map').src = mapaSrc;
             document.getElementById('map-name').innerText = bossName;
             document.getElementById('map-evocacao').innerText = localInfo;
